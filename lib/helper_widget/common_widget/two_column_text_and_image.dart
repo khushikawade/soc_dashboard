@@ -15,12 +15,24 @@ class TwoColumnTextAndImageWidget extends StatefulWidget {
       detailDescriptionCard1; //============description text for Card1==================
   final String?
       imageUrlCard1; //============image path for Card1==================
+  final String?
+      titleTextCard2; //============title text for Card1==================
+  final String?
+      subTitleTextCard2; //============subtitle text for Card1==================
+  final String?
+      detailDescriptionCard2; //============description text for Card1==================
+  final String?
+      imageUrlCard2; //============image path for Card1==================
   const TwoColumnTextAndImageWidget(
       {super.key,
       required this.titleTextCard1,
       required this.subTitleTextCard1,
       required this.detailDescriptionCard1,
-      required this.imageUrlCard1});
+      required this.imageUrlCard1,
+      this.titleTextCard2,
+      this.subTitleTextCard2,
+      this.detailDescriptionCard2,
+      this.imageUrlCard2});
 
   @override
   State<TwoColumnTextAndImageWidget> createState() =>
@@ -43,8 +55,8 @@ class _TwoColumnTextAndImageWidgetState
           SizedBox(
             width: 20.w,
           ),
-          cardWidget(context, widget.subTitleTextCard1,
-              widget.detailDescriptionCard1, widget.imageUrlCard1),
+          cardWidget(context, widget.subTitleTextCard2,
+              widget.detailDescriptionCard2, widget.imageUrlCard2),
         ],
       ),
     );

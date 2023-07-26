@@ -4,22 +4,25 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/helper_widget/shimmer_loading.dart';
 
-class CustomIconMode extends StatefulWidget {
+class CustomImage extends StatefulWidget {
   late final String? iconUrl;
-
+  final double? height;
+  final double? width;
   final String? darkModeIconUrl;
 
-  CustomIconMode({
-    Key? key,
-    @required this.iconUrl,
-    this.darkModeIconUrl,
-  }) : super(key: key);
+  CustomImage(
+      {Key? key,
+      @required this.iconUrl,
+      this.darkModeIconUrl,
+      this.height,
+      this.width})
+      : super(key: key);
 
   @override
-  State<CustomIconMode> createState() => _CustomIconModeState();
+  State<CustomImage> createState() => _CustomImageState();
 }
 
-class _CustomIconModeState extends State<CustomIconMode> {
+class _CustomImageState extends State<CustomImage> {
   @override
   void initState() {
     super.initState();
@@ -28,23 +31,23 @@ class _CustomIconModeState extends State<CustomIconMode> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ClipRRect(child: cachedNetworkImage(widget.iconUrl)),
+      child: ClipRRect(
+          child:
+              cachedNetworkImage(widget.iconUrl, widget.height, widget.width)),
     );
   }
 
-  Widget cachedNetworkImage(url) {
+  Widget cachedNetworkImage(url, double? height, double? width) {
     return CachedNetworkImage(
         imageUrl: url,
-        height: 106.h,
-        width: 106.w,
-        //fit: BoxFit.fill,
+        // height: height ?? 106.h,
+        // width: width ?? 106.w,
+        fit: BoxFit.fill,
         placeholder: (context, url) => Container(
             alignment: Alignment.center,
             child: ShimmerLoading(
               isLoading: true,
               child: Container(
-                height: 106.h,
-                width: 106.w,
                 color: Colors.white,
               ),
             )),

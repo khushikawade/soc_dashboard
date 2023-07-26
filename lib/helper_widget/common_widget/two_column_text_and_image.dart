@@ -34,32 +34,51 @@ class _TwoColumnTextAndImageWidgetState
     return Padding(
       padding:
           EdgeInsets.only(left: 191.w, right: 191.w, bottom: 105.h, top: 203.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          cardWidget(context, widget.subTitleTextCard1,
+              widget.detailDescriptionCard1, widget.imageUrlCard1),
+          SizedBox(
+            width: 20.w,
+          ),
+          cardWidget(context, widget.subTitleTextCard1,
+              widget.detailDescriptionCard1, widget.imageUrlCard1),
+        ],
+      ),
+    );
+  }
+
+  Widget cardWidget(BuildContext context, String? subTitle, String? description,
+      String? imageUrl) {
+    return Expanded(
       child: Card(
         elevation: 2,
         color: AppColors.whiteColor,
-        child: Expanded(
-          flex: 2,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 53.h),
-                child: subHeaderTextWidget(widget.subTitleTextCard1, context),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 30.h,
-                ),
-                child: detailTextWidget(widget.detailDescriptionCard1, context),
-              ),
-              CustomImage(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 35.h, left: 41.w),
+              child: subHeaderTextWidget(subTitle, context),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 28.h, left: 41.w, right: 71.w),
+              child: detailTextWidget(description, context),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: 28.h, left: 41.w, right: 41.w, bottom: 40.h),
+              child: CustomImage(
                 // height: 400,
                 // width: 300,
-                iconUrl: widget.imageUrlCard1,
-              )
-            ],
-          ),
+                iconUrl: imageUrl,
+              ),
+            )
+          ],
         ),
       ),
     );

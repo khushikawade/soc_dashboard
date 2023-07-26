@@ -86,20 +86,20 @@ class _ThreeColumnTextAndImageWidgetState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 35.h, left: 41.w),
-              child: subHeaderTextWidget(subTitle, context),
+              padding: EdgeInsets.only(top: 35.h, left: 41.w, right: 69.w),
+              child: subHeaderTextWidget(subTitle ?? "", context),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 28.h, left: 41.w, right: 71.w),
-              child: detailTextWidget(description, context),
+              padding: EdgeInsets.only(top: 28.h, left: 41.w, right: 33.w),
+              child: detailTextWidget(description ?? "", context),
             ),
             Padding(
               padding: EdgeInsets.only(
-                  top: 28.h, left: 41.w, right: 41.w, bottom: 40.h),
+                  top: 28.h, left: 41.w, right: 35.w, bottom: 35.h),
               child: CustomImage(
                 // height: 400,
                 // width: 300,
-                iconUrl: imageUrl,
+                iconUrl: imageUrl ?? "",
               ),
             )
           ],

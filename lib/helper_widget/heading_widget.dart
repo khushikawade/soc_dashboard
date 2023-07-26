@@ -56,7 +56,7 @@ Widget detailTextWidget(text, context) {
         color: AppColors.black,
         fontWeight: FontWeight.w400,
         fontSize: AppSize.size16,
-        fontFamily: 'Inter',
+        fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
       ));
 }

@@ -75,11 +75,11 @@ class _TwoColumnTextAndImageWidgetState
           children: [
             Padding(
               padding: EdgeInsets.only(top: 35.h, left: 41.w),
-              child: subHeaderTextWidget(subTitle, context),
+              child: subHeaderTextWidget(subTitle ?? "", context),
             ),
             Padding(
               padding: EdgeInsets.only(top: 28.h, left: 41.w, right: 71.w),
-              child: detailTextWidget(description, context),
+              child: detailTextWidget(description ?? "", context),
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -87,7 +87,7 @@ class _TwoColumnTextAndImageWidgetState
               child: CustomImage(
                 // height: 400,
                 // width: 300,
-                iconUrl: imageUrl,
+                iconUrl: imageUrl ?? "",
               ),
             )
           ],

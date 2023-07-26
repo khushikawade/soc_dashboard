@@ -16,13 +16,13 @@ class TwoColumnTextAndImageWidget extends StatefulWidget {
   final String?
       imageUrlCard1; //============image path for Card1==================
   final String?
-      titleTextCard2; //============title text for Card1==================
+      titleTextCard2; //============title text for Card2==================
   final String?
-      subTitleTextCard2; //============subtitle text for Card1==================
+      subTitleTextCard2; //============subtitle text for Card2==================
   final String?
-      detailDescriptionCard2; //============description text for Card1==================
+      detailDescriptionCard2; //============description text for Card2==================
   final String?
-      imageUrlCard2; //============image path for Card1==================
+      imageUrlCard2; //============image path for Card2==================
   const TwoColumnTextAndImageWidget(
       {super.key,
       required this.titleTextCard1,

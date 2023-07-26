@@ -56,7 +56,7 @@ class _OneColumnTextAndImageLeftWidgetState
                   Expanded(
                     flex: 2,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 52.w),
+                      padding: EdgeInsets.only(right: 52.w),
                       child: CustomImage(
                         // height: 400,
                         // width: 300,

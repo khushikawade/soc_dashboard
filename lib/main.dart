@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:solved_dashboard/helper_widget/common_widget/iframe_custom_link_widget.dart';
 import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard.dart';
 import 'package:solved_dashboard/utils/app_theme.dart';
 import 'package:solved_dashboard/utils/app_util.dart';
@@ -39,7 +40,11 @@ class MyApp extends StatelessWidget {
               darkTheme: darkTheme,
               initialRoute: '/',
               routes: {
-                '/': (context) => Dashboard(),
+                '/': (context) => const IFrameCustomWidget(
+                    titleText: "Data Insights Widget",
+                    subTitleText: "Title Here",
+                    dynamicLinkUrl:
+                        "https://services.solvedconsulting.net/news/a1f4W000007DQaNQAW"),
               },
               navigatorKey: AppUtil.navigationKey,
             );

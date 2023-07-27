@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard.dart';
 import 'package:solved_dashboard/utils/app_theme.dart';
 import 'package:solved_dashboard/utils/app_util.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,33 +20,37 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      useInheritedMediaQuery: false,
-      rebuildFactor: (old, data) {
-        return true;
-      },
+      // useInheritedMediaQuery: true,
+      splitScreenMode: false,
       designSize: const Size(1920, 1815),
-      //designSize: const Size(375, 812),
-      builder: (context, child) {
-        return AdaptiveTheme(
-          light: AppTheme.lightTheme,
-          dark: AppTheme.lightTheme,
-          initial: AdaptiveThemeMode.light,
-          debugShowFloatingThemeButton: false,
-          builder: (ThemeData lightTheme, ThemeData darkTheme) {
-            return MaterialApp(
-              title: 'Solved Dashboard',
-              debugShowCheckedModeBanner: false,
-              theme: lightTheme,
-              darkTheme: darkTheme,
-              initialRoute: '/',
-              routes: {
-                '/': (context) => Dashboard(),
-              },
-              navigatorKey: AppUtil.navigationKey,
-            );
-          },
-        );
-      },
+      builder: (context, child) => AdaptiveTheme(
+        light: AppTheme.lightTheme,
+        dark: AppTheme.lightTheme,
+        initial: AdaptiveThemeMode.light,
+        debugShowFloatingThemeButton: false,
+        builder: (ThemeData lightTheme, ThemeData darkTheme) {
+          return MaterialApp(
+            builder: (context, child) => ResponsiveBreakpoints.builder(
+              child: child!,
+              breakpoints: [
+                const Breakpoint(start: 0, end: 450, name: MOBILE),
+                const Breakpoint(start: 451, end: 800, name: TABLET),
+                const Breakpoint(start: 801, end: 1920, name: DESKTOP),
+                const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+              ],
+            ),
+            title: 'Solved Dashboard',
+            debugShowCheckedModeBanner: false,
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            initialRoute: '/',
+            routes: {
+              '/': (context) => Dashboard(),
+            },
+            navigatorKey: AppUtil.navigationKey,
+          );
+        },
+      ),
     );
   }
 }

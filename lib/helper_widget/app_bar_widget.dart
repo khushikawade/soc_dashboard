@@ -92,6 +92,8 @@ class AppBarWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
+                //height: 75.h,
+                //alignment: Alignment.center,
                 padding: EdgeInsets.only(
                     top: 13.sp, bottom: 13.sp, left: 25.sp, right: 25.sp),
                 decoration: BoxDecoration(
@@ -115,6 +117,8 @@ class AppBarWidget extends StatelessWidget {
                 width: 10.sp,
               ),
               Container(
+                //height: 75.h,
+                //alignment: Alignment.center,
                 padding: EdgeInsets.only(
                     top: 13.sp, bottom: 13.sp, left: 25.sp, right: 25.sp),
                 decoration: BoxDecoration(

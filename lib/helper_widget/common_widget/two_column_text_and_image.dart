@@ -75,20 +75,26 @@ class _TwoColumnTextAndImageWidgetState
           children: [
             Padding(
               padding: EdgeInsets.only(top: 35.h, left: 41.w),
-              child: subHeaderTextWidget(subTitle ?? "", context),
+              child: subTitle != null && subTitle.isNotEmpty
+                  ? subHeaderTextWidget(subTitle, context)
+                  : const SizedBox.shrink(),
             ),
             Padding(
               padding: EdgeInsets.only(top: 28.h, left: 41.w, right: 71.w),
-              child: detailTextWidget(description ?? "", context),
+              child: description != null && description.isNotEmpty
+                  ? detailTextWidget(description, context)
+                  : const SizedBox.shrink(),
             ),
             Padding(
               padding: EdgeInsets.only(
                   top: 28.h, left: 41.w, right: 41.w, bottom: 40.h),
-              child: CustomImage(
-                // height: 400,
-                // width: 300,
-                iconUrl: imageUrl ?? "",
-              ),
+              child: imageUrl != null && imageUrl.isNotEmpty
+                  ? CustomImage(
+                      // height: 400,
+                      // width: 300,
+                      iconUrl: imageUrl,
+                    )
+                  : const SizedBox.shrink(),
             )
           ],
         ),

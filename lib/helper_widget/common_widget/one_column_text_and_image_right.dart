@@ -73,10 +73,13 @@ class _OneColumnTextAndImageRightWidgetState
               ),
               Expanded(
                 flex: 1,
-                child: CustomImage(
-                  // height: 400,
-                  // width: 300,
-                  iconUrl: widget.imageUrl,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 53.h),
+                  child: CustomImage(
+                    // height: 400,c
+                    // width: 300,
+                    iconUrl: widget.imageUrl,
+                  ),
                 ),
               )
             ],

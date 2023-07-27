@@ -50,46 +50,36 @@ class _OneColumnTextAndImageRightWidgetState
         children: [
           headerTextWidget(widget.titleText, context),
           // VerticalSpacerWidget(53.h),
-          Padding(
-            padding: EdgeInsets.only(
-              left: 52.w,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 53.h),
-                        child:
-                            subHeaderTextWidget(widget.subTitleText, context),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            bottom: 90.h, top: 30.h, right: 52.w),
-                        child:
-                            detailTextWidget(widget.detailDescription, context),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 52.w),
-                    child: CustomImage(
-                      // height: 400,
-                      // width: 300,
-                      iconUrl: widget.imageUrl,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    subHeaderTextWidget(widget.subTitleText, context),
+                    SizedBox(
+                      height: 30.h,
                     ),
-                  ),
-                )
-              ],
-            ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 53.w),
+                      child:
+                          detailTextWidget(widget.detailDescription, context),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: CustomImage(
+                  // height: 400,
+                  // width: 300,
+                  iconUrl: widget.imageUrl,
+                ),
+              )
+            ],
           ),
         ],
       ),

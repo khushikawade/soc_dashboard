@@ -87,20 +87,26 @@ class _ThreeColumnTextAndImageWidgetState
           children: [
             Padding(
               padding: EdgeInsets.only(top: 35.h, left: 41.w, right: 69.w),
-              child: subHeaderTextWidget(subTitle ?? "", context),
+              child: subTitle != null && subTitle.isNotEmpty
+                  ? subHeaderTextWidget(subTitle, context)
+                  : const SizedBox.shrink(),
             ),
             Padding(
               padding: EdgeInsets.only(top: 28.h, left: 41.w, right: 33.w),
-              child: detailTextWidget(description ?? "", context),
+              child: description != null && description.isNotEmpty
+                  ? detailTextWidget(description, context)
+                  : const SizedBox.shrink(),
             ),
             Padding(
               padding: EdgeInsets.only(
                   top: 28.h, left: 41.w, right: 35.w, bottom: 35.h),
-              child: CustomImage(
-                // height: 400,
-                // width: 300,
-                iconUrl: imageUrl ?? "",
-              ),
+              child: imageUrl != null && imageUrl.isNotEmpty
+                  ? CustomImage(
+                      // height: 400,
+                      // width: 300,
+                      iconUrl: imageUrl,
+                    )
+                  : const SizedBox.shrink(),
             )
           ],
         ),

@@ -28,63 +28,64 @@ class _OneColumnTextAndImageRightWidgetState
     extends State<OneColumnTextAndImageRightWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding:
-          EdgeInsets.only(left: 40.w, top: 55.h, bottom: 90.h, right: 55.w),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10.r)),
-        boxShadow: const [
-          BoxShadow(
-              color: Color.fromARGB(
-            0,
-            0,
-            0,
-            0,
-          ))
-        ],
-        color: AppColors.whiteColor,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          headerTextWidget(widget.titleText, context),
-          // VerticalSpacerWidget(53.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    subHeaderTextWidget(widget.subTitleText, context),
-                    SizedBox(
-                      height: 30.h,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 53.w),
-                      child:
-                          detailTextWidget(widget.detailDescription, context),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 53.h),
-                  child: CustomImage(
-                    // height: 400,c
-                    // width: 300,
-                    iconUrl: widget.imageUrl,
+    return SelectionArea(
+      child: Container(
+        padding:
+            EdgeInsets.only(left: 40.w, top: 55.h, bottom: 90.h, right: 55.w),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10.r)),
+          boxShadow: const [
+            BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.10),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: Offset(0, 3),
+            )
+          ],
+          color: AppColors.whiteColor,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            headerTextWidget(widget.titleText, context),
+            // VerticalSpacerWidget(53.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      subHeaderTextWidget(widget.subTitleText, context),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 53.w),
+                        child:
+                            detailTextWidget(widget.detailDescription, context),
+                      ),
+                    ],
                   ),
                 ),
-              )
-            ],
-          ),
-        ],
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 53.h),
+                    child: CustomImage(
+                      // height: 400,c
+                      // width: 300,
+                      iconUrl: widget.imageUrl,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -15,7 +15,7 @@ class AppTheme {
           ),
           labelSmall: TextStyle(
             color: AppColors.black,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w400,
             fontSize: AppSize.size16,
             fontFamily: 'Roboto',
             fontStyle: FontStyle.normal,

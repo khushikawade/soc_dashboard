@@ -80,12 +80,11 @@ class _ThreeColumnTextAndImageWidgetState
           borderRadius: BorderRadius.all(Radius.circular(10.r)),
           boxShadow: const [
             BoxShadow(
-                color: Color.fromARGB(
-              0,
-              0,
-              0,
-              0,
-            ))
+              color: Color.fromRGBO(0, 0, 0, 0.10),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: Offset(0, 3),
+            )
           ],
           color: AppColors.whiteColor,
         ),

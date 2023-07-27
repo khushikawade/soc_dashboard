@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/helper_widget/information_graph_card.dart';
 import 'package:solved_dashboard/helper_widget/instructions_widget.dart';
+import 'package:solved_dashboard/helper_widget/tabbar_item_widget.dart';
+import 'package:solved_dashboard/utils/app_colors.dart';
 import 'package:solved_dashboard/utils/app_util.dart';
 
 class Home extends StatefulWidget {

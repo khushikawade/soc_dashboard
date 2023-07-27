@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solved_dashboard/utils/app_size.dart';
 import 'package:solved_dashboard/utils/app_theme.dart';
 
 Widget titleTextWidget(text, context) {
@@ -23,4 +24,17 @@ Widget pageTitleTextWidget(text, context) {
 
 Widget informationTitleWidget(text, context) {
   return Text(text, style: AppTheme.lightTheme.textTheme.displayMedium);
+}
+
+Widget tabBarItemWidgetText(text, context, color) {
+  return Text(
+    text,
+    style: TextStyle(
+      color: color,
+      fontWeight: FontWeight.w600,
+      fontSize: AppSize.size16,
+      fontFamily: 'Roboto',
+      fontStyle: FontStyle.normal,
+    ),
+  );
 }

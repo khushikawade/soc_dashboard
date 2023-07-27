@@ -73,46 +73,48 @@ class _ThreeColumnTextAndImageWidgetState
   Widget cardWidget(BuildContext context, String? subTitle, String? description,
       String? imageUrl) {
     return Expanded(
-      child: Container(
-        padding:
-            EdgeInsets.only(left: 26.w, top: 39.h, bottom: 33.h, right: 26.w),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10.r)),
-          boxShadow: const [
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.10),
-              spreadRadius: 1,
-              blurRadius: 1,
-              offset: Offset(0, 3),
-            )
-          ],
-          color: AppColors.whiteColor,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            subTitle != null && subTitle.isNotEmpty
-                ? subHeaderTextWidget(subTitle, context)
-                : const SizedBox.shrink(),
-            SizedBox(
-              height: 30.h,
-            ),
-            description != null && description.isNotEmpty
-                ? detailTextWidget(description, context)
-                : const SizedBox.shrink(),
-            SizedBox(
-              height: 28.h,
-            ),
-            imageUrl != null && imageUrl.isNotEmpty
-                ? CustomImage(
-                    // height: 400,
-                    // width: 300,
-                    iconUrl: imageUrl,
-                  )
-                : const SizedBox.shrink()
-          ],
+      child: SelectionArea(
+        child: Container(
+          padding:
+              EdgeInsets.only(left: 26.w, top: 39.h, bottom: 33.h, right: 26.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10.r)),
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.10),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: Offset(0, 3),
+              )
+            ],
+            color: AppColors.whiteColor,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              subTitle != null && subTitle.isNotEmpty
+                  ? subHeaderTextWidget(subTitle, context)
+                  : const SizedBox.shrink(),
+              SizedBox(
+                height: 30.h,
+              ),
+              description != null && description.isNotEmpty
+                  ? detailTextWidget(description, context)
+                  : const SizedBox.shrink(),
+              SizedBox(
+                height: 28.h,
+              ),
+              imageUrl != null && imageUrl.isNotEmpty
+                  ? CustomImage(
+                      // height: 400,
+                      // width: 300,
+                      iconUrl: imageUrl,
+                    )
+                  : const SizedBox.shrink()
+            ],
+          ),
         ),
       ),
     );

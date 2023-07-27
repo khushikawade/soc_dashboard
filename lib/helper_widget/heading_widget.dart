@@ -24,3 +24,15 @@ Widget pageTitleTextWidget(text, context) {
 Widget informationTitleWidget(text, context) {
   return Text(text, style: AppTheme.lightTheme.textTheme.displayMedium);
 }
+
+Widget headerTextWidget(text, context) {
+  return Text(text, style: AppTheme.lightTheme.textTheme.bodyMedium);
+}
+
+Widget subHeaderTextWidget(text, context) {
+  return Text(text, style: AppTheme.lightTheme.textTheme.displayMedium);
+}
+
+Widget detailTextWidget(text, context) {
+  return Text(text, style: AppTheme.lightTheme.textTheme.labelSmall);
+}

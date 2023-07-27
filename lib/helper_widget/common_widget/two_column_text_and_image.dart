@@ -65,56 +65,57 @@ class _TwoColumnTextAndImageWidgetState
   Widget cardWidget(BuildContext context, String? subTitle, String? description,
       String? imageUrl) {
     return Expanded(
-      child: Container(
-        padding:
-            EdgeInsets.only(top: 35.h, left: 41.w, right: 41.w, bottom: 40.h),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10.r)),
-          boxShadow: const [
-            BoxShadow(
-                color: Color.fromARGB(
-              0,
-              0,
-              0,
-              0,
-            ))
-          ],
-          color: AppColors.whiteColor,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 7.h,
-            ),
-            subTitle != null && subTitle.isNotEmpty
-                ? subHeaderTextWidget(subTitle, context)
-                : const SizedBox.shrink(),
-            SizedBox(
-              height: 32.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 36.w),
-              child: description != null && description.isNotEmpty
-                  ? detailTextWidget(description, context)
+      child: SelectionArea(
+        child: Container(
+          padding:
+              EdgeInsets.only(top: 35.h, left: 41.w, right: 41.w, bottom: 40.h),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10.r)),
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.10),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: Offset(0, 3),
+              )
+            ],
+            color: AppColors.whiteColor,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 7.h,
+              ),
+              subTitle != null && subTitle.isNotEmpty
+                  ? subHeaderTextWidget(subTitle, context)
                   : const SizedBox.shrink(),
-            ),
-            SizedBox(
-              height: 30.h,
-            ),
-            imageUrl != null && imageUrl.isNotEmpty
-                ? CustomImage(
-                    // height: 400,
-                    // width: 300,
-                    iconUrl: imageUrl,
-                  )
-                : const SizedBox.shrink(),
-            SizedBox(
-              height: 5.h,
-            ),
-          ],
+              SizedBox(
+                height: 32.h,
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: 36.w),
+                child: description != null && description.isNotEmpty
+                    ? detailTextWidget(description, context)
+                    : const SizedBox.shrink(),
+              ),
+              SizedBox(
+                height: 30.h,
+              ),
+              imageUrl != null && imageUrl.isNotEmpty
+                  ? CustomImage(
+                      // height: 400,
+                      // width: 300,
+                      iconUrl: imageUrl,
+                    )
+                  : const SizedBox.shrink(),
+              SizedBox(
+                height: 5.h,
+              ),
+            ],
+          ),
         ),
       ),
     );

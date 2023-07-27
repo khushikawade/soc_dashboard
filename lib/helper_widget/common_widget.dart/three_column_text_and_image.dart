@@ -50,64 +50,69 @@ class _ThreeColumnTextAndImageWidgetState
     extends State<ThreeColumnTextAndImageWidget> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:
-          EdgeInsets.only(left: 191.w, right: 191.w, bottom: 105.h, top: 203.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          cardWidget(context, widget.subTitleTextCard1,
-              widget.detailDescriptionCard1, widget.imageUrlCard1),
-          SizedBox(
-            width: 20.w,
-          ),
-          cardWidget(context, widget.subTitleTextCard2,
-              widget.detailDescriptionCard2, widget.imageUrlCard2),
-          SizedBox(
-            width: 20.w,
-          ),
-          cardWidget(context, widget.subTitleTextCard3,
-              widget.detailDescriptionCard3, widget.imageUrlCard3),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        cardWidget(context, widget.subTitleTextCard1,
+            widget.detailDescriptionCard1, widget.imageUrlCard1),
+        SizedBox(
+          width: 20.w,
+        ),
+        cardWidget(context, widget.subTitleTextCard2,
+            widget.detailDescriptionCard2, widget.imageUrlCard2),
+        SizedBox(
+          width: 20.w,
+        ),
+        cardWidget(context, widget.subTitleTextCard3,
+            widget.detailDescriptionCard3, widget.imageUrlCard3),
+      ],
     );
   }
 
   Widget cardWidget(BuildContext context, String? subTitle, String? description,
       String? imageUrl) {
     return Expanded(
-      child: Card(
-        elevation: 2,
-        color: AppColors.whiteColor,
+      child: Container(
+        padding:
+            EdgeInsets.only(left: 26.w, top: 39.h, bottom: 33.h, right: 26.w),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10.r)),
+          boxShadow: const [
+            BoxShadow(
+                color: Color.fromARGB(
+              0,
+              0,
+              0,
+              0,
+            ))
+          ],
+          color: AppColors.whiteColor,
+        ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.only(top: 35.h, left: 41.w, right: 69.w),
-              child: subTitle != null && subTitle.isNotEmpty
-                  ? subHeaderTextWidget(subTitle, context)
-                  : const SizedBox.shrink(),
+            subTitle != null && subTitle.isNotEmpty
+                ? subHeaderTextWidget(subTitle, context)
+                : const SizedBox.shrink(),
+            SizedBox(
+              height: 30.h,
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 28.h, left: 41.w, right: 33.w),
-              child: description != null && description.isNotEmpty
-                  ? detailTextWidget(description, context)
-                  : const SizedBox.shrink(),
+            description != null && description.isNotEmpty
+                ? detailTextWidget(description, context)
+                : const SizedBox.shrink(),
+            SizedBox(
+              height: 28.h,
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  top: 28.h, left: 41.w, right: 35.w, bottom: 35.h),
-              child: imageUrl != null && imageUrl.isNotEmpty
-                  ? CustomImage(
-                      // height: 400,
-                      // width: 300,
-                      iconUrl: imageUrl,
-                    )
-                  : const SizedBox.shrink(),
-            )
+            imageUrl != null && imageUrl.isNotEmpty
+                ? CustomImage(
+                    // height: 400,
+                    // width: 300,
+                    iconUrl: imageUrl,
+                  )
+                : const SizedBox.shrink()
           ],
         ),
       ),

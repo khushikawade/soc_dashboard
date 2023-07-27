@@ -6,49 +6,55 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData(
       primaryColor: AppColors.appPrimaryColor,
       textTheme: TextTheme(
-        titleMedium: TextStyle(
-          color: AppColors.whiteColor,
-          fontWeight: FontWeight.w600,
-          fontSize: AppSize.size26,
-          fontFamily: 'Roboto',
-          fontStyle: FontStyle.normal,
-        ),
-        labelSmall: TextStyle(
-          color: AppColors.black,
-          fontWeight: FontWeight.w500,
-          fontSize: AppSize.size16,
-          fontFamily: 'Roboto',
-          fontStyle: FontStyle.normal,
-        ),
-        labelMedium: TextStyle(
-          color: AppColors.black,
-          fontWeight: FontWeight.w500,
-          fontSize: AppSize.size25,
-          fontFamily: 'Roboto',
-          fontStyle: FontStyle.normal,
-        ),
-        titleSmall: TextStyle(
-          color: AppColors.whiteColor,
-          fontWeight: FontWeight.w400,
-          fontSize: AppSize.size14,
-          fontFamily: 'Roboto',
-          fontStyle: FontStyle.normal,
-        ),
-        titleLarge: TextStyle(
-          color: AppColors.titleRedColor,
-          fontWeight: FontWeight.w700,
-          fontSize: AppSize.size35,
-          fontFamily: 'Roboto',
-          fontStyle: FontStyle.normal,
-        ),
-        displayMedium: TextStyle(
-          color: AppColors.black,
-          fontWeight: FontWeight.w500,
-          fontSize: AppSize.size30,
-          fontFamily: 'Roboto',
-          fontStyle: FontStyle.normal,
-        ),
-      ));
+          titleMedium: TextStyle(
+            color: AppColors.whiteColor,
+            fontWeight: FontWeight.w600,
+            fontSize: AppSize.size26,
+            fontFamily: 'Roboto',
+            fontStyle: FontStyle.normal,
+          ),
+          labelSmall: TextStyle(
+            color: AppColors.black,
+            fontWeight: FontWeight.w500,
+            fontSize: AppSize.size16,
+            fontFamily: 'Roboto',
+            fontStyle: FontStyle.normal,
+          ),
+          labelMedium: TextStyle(
+            color: AppColors.black,
+            fontWeight: FontWeight.w500,
+            fontSize: AppSize.size25,
+            fontFamily: 'Roboto',
+            fontStyle: FontStyle.normal,
+          ),
+          titleSmall: TextStyle(
+            color: AppColors.whiteColor,
+            fontWeight: FontWeight.w400,
+            fontSize: AppSize.size14,
+            fontFamily: 'Roboto',
+            fontStyle: FontStyle.normal,
+          ),
+          titleLarge: TextStyle(
+            color: AppColors.titleRedColor,
+            fontWeight: FontWeight.w700,
+            fontSize: AppSize.size35,
+            fontFamily: 'Roboto',
+            fontStyle: FontStyle.normal,
+          ),
+          displayMedium: TextStyle(
+            color: AppColors.black,
+            fontWeight: FontWeight.w500,
+            fontSize: AppSize.size30,
+            fontFamily: 'Roboto',
+            fontStyle: FontStyle.normal,
+          ),
+          bodyMedium: TextStyle(
+            color: AppColors.black,
+            fontWeight: FontWeight.w600,
+            fontSize: AppSize.size40,
+            fontFamily: 'Roboto',
+            fontStyle: FontStyle.normal,
+          )));
 
   ThemeData? _themeData;
 

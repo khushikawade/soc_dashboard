@@ -28,34 +28,13 @@ Widget informationTitleWidget(text, context) {
 }
 
 Widget headerTextWidget(text, context) {
-  return Text(text,
-      style: TextStyle(
-        color: AppColors.black,
-        fontWeight: FontWeight.w600,
-        fontSize: AppSize.size40,
-        fontFamily: 'Inter',
-        fontStyle: FontStyle.normal,
-      ));
+  return Text(text, style: AppTheme.lightTheme.textTheme.bodyMedium);
 }
 
 Widget subHeaderTextWidget(text, context) {
-  return Text(text,
-      style: TextStyle(
-        color: AppColors.black,
-        fontWeight: FontWeight.w500,
-        fontSize: AppSize.size30,
-        fontFamily: 'Inter',
-        fontStyle: FontStyle.normal,
-      ));
+  return Text(text, style: AppTheme.lightTheme.textTheme.displayMedium);
 }
 
 Widget detailTextWidget(text, context) {
-  return Text(text,
-      style: TextStyle(
-        color: AppColors.black,
-        fontWeight: FontWeight.w400,
-        fontSize: AppSize.size16,
-        fontFamily: 'Poppins',
-        fontStyle: FontStyle.normal,
-      ));
+  return Text(text, style: AppTheme.lightTheme.textTheme.labelSmall);
 }

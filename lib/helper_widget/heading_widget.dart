@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:solved_dashboard/utils/app_size.dart';
 import 'package:solved_dashboard/utils/app_theme.dart';
+import 'package:solved_dashboard/utils/app_util.dart';
 
 import '../utils/app_colors.dart';
 
@@ -37,5 +39,36 @@ Widget subHeaderTextWidget(text, context) {
 }
 
 Widget detailTextWidget(text, context) {
-  return Text(text, style: AppTheme.lightTheme.textTheme.labelSmall);
+  //return Text(text, style: AppTheme.lightTheme.textTheme.labelSmall);
+
+  return Html(
+    data: "$text",
+    shrinkWrap: false,
+    onLinkTap: (url, attributes, element) {
+      AppUtil.urlLauncher(url);
+    },
+    extensions: [
+      TagExtension(tagsToExtend: {"flutter"}, child: const SizedBox.shrink()),
+    ],
+    style: {
+      "body": Style(
+        margin: Margins.zero,
+        // padding: HtmlPaddings.zero,
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+        fontSize: FontSize(AppSize.size16),
+        fontFamily: 'Poppins',
+        fontStyle: FontStyle.normal,
+      ),
+      "p": Style(
+        margin: Margins.zero,
+        // padding: HtmlPaddings.zero,
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+        fontSize: FontSize(AppSize.size16),
+        fontFamily: 'Poppins',
+        fontStyle: FontStyle.normal,
+      )
+    },
+  );
 }

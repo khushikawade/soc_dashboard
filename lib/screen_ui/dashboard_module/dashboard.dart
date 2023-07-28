@@ -37,8 +37,15 @@ class _DashboardState extends State<Dashboard> {
           SizedBox(
             height: 36.h,
           ),
-          Home(),
-          copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.'),
+          Expanded(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                Home(),
+                copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.'),
+              ],
+            ),
+          )
         ],
       ),
       //body: Engagement(),

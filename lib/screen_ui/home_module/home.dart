@@ -18,76 +18,73 @@ class _HomeState extends State<Home> {
   bool _isHoveringThird = false;
   @override
   Widget build(Object context) {
-    return Expanded(
-      child: ListView(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.only(
-            left: 190.sp, right: 190.sp, top: 36.sp, bottom: 80.sp),
-        children: [
-          pageTitleTextWidget(
-              'Latest Dashboard Features', AppUtil.getContext()),
-          SizedBox(
-            height: 42.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              MouseRegion(
-                onEnter: (_) => _mouseEnter(true, 1),
-                onExit: (_) => _mouseEnter(false, 1),
-                child: informationGraphCard(
-                    'Grades & Report Cards',
-                    'Dashboard Permissions',
-                    '- Marking Period 1 & 2\n-ELA, MATH, Science, Social Studies\n-Available in ',
-                    'Student Reports ',
-                    '& ',
-                    'Report Card ',
-                    'assets/tabel.png',
-                    _isHoveringFirst),
-              ),
-              SizedBox(
-                width: 42.w,
-              ),
-              MouseRegion(
-                onEnter: (_) => _mouseEnter(true, 2),
-                onExit: (_) => _mouseEnter(false, 2),
-                child: informationGraphCard(
-                    'Correlations',
-                    '',
-                    '-NYS Assessment Scores vs iReady/MAP Scores\n-Targeted Quadrants for Intervention\n-Available in ',
-                    'Correlations Report',
-                    '',
-                    '',
-                    'assets/graph.png',
-                    _isHoveringSecond),
-              ),
-              SizedBox(
-                width: 42.w,
-              ),
-              MouseRegion(
-                onEnter: (_) => _mouseEnter(true, 3),
-                onExit: (_) => _mouseEnter(false, 3),
-                child: informationGraphCard(
-                    'Data Insights',
-                    '',
-                    '-Weekly Data Deep Dives directly to your email\n-Data-Driven Professional Development    Resources\n-Available in ',
-                    'Data Insights',
-                    '',
-                    '',
-                    'assets/data_inside.png',
-                    _isHoveringThird),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 56.h,
-          ),
-          instructionsWidget(),
-        ],
-      ),
+    return ListView(
+      shrinkWrap: true,
+      physics: const BouncingScrollPhysics(),
+      padding: EdgeInsets.only(
+          left: 190.sp, right: 190.sp, top: 36.sp, bottom: 80.sp),
+      children: [
+        pageTitleTextWidget('Latest Dashboard Features', AppUtil.getContext()),
+        SizedBox(
+          height: 42.h,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            MouseRegion(
+              onEnter: (_) => _mouseEnter(true, 1),
+              onExit: (_) => _mouseEnter(false, 1),
+              child: informationGraphCard(
+                  'Grades & Report Cards',
+                  'Dashboard Permissions',
+                  '- Marking Period 1 & 2\n-ELA, MATH, Science, Social Studies\n-Available in ',
+                  'Student Reports ',
+                  '& ',
+                  'Report Card ',
+                  'assets/tabel.png',
+                  _isHoveringFirst),
+            ),
+            SizedBox(
+              width: 42.w,
+            ),
+            MouseRegion(
+              onEnter: (_) => _mouseEnter(true, 2),
+              onExit: (_) => _mouseEnter(false, 2),
+              child: informationGraphCard(
+                  'Correlations',
+                  '',
+                  '-NYS Assessment Scores vs iReady/MAP Scores\n-Targeted Quadrants for Intervention\n-Available in ',
+                  'Correlations Report',
+                  '',
+                  '',
+                  'assets/graph.png',
+                  _isHoveringSecond),
+            ),
+            SizedBox(
+              width: 42.w,
+            ),
+            MouseRegion(
+              onEnter: (_) => _mouseEnter(true, 3),
+              onExit: (_) => _mouseEnter(false, 3),
+              child: informationGraphCard(
+                  'Data Insights',
+                  '',
+                  '-Weekly Data Deep Dives directly to your email\n-Data-Driven Professional Development    Resources\n-Available in ',
+                  'Data Insights',
+                  '',
+                  '',
+                  'assets/data_inside.png',
+                  _isHoveringThird),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 56.h,
+        ),
+        instructionsWidget(),
+      ],
     );
   }
 

@@ -45,7 +45,7 @@ class AppTheme {
             color: AppColors.black,
             fontWeight: FontWeight.w500,
             fontSize: AppSize.size30,
-            fontFamily: 'Roboto',
+            fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
           ),
           bodyMedium: TextStyle(

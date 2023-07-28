@@ -41,8 +41,6 @@ class MyApp extends StatelessWidget {
               initialRoute: '/',
               routes: {
                 '/': (context) => const IFrameCustomWidget(
-                    titleText: "Data Insights Widget",
-                    subTitleText: "Title Here",
                     dynamicLinkUrl:
                         "https://services.solvedconsulting.net/news/a1f4W000007DQaNQAW"),
               },

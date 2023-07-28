@@ -19,7 +19,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.pageBGColor,
-      bottomSheet: copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.'),
+      //bottomSheet: copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.'),
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(500.h),
           child: const AppBarWidget(
@@ -35,6 +35,7 @@ class _DashboardState extends State<Dashboard> {
             height: 36.h,
           ),
           Home(),
+          copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.'),
         ],
       ),
       //body: Engagement(),

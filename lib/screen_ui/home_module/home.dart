@@ -13,6 +13,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  bool _isHoveringFirst = false;
+  bool _isHoveringSecond = false;
+  bool _isHoveringThird = false;
   @override
   Widget build(Object context) {
     return Container(
@@ -34,36 +37,51 @@ class _HomeState extends State<Home> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              informationGraphCard(
-                  'Grades & Report Cards',
-                  'Dashboard Permissions',
-                  '- Marking Period 1 & 2\n-ELA, MATH, Science, Social Studies\n-Available in ',
-                  'Student Reports ',
-                  '& ',
-                  'Report Card ',
-                  'assets/tabel.png'),
+              MouseRegion(
+                onEnter: (_) => _mouseEnter(true, 1),
+                onExit: (_) => _mouseEnter(false, 1),
+                child: informationGraphCard(
+                    'Grades & Report Cards',
+                    'Dashboard Permissions',
+                    '- Marking Period 1 & 2\n-ELA, MATH, Science, Social Studies\n-Available in ',
+                    'Student Reports ',
+                    '& ',
+                    'Report Card ',
+                    'assets/tabel.png',
+                    _isHoveringFirst),
+              ),
               SizedBox(
                 width: 42.w,
               ),
-              informationGraphCard(
-                  'Correlations',
-                  '',
-                  '-NYS Assessment Scores vs iReady/MAP Scores\n-Targeted Quadrants for Intervention\n-Available in ',
-                  'Correlations Report',
-                  '',
-                  '',
-                  'assets/graph.png'),
+              MouseRegion(
+                onEnter: (_) => _mouseEnter(true, 2),
+                onExit: (_) => _mouseEnter(false, 2),
+                child: informationGraphCard(
+                    'Correlations',
+                    '',
+                    '-NYS Assessment Scores vs iReady/MAP Scores\n-Targeted Quadrants for Intervention\n-Available in ',
+                    'Correlations Report',
+                    '',
+                    '',
+                    'assets/graph.png',
+                    _isHoveringSecond),
+              ),
               SizedBox(
                 width: 42.w,
               ),
-              informationGraphCard(
-                  'Data Insights',
-                  '',
-                  '-Weekly Data Deep Dives directly to your email\n-Data-Driven Professional Development    Resources\n-Available in ',
-                  'Data Insights',
-                  '',
-                  '',
-                  'assets/data_inside.png'),
+              MouseRegion(
+                onEnter: (_) => _mouseEnter(true, 3),
+                onExit: (_) => _mouseEnter(false, 3),
+                child: informationGraphCard(
+                    'Data Insights',
+                    '',
+                    '-Weekly Data Deep Dives directly to your email\n-Data-Driven Professional Development    Resources\n-Available in ',
+                    'Data Insights',
+                    '',
+                    '',
+                    'assets/data_inside.png',
+                    _isHoveringThird),
+              ),
             ],
           ),
           SizedBox(
@@ -73,5 +91,17 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
+  }
+
+  void _mouseEnter(bool hovering, int value) {
+    setState(() {
+      if (value == 1) {
+        _isHoveringFirst = hovering;
+      } else if (value == 2) {
+        _isHoveringSecond = hovering;
+      } else if (value == 3) {
+        _isHoveringThird = hovering;
+      }
+    });
   }
 }

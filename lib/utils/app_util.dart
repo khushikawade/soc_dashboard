@@ -194,11 +194,22 @@ class AppUtil {
     await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   }
 
-  static dialogBuilder(BuildContext context) {
+  static dialogBuilder(BuildContext context,
+      {String? headerTitle,
+      String? description1Text,
+      String? description2Text,
+      String? description3Text,
+      String? buttonText}) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return FaqCustomPopup();
+        return FaqCustomPopup(
+          headerTitle: headerTitle,
+          buttonText: buttonText,
+          description1Text: description1Text,
+          description2Text: description2Text,
+          description3Text: description3Text,
+        );
       },
     );
   }

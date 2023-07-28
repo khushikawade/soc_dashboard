@@ -18,7 +18,10 @@ class AppColors {
   static const Color backgroundBlueColor = Color(0xffCBD9ED);
   static const Color blueColorBG = Color(0xffC0D2EF);
   static const Color greyLight = Color(0xff777777);
-
+  static const Color popUpAppBar = Color(0xff2197F1);
   static Color? kShimmerBaseColor = Colors.grey[300];
   static Color? kShimmerHighlightColor = Colors.grey[100];
+  static Color borderColor = const Color(0xff9d9d9e);
+  static Color circularContainer = Color(0xffff6f6e);
+  static Color buttonCircularBorder = const Color(0xff00DDC2);
 }

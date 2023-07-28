@@ -27,8 +27,11 @@ class _DashboardState extends State<Dashboard> {
                 'https://solved-schools.s3.us-east-2.amazonaws.com/BB-P.S.+456+Bronx-Bears/app-logos/Bronx+Bears+1024.png',
             pageViewCount: '2,444',
           )),
-      body: ListView(
-        shrinkWrap: true,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        //shrinkWrap: true,
         children: [
           tabBarView(),
           SizedBox(

@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard.dart';
 import 'package:solved_dashboard/utils/app_theme.dart';
 import 'package:solved_dashboard/utils/app_util.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,8 +19,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      // useInheritedMediaQuery: true,
-      splitScreenMode: false,
+      useInheritedMediaQuery: true,
+      //splitScreenMode: false,
       designSize: const Size(1920, 1815),
       builder: (context, child) => AdaptiveTheme(
         light: AppTheme.lightTheme,
@@ -30,15 +29,6 @@ class MyApp extends StatelessWidget {
         debugShowFloatingThemeButton: false,
         builder: (ThemeData lightTheme, ThemeData darkTheme) {
           return MaterialApp(
-            builder: (context, child) => ResponsiveBreakpoints.builder(
-              child: child!,
-              breakpoints: [
-                const Breakpoint(start: 0, end: 450, name: MOBILE),
-                const Breakpoint(start: 451, end: 800, name: TABLET),
-                const Breakpoint(start: 801, end: 1920, name: DESKTOP),
-                const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
-              ],
-            ),
             title: 'Solved Dashboard',
             debugShowCheckedModeBanner: false,
             theme: lightTheme,

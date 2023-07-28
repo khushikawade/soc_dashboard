@@ -18,9 +18,7 @@ class _HomeState extends State<Home> {
   bool _isHoveringThird = false;
   @override
   Widget build(Object context) {
-    return Container(
-      // width: double.infinity,
-      // height: double.infinity,
+    return Expanded(
       child: ListView(
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),

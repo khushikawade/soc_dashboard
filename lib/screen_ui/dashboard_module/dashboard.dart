@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/custom_fonts/solved_dashboard_icons_icons.dart';
 import 'package:solved_dashboard/helper_widget/app_bar_widget.dart';
 import 'package:solved_dashboard/helper_widget/copy_right_widget.dart';
+import 'package:solved_dashboard/helper_widget/hover_animation_widget.dart';
 import 'package:solved_dashboard/helper_widget/tabbar_item_widget.dart';
 import 'package:solved_dashboard/helper_widget/vertical_divider_widget.dart';
-import 'package:solved_dashboard/screen_ui/engegment_module/engegment.dart';
 import 'package:solved_dashboard/screen_ui/home_module/home.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 
@@ -17,47 +17,89 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  bool _isHovering = false;
+  List<Menu> headerModelList = {
+    Menu(id: 1, name: 'Home'),
+    Menu(id: 2, name: 'Reports'),
+    Menu(id: 5, name: 'Assessments'),
+    Menu(id: 3, name: 'Data Insights'),
+    Menu(id: 4, name: 'Apps+'),
+    Menu(id: 5, name: 'Engagement'),
+    Menu(id: 5, name: '+ Data'),
+    Menu(id: 5, name: 'Support'),
+  }.toList();
+
+  List<SubMenu> menuModelList = {
+    SubMenu(id: 1, name: 'Declarative style'),
+    SubMenu(id: 2, name: 'Premade common'),
+    SubMenu(id: 3, name: 'Stateful hot reload'),
+    SubMenu(id: 4, name: 'Native performance'),
+    SubMenu(id: 5, name: 'Great community')
+  }.toList();
+
   @override
   Widget build(BuildContext context) {
-    final mediaQueryData = MediaQuery.of(context);
-    return Material(
-      child: MediaQuery(
-        data: mediaQueryData.copyWith(textScaleFactor: 1.0),
-        child: Scaffold(
-          backgroundColor: AppColors.pageBGColor,
-          //bottomSheet: copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.'),
-          appBar: PreferredSize(
-              preferredSize: Size.fromHeight(500.h),
-              child: const AppBarWidget(
-                logoURL:
-                    'https://solved-schools.s3.us-east-2.amazonaws.com/BB-P.S.+456+Bronx-Bears/app-logos/Bronx+Bears+1024.png',
-                pageViewCount: '2,444',
-              )),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            //shrinkWrap: true,
-            children: [
-              tabBarView(),
-              SizedBox(
-                height: 36.h,
-              ),
-              Expanded(
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    Home(),
-                    copyRightWidget(
-                        '© 2023 Bronx Bears. All Rights Reserved.', context),
-                  ],
-                ),
-              )
-            ],
+    return Scaffold(
+      backgroundColor: AppColors.pageBGColor,
+      //bottomSheet: copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.'),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(400.h),
+          child: const AppBarWidget(
+            logoURL:
+                'https://solved-schools.s3.us-east-2.amazonaws.com/BB-P.S.+456+Bronx-Bears/app-logos/Bronx+Bears+1024.png',
+            pageViewCount: '2,444',
+          )),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        //shrinkWrap: true,
+        children: [
+          menu(),
+          //tabBarView(),
+          SizedBox(
+            height: 36.h,
           ),
-          //body: Engagement(),
+          Expanded(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                Home(),
+                copyRightWidget(
+                    '© 2023 Bronx Bears. All Rights Reserved.', context),
+              ],
+            ),
+          )
+        ],
+      ),
+      //body: Engagement(),
+    );
+  }
+
+  Widget menu() {
+    return Container(
+      margin: EdgeInsets.only(left: 190.sp, right: 190.sp, top: 36.sp),
+      width: double.infinity,
+      height: 74.h,
+      decoration: BoxDecoration(color: AppColors.whiteColor),
+      child: AnimatedHoverMenu(
+        headerPosition: HeaderPosition.topLeft,
+        headerTiles: headerModelList,
+        menuTiles: menuModelList,
+        headerBoxDecoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(5.0),
+            ),
+            color: Color(0xff996617)),
+        headerTextColor: Colors.white,
+        headerTextSize: 15.0,
+        menuBoxDecoration: const BoxDecoration(
+          border: Border.fromBorderSide(
+            BorderSide(color: Color(0xff996617), width: 2),
+          ),
         ),
+        menuTextColor: const Color(0xff996617),
+        animationType: AnimationType.springAcrossAxis,
+        menuTextSize: 16.0,
       ),
     );
   }
@@ -72,7 +114,7 @@ class _DashboardState extends State<Dashboard> {
         Container(
           margin: EdgeInsets.only(left: 190.sp, right: 190.sp, top: 36.sp),
           width: double.infinity,
-          //height: 74.h,
+          height: 74.h,
           decoration: BoxDecoration(color: AppColors.whiteColor),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -133,74 +175,7 @@ class _DashboardState extends State<Dashboard> {
             ],
           ),
         ),
-        _isHovering
-            ? Container(
-                width: 500.w,
-                height: 500.h,
-                color: Colors.red,
-              )
-            : Container()
       ],
-    );
-  }
-
-  void _mouseEnter(bool hovering) {
-    setState(() {
-      _isHovering = hovering;
-    });
-  }
-}
-
-class LoginWidget extends StatefulWidget {
-  @override
-  _LoginWidgetState createState() => _LoginWidgetState();
-}
-
-class _LoginWidgetState extends State<LoginWidget> {
-  String name = 'bob';
-  final _formKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text('Enter your name to connect: '),
-                Container(
-                  width: 200,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                  ),
-                  child: Form(
-                    key: _formKey,
-                    child: TextFormField(
-                      textAlign: TextAlign.center,
-                      onChanged: (value) => name = value,
-                      initialValue: 'bob',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-
-            // This FAB is shared and shows hero animations working with no issues
-            FloatingActionButton(
-              heroTag: 'FAB',
-              onPressed: () {},
-              child: Icon(Icons.login),
-            )
-          ],
-        ),
-      ),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
-import 'package:solved_dashboard/utils/app_util.dart';
 
 Widget richTextWidget(String simpleText1, String simpleText2, String richText1,
     String richText2) {

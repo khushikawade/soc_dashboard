@@ -4,7 +4,6 @@ import 'package:solved_dashboard/helper_widget/cached_network_widget.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 import 'package:solved_dashboard/utils/app_size.dart';
-import 'package:solved_dashboard/utils/app_util.dart';
 
 class AppBarWidget extends StatelessWidget {
   final String? logoURL;
@@ -41,9 +40,9 @@ class AppBarWidget extends StatelessWidget {
               CustomIconMode(
                 iconUrl: logoURL,
               ),
-              // SizedBox(
-              //   width: 10.w,
-              // ),
+              SizedBox(
+                width: 10.w,
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -53,11 +52,10 @@ class AppBarWidget extends StatelessWidget {
                       style: TextStyle(
                         color: AppColors.whiteColor,
                         fontWeight: FontWeight.w500,
-                        fontSize: AppSize.size25,
+                        fontSize: AppSize.size25.sp,
                         fontFamily: 'Roboto',
                         fontStyle: FontStyle.normal,
                       )),
-                  // titleTextWidget('P.S. 456', AppUtil.getContext()),
                   SizedBox(
                     height: 5.h,
                   ),
@@ -65,11 +63,10 @@ class AppBarWidget extends StatelessWidget {
                       style: TextStyle(
                         color: AppColors.whiteColor,
                         fontWeight: FontWeight.w400,
-                        fontSize: AppSize.size18,
+                        fontSize: AppSize.size18.sp,
                         fontFamily: 'Roboto',
                         fontStyle: FontStyle.normal,
                       )),
-                  //titleTextWidget('The Bronx Bears', AppUtil.getContext()),
                 ],
               ),
             ],
@@ -92,10 +89,12 @@ class AppBarWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                //height: 75.h,
-                //alignment: Alignment.center,
+                height: 75.h,
+                alignment: Alignment.center,
                 padding: EdgeInsets.only(
-                    top: 13.sp, bottom: 13.sp, left: 25.sp, right: 25.sp),
+                    //top: 13.sp, bottom: 13.sp,
+                    left: 25.sp,
+                    right: 25.sp),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.r),
                   color: AppColors.blueColorBG,
@@ -117,17 +116,19 @@ class AppBarWidget extends StatelessWidget {
                 width: 10.sp,
               ),
               Container(
-                //height: 75.h,
-                //alignment: Alignment.center,
+                height: 75.h,
+                alignment: Alignment.center,
                 padding: EdgeInsets.only(
-                    top: 13.sp, bottom: 13.sp, left: 25.sp, right: 25.sp),
+                    //top: 13.sp, bottom: 13.sp,
+                    left: 25.sp,
+                    right: 25.sp),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.r),
                   color: AppColors.whiteColor,
                 ),
                 child: Image.asset(
                   'assets/logo.png',
-                  height: 50.h,
+                  height: 40.h,
                 ),
               )
             ],

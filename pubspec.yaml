@@ -45,6 +45,8 @@ dependencies:
   adaptive_theme: ^3.3.0
   cached_network_image: ^3.2.3
   shimmer: ^3.0.0
+  vrouter: ^1.2.1
+  url_strategy: ^0.2.0
   # responsive_framework: ^1.1.0
 
 dev_dependencies:

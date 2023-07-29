@@ -17,14 +17,14 @@ class _HomeState extends State<Home> {
   bool _isHoveringSecond = false;
   bool _isHoveringThird = false;
   @override
-  Widget build(Object context) {
+  Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
       padding: EdgeInsets.only(
           left: 190.sp, right: 190.sp, top: 36.sp, bottom: 80.sp),
       children: [
-        pageTitleTextWidget('Latest Dashboard Features', AppUtil.getContext()),
+        pageTitleTextWidget('Latest Dashboard Features', context),
         SizedBox(
           height: 42.h,
         ),
@@ -44,7 +44,8 @@ class _HomeState extends State<Home> {
                   '& ',
                   'Report Card ',
                   'assets/tabel.png',
-                  _isHoveringFirst),
+                  _isHoveringFirst,
+                  context),
             ),
             SizedBox(
               width: 42.w,
@@ -60,7 +61,8 @@ class _HomeState extends State<Home> {
                   '',
                   '',
                   'assets/graph.png',
-                  _isHoveringSecond),
+                  _isHoveringSecond,
+                  context),
             ),
             SizedBox(
               width: 42.w,
@@ -76,7 +78,8 @@ class _HomeState extends State<Home> {
                   '',
                   '',
                   'assets/data_inside.png',
-                  _isHoveringThird),
+                  _isHoveringThird,
+                  context),
             ),
           ],
         ),

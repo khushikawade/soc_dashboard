@@ -79,11 +79,11 @@ class AppBarWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              titleTextWidget('SOLVED DASHBOARD+', AppUtil.getContext()),
+              titleTextWidget('SOLVED DASHBOARD+', context),
               SizedBox(
                 height: 10.h,
               ),
-              titleTextWidget('Home', AppUtil.getContext()),
+              titleTextWidget('Home', context),
             ],
           ),
           Row(

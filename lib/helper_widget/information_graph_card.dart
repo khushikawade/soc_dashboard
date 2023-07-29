@@ -13,7 +13,8 @@ Widget informationGraphCard(
     String simpleText2,
     String richText2,
     String imagePath,
-    bool isHover) {
+    bool isHover,
+    BuildContext context) {
   return InkWell(
     onHover: (value) {
       isHover = true;
@@ -47,7 +48,7 @@ Widget informationGraphCard(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          informationTitleWidget(title, AppUtil.getContext()),
+          informationTitleWidget(title, context),
           SizedBox(
             height: 36.h,
           ),

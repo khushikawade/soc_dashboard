@@ -18,22 +18,52 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   List<Menu> headerModelList = {
-    Menu(id: 1, name: 'Home'),
-    Menu(id: 2, name: 'Reports'),
-    Menu(id: 5, name: 'Assessments'),
-    Menu(id: 3, name: 'Data Insights'),
-    Menu(id: 4, name: 'Apps+'),
-    Menu(id: 5, name: 'Engagement'),
-    Menu(id: 5, name: '+ Data'),
-    Menu(id: 5, name: 'Support'),
+    Menu(
+        id: 1,
+        name: 'Home',
+        iconName: SolvedDashboardIcons.frame_238,
+        isSelected: true),
+    Menu(
+        id: 2,
+        name: 'Reports',
+        iconName: SolvedDashboardIcons.frame_239,
+        isSelected: false),
+    Menu(
+        id: 5,
+        name: 'Assessments',
+        iconName: SolvedDashboardIcons.frame_240,
+        isSelected: false),
+    Menu(
+        id: 3,
+        name: 'Data Insights',
+        iconName: SolvedDashboardIcons.frame_241,
+        isSelected: false),
+    Menu(
+        id: 4,
+        name: 'Apps+',
+        iconName: SolvedDashboardIcons.frame_245,
+        isSelected: false),
+    Menu(
+        id: 5,
+        name: 'Engagement',
+        iconName: SolvedDashboardIcons.frame_242,
+        isSelected: false),
+    Menu(
+        id: 5,
+        name: '+ Data',
+        iconName: SolvedDashboardIcons.frame_243,
+        isSelected: false),
+    Menu(
+        id: 5,
+        name: 'Support',
+        iconName: SolvedDashboardIcons.frame_244,
+        isSelected: false),
   }.toList();
 
   List<SubMenu> menuModelList = {
-    SubMenu(id: 1, name: 'Declarative style'),
-    SubMenu(id: 2, name: 'Premade common'),
-    SubMenu(id: 3, name: 'Stateful hot reload'),
-    SubMenu(id: 4, name: 'Native performance'),
-    SubMenu(id: 5, name: 'Great community')
+    SubMenu(id: 1, name: 'App Usage'),
+    SubMenu(id: 2, name: 'Digital Forms'),
+    SubMenu(id: 3, name: 'Website Usage'),
   }.toList();
 
   @override
@@ -93,7 +123,7 @@ class _DashboardState extends State<Dashboard> {
         headerTextColor: Colors.white,
         headerTextSize: 15.0,
         menuBoxDecoration: const BoxDecoration(
-          border: Border.fromBorderSide( 
+          border: Border.fromBorderSide(
             BorderSide(color: Color(0xff996617), width: 2),
           ),
         ),

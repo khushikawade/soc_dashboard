@@ -49,13 +49,13 @@ class AppTheme {
           fontFamily: 'Roboto',
           fontStyle: FontStyle.normal,
         ),
-        // displaySmall: TextStyle(
-        //   color: AppColors.tabBarUnselctedText,
-        //   fontWeight: FontWeight.w600,
-        //   fontSize: AppSize.size16,
-        //   fontFamily: 'Roboto',
-        //   fontStyle: FontStyle.normal,
-        // ),
+        displaySmall: TextStyle(
+          color: AppColors.tabBarUnselctedText,
+          fontWeight: FontWeight.w500,
+          fontSize: AppSize.size16,
+          fontFamily: 'Roboto',
+          fontStyle: FontStyle.normal,
+        ),
       ));
 
   ThemeData? _themeData;

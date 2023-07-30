@@ -41,6 +41,12 @@ Widget informationTitleWidget(text, BuildContext context) {
           .copyWith(fontSize: AppSize.size30.sp));
 }
 
+Widget subMenuTitleWidget(text, BuildContext context) {
+  return Text(text,
+      style: AppTheme.lightTheme.textTheme.displaySmall!
+          .copyWith(fontSize: AppSize.size16.sp));
+}
+
 Widget tabBarItemWidgetText(text, context, color) {
   return Text(
     text,

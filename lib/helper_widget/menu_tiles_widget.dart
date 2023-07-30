@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/helper_widget/hover_animation_widget.dart';
+import 'package:solved_dashboard/utils/app_colors.dart';
 
 class MenuTilesWidget extends StatefulWidget {
   final Widget child;
@@ -10,7 +13,7 @@ class MenuTilesWidget extends StatefulWidget {
   final bool hovered;
   final List<SubMenu> menuTiles;
   final List<Menu> headerTiles;
-  final BoxDecoration menuBoxDecoration;
+  //final BoxDecoration menuBoxDecoration;
   final Color menuTextColor;
   final double menuTextSize;
   final HeaderPosition headerPosition;
@@ -23,7 +26,7 @@ class MenuTilesWidget extends StatefulWidget {
     required this.child,
     required this.index,
     required this.hovered,
-    required this.menuBoxDecoration,
+    //required this.menuBoxDecoration,
     required this.menuTextColor,
     required this.menuTextSize,
     required this.headerPosition,
@@ -89,15 +92,8 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     return OverlayEntry(builder: (BuildContext overlayContext) {
       final offset = _getPosition();
       return Positioned(
-        top: (widget.headerPosition == HeaderPosition.bottomLeft ||
-                widget.headerPosition == HeaderPosition.bottomRight)
-            ? null
-            : 50,
-        bottom: (widget.headerPosition == HeaderPosition.bottomLeft ||
-                widget.headerPosition == HeaderPosition.bottomRight)
-            ? 50
-            : null,
-        left: offset.dx + 5,
+        top: 160,
+        left: offset.dx,
         child: ChangeNotifierProvider.value(
           value: ScrollEventNotifier(false, false),
           child: StatefulBuilder(
@@ -176,26 +172,36 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                           content: Text("You Tapped On ${widget.menuTiles[i]}"),
                           duration: const Duration(milliseconds: 500)));
                     },
-                    child: SizedBox(
-                      width: 200,
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: widget.menuBoxDecoration,
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 2.0, horizontal: 10.0),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            widget.menuTiles[i].name ?? '',
-                            textAlign: TextAlign.left,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: widget.menuTextSize,
-                                fontWeight: FontWeight.w500,
-                                color: widget.menuTextColor),
+                    child: Container(
+                      width: 192.w,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColors.whiteColor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.black.withOpacity(0.1),
+                            blurRadius: 20.0.r,
+                            offset: const Offset(0, 20),
+                            spreadRadius: 0,
                           ),
-                        ),
+                        ],
                       ),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 0.0, horizontal: 0.0),
+                      child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: subMenuTitleWidget(
+                              widget.menuTiles[i].name ?? '', context)
+                          // Text(
+                          //   widget.menuTiles[i].name ?? '',
+                          //   textAlign: TextAlign.left,
+                          //   overflow: TextOverflow.ellipsis,
+                          //   style: TextStyle(
+                          //       fontSize: widget.menuTextSize,
+                          //       fontWeight: FontWeight.w500,
+                          //       color: widget.menuTextColor),
+                          // ),
+                          ),
                     ),
                   ),
                 );

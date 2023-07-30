@@ -93,7 +93,7 @@ class _DashboardState extends State<Dashboard> {
         headerTextColor: Colors.white,
         headerTextSize: 15.0,
         menuBoxDecoration: const BoxDecoration(
-          border: Border.fromBorderSide(
+          border: Border.fromBorderSide( 
             BorderSide(color: Color(0xff996617), width: 2),
           ),
         ),

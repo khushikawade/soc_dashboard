@@ -53,7 +53,7 @@ class AppBarWidget extends StatelessWidget {
                         color: AppColors.whiteColor,
                         fontWeight: FontWeight.w500,
                         fontSize: AppSize.size25.sp,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Inter',
                         fontStyle: FontStyle.normal,
                       )),
                   SizedBox(
@@ -64,7 +64,7 @@ class AppBarWidget extends StatelessWidget {
                         color: AppColors.whiteColor,
                         fontWeight: FontWeight.w400,
                         fontSize: AppSize.size18.sp,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Inter',
                         fontStyle: FontStyle.normal,
                       )),
                 ],
@@ -170,7 +170,7 @@ class AppBarWidget extends StatelessWidget {
     //                         fontSize: AppSize.size14,
     //                         color: AppColors.lightGrey,
     //                         fontWeight: FontWeight.w400,
-    //                         fontFamily: 'Roboto'),
+    //                         fontFamily: 'Inter'),
     //                   ),
     //                   InkWell(
     //                     onTap: () {
@@ -188,7 +188,7 @@ class AppBarWidget extends StatelessWidget {
     //                           color: AppColors.yellow,
     //                           fontSize: AppSize.size14,
     //                           fontWeight: FontWeight.w400,
-    //                           fontFamily: 'Roboto'),
+    //                           fontFamily: 'Inter'),
     //                     ),
     //                   ),
     //                   SizedBox(

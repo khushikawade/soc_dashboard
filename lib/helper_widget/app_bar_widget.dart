@@ -5,7 +5,6 @@ import 'package:solved_dashboard/helper_widget/common_widget/faq_custom_popup.da
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 import 'package:solved_dashboard/utils/app_size.dart';
-import 'package:solved_dashboard/utils/app_util.dart';
 
 class AppBarWidget extends StatelessWidget {
   final String? logoURL;
@@ -42,9 +41,9 @@ class AppBarWidget extends StatelessWidget {
               CustomIconMode(
                 iconUrl: logoURL,
               ),
-              // SizedBox(
-              //   width: 10.w,
-              // ),
+              SizedBox(
+                width: 10.w,
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -54,11 +53,10 @@ class AppBarWidget extends StatelessWidget {
                       style: TextStyle(
                         color: AppColors.whiteColor,
                         fontWeight: FontWeight.w500,
-                        fontSize: AppSize.size25,
-                        fontFamily: 'Roboto',
+                        fontSize: AppSize.size25.sp,
+                        fontFamily: 'Inter',
                         fontStyle: FontStyle.normal,
                       )),
-                  // titleTextWidget('P.S. 456', AppUtil.getContext()),
                   SizedBox(
                     height: 5.h,
                   ),
@@ -66,11 +64,10 @@ class AppBarWidget extends StatelessWidget {
                       style: TextStyle(
                         color: AppColors.whiteColor,
                         fontWeight: FontWeight.w400,
-                        fontSize: AppSize.size18,
-                        fontFamily: 'Roboto',
+                        fontSize: AppSize.size18.sp,
+                        fontFamily: 'Inter',
                         fontStyle: FontStyle.normal,
                       )),
-                  //titleTextWidget('The Bronx Bears', AppUtil.getContext()),
                 ],
               ),
             ],
@@ -80,11 +77,11 @@ class AppBarWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              titleTextWidget('SOLVED DASHBOARD+', AppUtil.getContext()),
+              titleTextWidget('SOLVED DASHBOARD+', context),
               SizedBox(
                 height: 10.h,
               ),
-              titleTextWidget('Home', AppUtil.getContext()),
+              titleTextWidget('Home', context),
             ],
           ),
           Row(
@@ -93,10 +90,12 @@ class AppBarWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                //height: 75.h,
-                //alignment: Alignment.center,
+                height: 75.h,
+                alignment: Alignment.center,
                 padding: EdgeInsets.only(
-                    top: 13.sp, bottom: 13.sp, left: 25.sp, right: 25.sp),
+                    //top: 13.sp, bottom: 13.sp,
+                    left: 25.sp,
+                    right: 25.sp),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.r),
                   color: AppColors.blueColorBG,
@@ -123,17 +122,19 @@ class AppBarWidget extends StatelessWidget {
                 width: 10.sp,
               ),
               Container(
-                //height: 75.h,
-                //alignment: Alignment.center,
+                height: 75.h,
+                alignment: Alignment.center,
                 padding: EdgeInsets.only(
-                    top: 13.sp, bottom: 13.sp, left: 25.sp, right: 25.sp),
+                    //top: 13.sp, bottom: 13.sp,
+                    left: 25.sp,
+                    right: 25.sp),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.r),
                   color: AppColors.whiteColor,
                 ),
                 child: Image.asset(
                   'assets/logo.png',
-                  height: 50.h,
+                  height: 40.h,
                 ),
               )
             ],
@@ -175,7 +176,7 @@ class AppBarWidget extends StatelessWidget {
     //                         fontSize: AppSize.size14,
     //                         color: AppColors.lightGrey,
     //                         fontWeight: FontWeight.w400,
-    //                         fontFamily: 'Roboto'),
+    //                         fontFamily: 'Inter'),
     //                   ),
     //                   InkWell(
     //                     onTap: () {
@@ -193,7 +194,7 @@ class AppBarWidget extends StatelessWidget {
     //                           color: AppColors.yellow,
     //                           fontSize: AppSize.size14,
     //                           fontWeight: FontWeight.w400,
-    //                           fontFamily: 'Roboto'),
+    //                           fontFamily: 'Inter'),
     //                     ),
     //                   ),
     //                   SizedBox(

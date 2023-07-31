@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/helper_widget/cached_network_widget.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
+import 'package:solved_dashboard/helper_widget/shimmer_loading.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 import 'package:solved_dashboard/utils/app_size.dart';
 
@@ -11,21 +12,25 @@ class AppBarWidget extends StatelessWidget {
   final String? pageTitle;
   final String? pageViewCount;
   final dynamic onclick;
+  final Color? primaryColor;
+  final bool? isBusy;
 
   const AppBarWidget(
       {this.logoURL,
       this.schoolName,
       this.pageTitle,
       this.pageViewCount,
-      this.onclick});
+      this.onclick,
+      this.primaryColor,
+      this.isBusy});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
           left: 192.sp, right: 192.sp, top: 11.sp, bottom: 11.sp),
-      decoration: const BoxDecoration(
-        color: AppColors.appPrimaryColor,
+      decoration: BoxDecoration(
+        color: primaryColor ?? AppColors.appPrimaryColor,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,25 +53,35 @@ class AppBarWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('P.S. 456',
-                      style: TextStyle(
-                        color: AppColors.whiteColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: AppSize.size25.sp,
-                        fontFamily: 'Inter',
-                        fontStyle: FontStyle.normal,
-                      )),
+                  isBusy!
+                      ? ShimmerLoading(
+                          isLoading: true,
+                          child: Container(
+                            height: 20.h,
+                            width: 50.w,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(schoolName!,
+                          // 'P.S. 456',
+                          style: TextStyle(
+                            color: AppColors.whiteColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: AppSize.size25.sp,
+                            fontFamily: 'Inter',
+                            fontStyle: FontStyle.normal,
+                          )),
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text('The Bronx Bears',
-                      style: TextStyle(
-                        color: AppColors.whiteColor,
-                        fontWeight: FontWeight.w400,
-                        fontSize: AppSize.size18.sp,
-                        fontFamily: 'Inter',
-                        fontStyle: FontStyle.normal,
-                      )),
+                  // Text('The Bronx Bears',
+                  //     style: TextStyle(
+                  //       color: AppColors.whiteColor,
+                  //       fontWeight: FontWeight.w400,
+                  //       fontSize: AppSize.size18.sp,
+                  //       fontFamily: 'Inter',
+                  //       fontStyle: FontStyle.normal,
+                  //     )),
                 ],
               ),
             ],

@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 
+import 'screen_ui/home_module/home_model.dart';
+
 void main() async {
   runApp(MyApp());
 }
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProjectHomeViewModel()),
+        ChangeNotifierProvider(create: (_) => HomeViewModel()),
       ],
       child: ScreenUtilInit(
         designSize: Size(1920, 1080),

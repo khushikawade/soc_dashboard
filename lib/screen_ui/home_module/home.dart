@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/helper_widget/information_graph_card.dart';
 import 'package:solved_dashboard/helper_widget/instructions_widget.dart';
+import 'package:solved_dashboard/routers/route_constants.dart';
+import 'package:solved_dashboard/screen_ui/home_module/home_model.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,7 +16,9 @@ class _HomeState extends State<Home> {
   bool _isHoveringFirst = false;
   bool _isHoveringSecond = false;
   bool _isHoveringThird = false;
-  @override
+
+ 
+
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,

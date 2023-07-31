@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/helper_widget/rich_text_widget.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
-import 'package:solved_dashboard/utils/app_util.dart';
 
 Widget informationGraphCard(
     String title,
@@ -13,7 +12,8 @@ Widget informationGraphCard(
     String simpleText2,
     String richText2,
     String imagePath,
-    bool isHover) {
+    bool isHover,
+    BuildContext context) {
   return InkWell(
     onHover: (value) {
       isHover = true;
@@ -47,7 +47,7 @@ Widget informationGraphCard(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          informationTitleWidget(title, AppUtil.getContext()),
+          informationTitleWidget(title, context),
           SizedBox(
             height: 36.h,
           ),

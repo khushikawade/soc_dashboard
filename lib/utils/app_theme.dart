@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 import 'package:solved_dashboard/utils/app_size.dart';
 
@@ -9,52 +10,52 @@ class AppTheme {
         titleMedium: TextStyle(
           color: AppColors.whiteColor,
           fontWeight: FontWeight.w600,
-          fontSize: AppSize.size26,
+          fontSize: AppSize.size26.sp,
           fontFamily: 'Roboto',
           fontStyle: FontStyle.normal,
         ),
         labelSmall: TextStyle(
           color: AppColors.black,
           fontWeight: FontWeight.w500,
-          fontSize: AppSize.size16,
+          fontSize: AppSize.size16.sp,
           fontFamily: 'Roboto',
           fontStyle: FontStyle.normal,
         ),
         labelMedium: TextStyle(
           color: AppColors.black,
           fontWeight: FontWeight.w500,
-          fontSize: AppSize.size25,
+          fontSize: AppSize.size25.sp,
           fontFamily: 'Roboto',
           fontStyle: FontStyle.normal,
         ),
         titleSmall: TextStyle(
           color: AppColors.whiteColor,
           fontWeight: FontWeight.w400,
-          fontSize: AppSize.size14,
+          fontSize: AppSize.size14.sp,
           fontFamily: 'Roboto',
           fontStyle: FontStyle.normal,
         ),
         titleLarge: TextStyle(
           color: AppColors.titleRedColor,
           fontWeight: FontWeight.w700,
-          fontSize: AppSize.size35,
+          fontSize: AppSize.size35.sp,
           fontFamily: 'Roboto',
           fontStyle: FontStyle.normal,
         ),
         displayMedium: TextStyle(
           color: AppColors.black,
           fontWeight: FontWeight.w500,
-          fontSize: AppSize.size30,
+          fontSize: AppSize.size30.sp,
           fontFamily: 'Roboto',
           fontStyle: FontStyle.normal,
         ),
-        // displaySmall: TextStyle(
-        //   color: AppColors.tabBarUnselctedText,
-        //   fontWeight: FontWeight.w600,
-        //   fontSize: AppSize.size16,
-        //   fontFamily: 'Roboto',
-        //   fontStyle: FontStyle.normal,
-        // ),
+        displaySmall: TextStyle(
+          color: AppColors.tabBarUnselctedText,
+          fontWeight: FontWeight.w500,
+          fontSize: AppSize.size16,
+          fontFamily: 'Roboto',
+          fontStyle: FontStyle.normal,
+        ),
       ));
 
   ThemeData? _themeData;

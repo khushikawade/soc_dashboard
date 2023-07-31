@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
-import 'package:solved_dashboard/helper_widget/information_graph_card.dart';
-import 'package:solved_dashboard/helper_widget/instructions_widget.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
-import 'package:solved_dashboard/utils/app_util.dart';
 
 class Engagement extends StatefulWidget {
   @override
@@ -25,8 +22,7 @@ class _EngagementState extends State<Engagement> {
         children: [
           Padding(
             padding: EdgeInsets.only(left: 190.sp, right: 190.sp, top: 40.sp),
-            child: pageTitleTextWidget(
-                'Push Notification Analytics', AppUtil.getContext()),
+            child: pageTitleTextWidget('Push Notification Analytics', context),
           ),
           SizedBox(
             height: 40.h,

@@ -40,11 +40,14 @@ dependencies:
   http: ^1.1.0
   injectable: ^2.1.2
   connectivity_plus: ^4.0.1
+  cached_network_image: ^3.2.3
   intl: ^0.18.1
   shared_preferences: ^2.2.0
   adaptive_theme: ^3.3.0
-  cached_network_image: ^3.2.3
   shimmer: ^3.0.0
+  vrouter: ^1.2.1
+  url_strategy: ^0.2.0
+  # web_hover_menu: ^0.0.3
   # responsive_framework: ^1.1.0
 
 dev_dependencies:

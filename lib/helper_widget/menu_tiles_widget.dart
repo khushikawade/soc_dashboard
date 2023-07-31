@@ -92,7 +92,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     return OverlayEntry(builder: (BuildContext overlayContext) {
       final offset = _getPosition();
       return Positioned(
-        top: 195.sp,
+        top: 205.sp,
         left: offset.dx,
         child: ChangeNotifierProvider.value(
           value: ScrollEventNotifier(false, false),
@@ -147,76 +147,78 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
             future: Future.delayed(Duration(milliseconds: (i * 200))),
             builder: (context, value) {
               if (value.connectionState == ConnectionState.done) {
-                return TweenAnimationBuilder(
-                  curve: Curves.fastOutSlowIn,
-                  duration: const Duration(milliseconds: 200),
-                  onEnd: () {
-                    if (entry != null && !_menuHover[widget.index]) {
-                      if (!entry!.mounted) {
-                        return;
-                      } else {
-                        entry!.remove();
-                      }
-                    }
+                return
+                    // TweenAnimationBuilder(
+                    //   curve: Curves.easeIn,
+                    //   duration: const Duration(milliseconds: 200),
+                    //   onEnd: () {
+                    //     if (entry != null && !_menuHover[widget.index]) {
+                    //       if (!entry!.mounted) {
+                    //         return;
+                    //       } else {
+                    //         entry!.remove();
+                    //       }
+                    //     }
+                    //   },
+                    //   tween: _menuHover[widget.index]
+                    //       ? Tween<double>(begin: 1, end: 0)
+                    //       : Tween<double>(begin: 0, end: 1),
+                    //   builder: (_, double value, _child) {
+                    //     return _defineAnimationType(
+                    //         widget.animationType, value, _child, i);
+                    //   },
+                    //   child:
+                    InkWell(
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("You Tapped On ${widget.menuTiles[i]}"),
+                        duration: const Duration(milliseconds: 500)));
                   },
-                  tween: _menuHover[widget.index]
-                      ? Tween<double>(begin: 1, end: 0)
-                      : Tween<double>(begin: 0, end: 1),
-                  builder: (_, double value, _child) {
-                    return _defineAnimationType(
-                        widget.animationType, value, _child, i);
-                  },
-                  child: InkWell(
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("You Tapped On ${widget.menuTiles[i]}"),
-                          duration: const Duration(milliseconds: 500)));
-                    },
-                    child: Container(
-                      width: 192.w,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColors.whiteColor,
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.black.withOpacity(0.1),
-                            blurRadius: 20.0.r,
-                            offset: const Offset(0, 20),
-                            spreadRadius: 0,
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                widget.menuTiles[i].imagePath!,
-                                height: 25.h,
-                                width: 25.w,
-                              ),
-                              SizedBox(
-                                width: 11.w,
-                              ),
-                              subMenuTitleWidget(
-                                  widget.menuTiles[i].name ?? '', context),
-                            ],
-                          )
-                          // Text(
-                          //   widget.menuTiles[i].name ?? '',
-                          //   textAlign: TextAlign.left,
-                          //   overflow: TextOverflow.ellipsis,
-                          //   style: TextStyle(
-                          //       fontSize: widget.menuTextSize,
-                          //       fontWeight: FontWeight.w500,
-                          //       color: widget.menuTextColor),
-                          // ),
-                          ),
+                  child: Container(
+                    width: 192.w,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.black.withOpacity(0.1),
+                          blurRadius: 20.0.r,
+                          offset: const Offset(0, 20),
+                          spreadRadius: 0,
+                        ),
+                      ],
                     ),
+                    child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              widget.menuTiles[i].imagePath!,
+                              height: 25.h,
+                              width: 25.w,
+                            ),
+                            SizedBox(
+                              width: 11.w,
+                            ),
+                            subMenuTitleWidget(
+                                widget.menuTiles[i].name ?? '', context),
+                          ],
+                        )
+                        // Text(
+                        //   widget.menuTiles[i].name ?? '',
+                        //   textAlign: TextAlign.left,
+                        //   overflow: TextOverflow.ellipsis,
+                        //   style: TextStyle(
+                        //       fontSize: widget.menuTextSize,
+                        //       fontWeight: FontWeight.w500,
+                        //       color: widget.menuTextColor),
+                        // ),
+                        ),
                   ),
+                  // ),
                 );
               }
               return Container();

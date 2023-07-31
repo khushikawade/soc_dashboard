@@ -27,12 +27,14 @@ class _DashboardState extends State<Dashboard> {
         id: 2,
         name: 'Reports',
         iconName: SolvedDashboardIcons.frame_239,
-        isSelected: false),
+        isSelected: false,
+        dropDownIcon: Icons.arrow_drop_down),
     Menu(
         id: 5,
         name: 'Assessments',
         iconName: SolvedDashboardIcons.frame_240,
-        isSelected: false),
+        isSelected: false,
+        dropDownIcon: Icons.arrow_drop_down),
     Menu(
         id: 3,
         name: 'Data Insights',
@@ -42,12 +44,14 @@ class _DashboardState extends State<Dashboard> {
         id: 4,
         name: 'Apps+',
         iconName: SolvedDashboardIcons.frame_245,
-        isSelected: false),
+        isSelected: false,
+        dropDownIcon: Icons.arrow_drop_down),
     Menu(
         id: 5,
         name: 'Engagement',
         iconName: SolvedDashboardIcons.frame_242,
-        isSelected: false),
+        isSelected: false,
+        dropDownIcon: Icons.arrow_drop_down),
     Menu(
         id: 5,
         name: '+ Data',
@@ -57,7 +61,8 @@ class _DashboardState extends State<Dashboard> {
         id: 5,
         name: 'Support',
         iconName: SolvedDashboardIcons.frame_244,
-        isSelected: false),
+        isSelected: false,
+        dropDownIcon: Icons.arrow_drop_down),
   }.toList();
 
   List<SubMenu> menuModelList = {

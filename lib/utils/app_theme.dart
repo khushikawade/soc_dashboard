@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 import 'package:solved_dashboard/utils/app_size.dart';
 
@@ -9,50 +10,57 @@ class AppTheme {
           titleMedium: TextStyle(
             color: AppColors.whiteColor,
             fontWeight: FontWeight.w600,
-            fontSize: AppSize.size26,
-            fontFamily: 'Roboto',
+            fontSize: AppSize.size26.sp,
+            fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
           ),
           labelSmall: TextStyle(
             color: AppColors.black,
             fontWeight: FontWeight.w500,
-            fontSize: AppSize.size16,
-            fontFamily: 'Roboto',
+            fontSize: AppSize.size16.sp,
+            fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
           ),
           labelMedium: TextStyle(
             color: AppColors.black,
             fontWeight: FontWeight.w500,
-            fontSize: AppSize.size25,
-            fontFamily: 'Roboto',
+            fontSize: AppSize.size25.sp,
+            fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
           ),
           titleSmall: TextStyle(
             color: AppColors.whiteColor,
             fontWeight: FontWeight.w400,
-            fontSize: AppSize.size14,
-            fontFamily: 'Roboto',
+            fontSize: AppSize.size14.sp,
+            fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
           ),
           titleLarge: TextStyle(
             color: AppColors.titleRedColor,
             fontWeight: FontWeight.w700,
-            fontSize: AppSize.size35,
-            fontFamily: 'Roboto',
+            fontSize: AppSize.size35.sp,
+            fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
           ),
           displayMedium: TextStyle(
             color: AppColors.black,
             fontWeight: FontWeight.w500,
-            fontSize: AppSize.size30,
-            fontFamily: 'Roboto',
+            fontSize: AppSize.size30.sp,
+            fontFamily: 'Inter',
+            fontStyle: FontStyle.normal,
+          ),
+          displaySmall: TextStyle(
+            color: AppColors.tabBarUnselctedText,
+            fontWeight: FontWeight.w500,
+            fontSize: AppSize.size16.sp,
+            fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
           ),
           bodyMedium: TextStyle(
             color: AppColors.black,
             fontWeight: FontWeight.w600,
-            fontSize: AppSize.size40,
-            fontFamily: 'Roboto',
+            fontSize: AppSize.size40.sp,
+            fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
           )));
 

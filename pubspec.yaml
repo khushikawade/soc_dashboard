@@ -40,14 +40,18 @@ dependencies:
   http: ^1.1.0
   injectable: ^2.1.2
   connectivity_plus: ^4.0.1
+  cached_network_image: ^3.2.3
   intl: ^0.18.1
   shared_preferences: ^2.2.0
   adaptive_theme: ^3.3.0
-  cached_network_image: ^3.2.3
   shimmer: ^3.0.0
   url_launcher: ^6.1.12
   flutter_html: ^3.0.0-beta.2
   
+  vrouter: ^1.2.1
+  url_strategy: ^0.2.0
+  # web_hover_menu: ^0.0.3
+  # responsive_framework: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -75,20 +79,24 @@ flutter:
     - assets/
 
   fonts:
-    - family: Roboto
+    - family: Inter
       fonts:
-        - asset: fonts/roboto/Roboto-Black.ttf
-        - asset: fonts/roboto/Roboto-BlackItalic.ttf
-        - asset: fonts/roboto/Roboto-Bold.ttf
-        - asset: fonts/roboto/Roboto-BoldItalic.ttf
-        - asset: fonts/roboto/Roboto-Italic.ttf
-        - asset: fonts/roboto/Roboto-Light.ttf
-        - asset: fonts/roboto/Roboto-LightItalic.ttf
-        - asset: fonts/roboto/Roboto-Medium.ttf
-        - asset: fonts/roboto/Roboto-MediumItalic.ttf
-        - asset: fonts/roboto/Roboto-Regular.ttf
-        - asset: fonts/roboto/Roboto-Thin.ttf
-        - asset: fonts/roboto/Roboto-ThinItalic.ttf
+        - asset: fonts/inter/Inter-Black.ttf
+        # - asset: fonts/inter/Inter-BlackItalic.ttf
+        - asset: fonts/inter/Inter-Bold.ttf
+        # - asset: fonts/inter/Inter-BoldItalic.ttf
+        # - asset: fonts/inter/Inter-Italic.ttf
+        - asset: fonts/inter/Inter-Light.ttf
+        # - asset: fonts/inter/Inter-LightItalic.ttf
+        - asset: fonts/inter/Inter-Medium.ttf
+        # - asset: fonts/inter/Inter-MediumItalic.ttf
+        - asset: fonts/inter/Inter-Regular.ttf
+        - asset: fonts/inter/Inter-Thin.ttf
+        # - asset: fonts/inter/Inter-ThinItalic.ttf
+
+    - family: SolvedDashboardIcons
+      fonts: 
+        - asset: fonts/SolvedDashboardIcons.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

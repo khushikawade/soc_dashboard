@@ -212,8 +212,9 @@ class Menu {
 class SubMenu {
   int? id;
   String? name;
+  String? imagePath;
 
-  SubMenu({this.id, this.name});
+  SubMenu({this.id, this.name, this.imagePath});
 
   @override
   int get hashCode => name.hashCode;

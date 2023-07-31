@@ -92,7 +92,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     return OverlayEntry(builder: (BuildContext overlayContext) {
       final offset = _getPosition();
       return Positioned(
-        top: 160,
+        top: 195.sp,
         left: offset.dx,
         child: ChangeNotifierProvider.value(
           value: ScrollEventNotifier(false, false),
@@ -186,12 +186,25 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                           ),
                         ],
                       ),
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 0.0, horizontal: 0.0),
                       child: Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: subMenuTitleWidget(
-                              widget.menuTiles[i].name ?? '', context)
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                widget.menuTiles[i].imagePath!,
+                                height: 25.h,
+                                width: 25.w,
+                              ),
+                              SizedBox(
+                                width: 11.w,
+                              ),
+                              subMenuTitleWidget(
+                                  widget.menuTiles[i].name ?? '', context),
+                            ],
+                          )
                           // Text(
                           //   widget.menuTiles[i].name ?? '',
                           //   textAlign: TextAlign.left,

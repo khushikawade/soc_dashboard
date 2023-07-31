@@ -61,9 +61,11 @@ class _DashboardState extends State<Dashboard> {
   }.toList();
 
   List<SubMenu> menuModelList = {
-    SubMenu(id: 1, name: 'App Usage'),
-    SubMenu(id: 2, name: 'Digital Forms'),
-    SubMenu(id: 3, name: 'Website Usage'),
+    SubMenu(id: 1, name: 'App Usage', imagePath: 'assets/app_usage.png'),
+    SubMenu(
+        id: 2, name: 'Digital Forms', imagePath: 'assets/digital_forms.png'),
+    SubMenu(
+        id: 3, name: 'Website Usage', imagePath: 'assets/webside_usage.png'),
   }.toList();
 
   @override

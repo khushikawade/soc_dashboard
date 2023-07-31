@@ -106,11 +106,12 @@ class AppBarWidget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    TextButton(
-                        onPressed: () {
-                          AppUtil.dialogBuilder(context);
-                        },
-                        child: labelSmallWidget('Total Page Views', context)),
+                    labelSmallWidget('Total Page Views', context),
+                    // TextButton(
+                    //     onPressed: () {
+                    //       AppUtil.dialogBuilder(context);
+                    //     },
+                    //     child: labelSmallWidget('Total Page Views', context)),
                     SizedBox(
                       height: 10.h,
                     ),

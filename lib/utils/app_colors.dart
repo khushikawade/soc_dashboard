@@ -17,6 +17,7 @@ class AppColors {
   static const Color linkUnderlineColor = Color(0xff008EFF);
   static const Color backgroundBlueColor = Color(0xffCBD9ED);
   static const Color blueColorBG = Color(0xffC0D2EF);
+  static const Color greyLight = Color(0xff777777);
 
   static Color? kShimmerBaseColor = Colors.grey[300];
   static Color? kShimmerHighlightColor = Colors.grey[100];

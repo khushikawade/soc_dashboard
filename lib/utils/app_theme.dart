@@ -52,7 +52,7 @@ class AppTheme {
         displaySmall: TextStyle(
           color: AppColors.tabBarUnselctedText,
           fontWeight: FontWeight.w500,
-          fontSize: AppSize.size16,
+          fontSize: AppSize.size16.sp,
           fontFamily: 'Inter',
           fontStyle: FontStyle.normal,
         ),

@@ -33,7 +33,7 @@ class _OneColumnTextAndImageLeftWidgetState
         padding:
             EdgeInsets.only(left: 40.w, top: 55.h, bottom: 90.h, right: 55.w),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20.r)),
+          borderRadius: BorderRadius.all(Radius.circular(10.r)),
           boxShadow: [
             BoxShadow(
               color: AppColors.black.withOpacity(0.1),

@@ -9,13 +9,15 @@ class CustomImage extends StatefulWidget {
   final double? height;
   final double? width;
   final String? darkModeIconUrl;
+  final String? imagepath;
 
   CustomImage(
       {Key? key,
-      @required this.iconUrl,
+      this.iconUrl,
       this.darkModeIconUrl,
       this.height,
-      this.width})
+      this.width,
+      this.imagepath})
       : super(key: key);
 
   @override
@@ -32,8 +34,11 @@ class _CustomImageState extends State<CustomImage> {
   Widget build(BuildContext context) {
     return Container(
       child: ClipRRect(
-          child:
-              cachedNetworkImage(widget.iconUrl, widget.height, widget.width)),
+          child: cachedNetworkImage(
+        widget.iconUrl,
+        widget.height,
+        widget.width,
+      )),
     );
   }
 

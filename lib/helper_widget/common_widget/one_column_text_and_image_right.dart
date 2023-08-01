@@ -30,8 +30,10 @@ class _OneColumnTextAndImageRightWidgetState
   Widget build(BuildContext context) {
     return SelectionArea(
       child: Container(
-        padding:
-            EdgeInsets.only(left: 40.w, top: 55.h, bottom: 90.h, right: 55.w),
+        // padding: EdgeInsets.only(
+        //   left: 40.w,
+        //   bottom: 90.h,
+        // ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20.r)),
           boxShadow: [
@@ -48,38 +50,44 @@ class _OneColumnTextAndImageRightWidgetState
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            headerTextWidget(widget.titleText, context),
+            widget.titleText != ""
+                ? headerTextWidget(widget.titleText, context)
+                : const SizedBox.shrink(),
             // VerticalSpacerWidget(53.h),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      subHeaderTextWidget(widget.subTitleText, context),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(right: 53.w),
-                        child:
-                            detailTextWidget(widget.detailDescription, context),
-                      ),
-                    ],
+                Container(
+                  margin: EdgeInsets.only(
+                    left: 121.w,
+                    top: 55.h,
+                    bottom: 90.h,
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        widget.subTitleText != ""
+                            ? subHeaderTextWidget(widget.subTitleText, context)
+                            : const SizedBox.shrink(),
+                        widget.subTitleText != ""
+                            ? SizedBox(
+                                height: 30.h,
+                              )
+                            : const SizedBox.shrink(),
+                        detailTextWidget(widget.detailDescription, context),
+                      ],
+                    ),
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 53.h),
-                    child: CustomImage(
-                      // height: 400,c
-                      // width: 300,
-                      iconUrl: widget.imageUrl,
-                    ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Image.asset(
+                    widget.imageUrl!,
+                    width: 800.w,
+                    fit: BoxFit.cover,
                   ),
                 )
               ],

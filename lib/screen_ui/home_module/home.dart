@@ -5,6 +5,8 @@ import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/helper_widget/information_graph_card.dart';
 import 'package:solved_dashboard/helper_widget/instructions_widget.dart';
 
+import '../../helper_widget/common_widget/one_column_text_and_image_right.dart';
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();

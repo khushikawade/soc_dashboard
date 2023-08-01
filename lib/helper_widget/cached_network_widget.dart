@@ -9,8 +9,11 @@ class CustomIconMode extends StatefulWidget {
 
   final String? darkModeIconUrl;
 
-  CustomIconMode({Key? key, @required this.iconUrl, this.darkModeIconUrl})
-      : super(key: key);
+  CustomIconMode({
+    Key? key,
+    @required this.iconUrl,
+    this.darkModeIconUrl,
+  }) : super(key: key);
 
   @override
   State<CustomIconMode> createState() => _CustomIconModeState();
@@ -34,7 +37,7 @@ class _CustomIconModeState extends State<CustomIconMode> {
         imageUrl: url,
         height: 106.h,
         width: 106.w,
-        //fit: BoxFit.cover,
+        //fit: BoxFit.fill,
         placeholder: (context, url) => Container(
             alignment: Alignment.center,
             child: ShimmerLoading(

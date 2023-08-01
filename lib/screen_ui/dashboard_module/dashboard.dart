@@ -5,6 +5,7 @@ import 'package:solved_dashboard/custom_fonts/solved_dashboard_icons_icons.dart'
 import 'package:solved_dashboard/helper_widget/app_bar_widget.dart';
 import 'package:solved_dashboard/helper_widget/copy_right_widget.dart';
 import 'package:solved_dashboard/helper_widget/hover_animation_widget.dart';
+import 'package:solved_dashboard/helper_widget/shimmer_loading.dart';
 import 'package:solved_dashboard/helper_widget/tabbar_item_widget.dart';
 import 'package:solved_dashboard/helper_widget/vertical_divider_widget.dart';
 import 'package:solved_dashboard/routers/route_constants.dart';
@@ -95,14 +96,22 @@ class _DashboardState extends State<Dashboard> {
       //bottomSheet: copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.'),
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(400.h),
-          child: AppBarWidget(
-              logoURL: projectHomeViewModel.logoURL ??
-                  'https://solved-schools.s3.us-east-2.amazonaws.com/BB-P.S.+456+Bronx-Bears/app-logos/Bronx+Bears+1024.png',
-              pageViewCount: '2,444',
-              schoolName: projectHomeViewModel.contactNameC,
-              isBusy: projectHomeViewModel.showLoader,
-              primaryColor: projectHomeViewModel
-                  .getColorFromHex(projectHomeViewModel.primaryColorC))),
+          child: projectHomeViewModel.showLoader
+              ? ShimmerLoading(
+                  isLoading: projectHomeViewModel.showLoader,
+                  child: Container(
+                    height: 129.h,
+                    width: double.infinity,
+                    color: Colors.white,
+                  ),
+                )
+              : AppBarWidget(
+                  logoURL: projectHomeViewModel.logoURL ?? '',
+                  pageViewCount: '2,444',
+                  schoolName: projectHomeViewModel.contactNameC,
+                  isBusy: projectHomeViewModel.showLoader,
+                  primaryColor: projectHomeViewModel
+                      .getColorFromHex(projectHomeViewModel.primaryColorC))),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
@@ -119,11 +128,20 @@ class _DashboardState extends State<Dashboard> {
               shrinkWrap: true,
               children: [
                 Home(),
-                copyRightWidget(
-                    '© 2023 Bronx Bears. All Rights Reserved.',
-                    context,
-                    projectHomeViewModel
-                        .getColorFromHex(projectHomeViewModel.primaryColorC)),
+                projectHomeViewModel.showLoader
+                    ? ShimmerLoading(
+                        isLoading: projectHomeViewModel.showLoader,
+                        child: Container(
+                          height: 79.h,
+                          width: double.infinity,
+                          color: Colors.white,
+                        ),
+                      )
+                    : copyRightWidget(
+                        '© 2023 Bronx Bears. All Rights Reserved.',
+                        context,
+                        projectHomeViewModel.getColorFromHex(
+                            projectHomeViewModel.primaryColorC)),
               ],
             ),
           )

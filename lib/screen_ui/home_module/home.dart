@@ -6,6 +6,7 @@ import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 
 import '../../helper_widget/common_widget/one_column_text_and_image_right.dart';
 
+import '../../helper_widget/common_widget/push_notifcation_card.dart';
 import '../../helper_widget/common_widget/two_column_text_and_image.dart';
 
 class Home extends StatefulWidget {
@@ -26,6 +27,7 @@ class _HomeState extends State<Home> {
           left: 190.sp, right: 190.sp, top: 36.sp, bottom: 80.sp),
       children: [
         pageTitleTextWidget('Latest Dashboard Features', context),
+    
         SizedBox(
           height: 42.h,
         ),

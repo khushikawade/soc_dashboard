@@ -30,8 +30,10 @@ class _OneColumnTextAndImageRightWidgetState
   Widget build(BuildContext context) {
     return SelectionArea(
       child: Container(
-        padding:
-            EdgeInsets.only(left: 40.w, top: 55.h, bottom: 90.h, right: 55.w),
+        // padding: EdgeInsets.only(
+        //   left: 40.w,
+        //   bottom: 90.h,
+        // ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.r)),
           boxShadow: [
@@ -54,11 +56,14 @@ class _OneColumnTextAndImageRightWidgetState
             // VerticalSpacerWidget(53.h),
             Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
                   margin: EdgeInsets.only(
-                      left: 121.w, top: 55.h, bottom: 90.h, right: 55.w),
+                    left: 121.w,
+                    top: 55.h,
+                    bottom: 90.h,
+                  ),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -77,10 +82,13 @@ class _OneColumnTextAndImageRightWidgetState
                     ),
                   ),
                 ),
-                Image.asset(
-                  widget.imageUrl!,
-                  width: 800.sp,
-                  fit: BoxFit.cover,
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Image.asset(
+                    widget.imageUrl!,
+                    width: 800.w,
+                    fit: BoxFit.cover,
+                  ),
                 )
               ],
             ),

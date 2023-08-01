@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
           detailDescriptionCard3: '''
   <div>
     <p>-Weekly Data Deep Dives directly to your email <br>
-    -Data-Driven Professional Development<br>Resources<br>
+    -Data-Driven Professional Development<br>  Resources<br>
     - Available in <a href="https://lookerstudio.google.com/u/0/reporting/75743c2d-5749-45e7-9562-58d0928662b2/page/p_ef0a9fdm4c">Data Insights</a><br></p>
   </div>
 ''',
@@ -128,7 +128,6 @@ class _HomeState extends State<Home> {
 ''',
           imageUrl: "assets/dummy.png",
         )
-
       ],
     );
   }

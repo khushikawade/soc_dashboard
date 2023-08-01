@@ -35,11 +35,11 @@ class _OneColumnTextAndImageLeftWidgetState
         borderRadius: BorderRadius.all(Radius.circular(10.r)),
         boxShadow: [
           BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.40), // Shadow color
-            spreadRadius: 5, // Spread radius
-            blurRadius: 7, // Blur radius
-            offset: Offset(0, 3),
-          )
+            color: AppColors.black.withOpacity(0.1),
+            blurRadius: 20.0.r,
+            offset: const Offset(0, 20),
+            spreadRadius: 0,
+          ),
         ],
         color: AppColors.whiteColor,
       ),

@@ -6,6 +6,7 @@ class AppColors {
   AppColors._();
 
   static const Color black = Color(0xff000000);
+  static const Color blackColorBG = Color(0xff111C20);
   static const Color tabBarSelectedBG = Color(0xff444444);
   static const Color appPrimaryColor = Color(0xff89A7D7);
   static const Color whiteColor = Color(0xffFFFFFF);

@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
         designSize: Size(1920, 1080),
         builder: (context, child) {
           return AdaptiveTheme(
-            initial: AdaptiveThemeMode.light,
+            initial: AdaptiveThemeMode.system,
             light: AppTheme.lightTheme,
-            dark: AppTheme.lightTheme,
+            dark: AppTheme.darkTheme,
             builder: (light, dark) {
               return VRouter(
                 theme: light,

@@ -5,6 +5,7 @@ class AppSize {
   static double size18 = 18.0;
   static double size14 = 14.0;
   static double size30 = 30.0;
+  static double size40 = 40.0;
   static double size16 = 16.0;
   static double size25 = 25.0;
   static double size26 = 26.0;
@@ -14,7 +15,6 @@ class AppSize {
   static double size15 = 15.0;
   static double size12 = 12.0;
   static double size35 = 35.0;
-  static double size40 = 40.0;
 
   // Button Height
   static double buttonHeight = 56.0;

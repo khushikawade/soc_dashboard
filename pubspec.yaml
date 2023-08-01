@@ -45,9 +45,11 @@ dependencies:
   shared_preferences: ^2.2.0
   adaptive_theme: ^3.3.0
   shimmer: ^3.0.0
+
+  
+ 
   url_launcher: ^6.1.12
   flutter_html: ^3.0.0-beta.2
-  
   vrouter: ^1.2.1
   url_strategy: ^0.2.0
   # web_hover_menu: ^0.0.3

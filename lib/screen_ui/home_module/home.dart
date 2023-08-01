@@ -8,6 +8,7 @@ import 'package:solved_dashboard/routers/route_constants.dart';
 import 'package:solved_dashboard/screen_ui/home_module/home_model.dart';
 
 import '../../helper_widget/common_widget/one_column_text_and_image_right.dart';
+import '../../helper_widget/common_widget/one_column_text_and_image_left.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -18,8 +19,6 @@ class _HomeState extends State<Home> {
   bool _isHoveringFirst = false;
   bool _isHoveringSecond = false;
   bool _isHoveringThird = false;
-
- 
 
   Widget build(BuildContext context) {
     return ListView(
@@ -42,10 +41,12 @@ class _HomeState extends State<Home> {
      consequat non imperdiet vel, tristique nec urna. Mauris et imperd
      iet ligula, imperdiet lacinia leo. Curabitur dictum veli<br><br>varius, viverra
      Etiam hendrerit dui vel enim dignissim tempus. Pellentesque hendrerit enim sodales, commodo sapien sed, hendrerit mi. Integer facilisis mauris a nunc euismod, id fermentum</p>
+   <br><br>varius, viverra
+     Etiam hendrerit dui vel enim dignissim tempus. Pellentesque hendrerit enim sodales, commodo sapien sed, hendrerit mi. Integer facilisis mauris a nunc euismod, id fermentum</p>
    
   </div>
 ''',
-          imageUrl: "assets/dummy.png",
+          imageUrl: "assets/one_column_image.png",
         ),
         SizedBox(
           height: 42.h,

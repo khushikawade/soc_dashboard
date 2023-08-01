@@ -68,6 +68,7 @@ class ProjectHomeViewModel extends ChangeNotifier {
 
   // Call API for get home details
   getHomeData() async {
+    showLoader = true;
     String objectName = "School_App__c";
 
     HomeResponse homeResponse = await _api.getHomeData(schoolId, objectName);
@@ -118,12 +119,17 @@ class ProjectHomeViewModel extends ChangeNotifier {
         break;
     }
 
-    // showLocationLoader = false;
+    showLoader = false;
   }
 
   Color getColorFromHex(String hexColor) {
-    hexColor = hexColor.replaceAll("#", "");
-    final int hexValue = int.parse(hexColor, radix: 16);
-    return Color(hexValue | 0xFF000000); // Add alpha value (opaque)
+    if (hexColor.isNotEmpty) {
+      hexColor = hexColor.replaceAll("#", "");
+      print("Value after replace ---------------------- $hexColor");
+      final int hexValue = int.parse(hexColor, radix: 16);
+      return Color(hexValue | 0xFF000000); // Add alpha value (opaque)
+    } else {
+      return const Color(0xFF000000);
+    }
   }
 }

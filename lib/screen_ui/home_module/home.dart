@@ -6,6 +6,8 @@ import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 
 import '../../helper_widget/common_widget/one_column_text_and_image_right.dart';
 
+import '../../helper_widget/common_widget/two_column_text_and_image.dart';
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();

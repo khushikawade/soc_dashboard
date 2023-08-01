@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:solved_dashboard/custom_fonts/solved_dashboard_icons_icons.dart';
+import 'package:solved_dashboard/models/nav_bar_model.dart';
 import 'package:solved_dashboard/services/api.dart';
 import 'package:solved_dashboard/services/models/home_response.dart';
 import 'package:solved_dashboard/utils/constant.dart';
@@ -19,6 +21,14 @@ class ProjectHomeViewModel extends ChangeNotifier {
   List<HomeList> get homeDataList => _homeDataList;
   set homeDataList(List<HomeList> homeDataList) {
     _homeDataList = homeDataList;
+    notifyListeners();
+  }
+
+  List<NavBarModel> _navBarItemList = List.empty(growable: true);
+
+  List<NavBarModel> get navBarItemList => _navBarItemList;
+  set navBarItemList(List<NavBarModel> list) {
+    _navBarItemList = list;
     notifyListeners();
   }
 
@@ -51,6 +61,256 @@ class ProjectHomeViewModel extends ChangeNotifier {
   set showLoader(bool value) {
     _showLoader = value;
     notifyListeners();
+  }
+
+  // Build Nav bar widget & its items
+  buildNavBar() {
+    navBarItemList.add(NavBarModel(
+      title: 'Home',
+      id: 1,
+      icon: SolvedDashboardIcons.frame_238,
+      isSelcted: false,
+    ));
+    navBarItemList.add(NavBarModel(
+        title: 'Reports',
+        id: 2,
+        icon: SolvedDashboardIcons.frame_239,
+        isSelcted: false,
+        dropDownIcon: Icons.arrow_drop_down,
+        menuOptions: [
+          NavBarMenu(
+            menuTitle: 'Student Report',
+            id: 1,
+            isSelected: false,
+          ),
+          NavBarMenu(
+            menuTitle: 'Class Report',
+            id: 2,
+            isSelected: false,
+          ),
+          NavBarMenu(
+            menuTitle: 'Report Card',
+            id: 3,
+            isSelected: false,
+          ),
+          NavBarMenu(
+            menuTitle: 'School Reports',
+            id: 4,
+            isSelected: false,
+          ),
+          NavBarMenu(
+            menuTitle: 'Correlations',
+            id: 5,
+            isSelected: false,
+          ),
+          NavBarMenu(
+            menuTitle: 'Dashboard Usage',
+            id: 6,
+            isSelected: false,
+          ),
+          NavBarMenu(
+            menuTitle: 'Dashboard Permissions',
+            id: 7,
+            isSelected: false,
+          )
+        ]));
+    navBarItemList.add(NavBarModel(
+        title: 'Assessments',
+        id: 3,
+        icon: SolvedDashboardIcons.frame_240,
+        isSelcted: false,
+        dropDownIcon: Icons.arrow_drop_down,
+        menuOptions: [
+          NavBarMenu(
+              menuTitle: 'MAP',
+              id: 1,
+              isSelected: false,
+              icon: Icons.arrow_right_outlined,
+              subMenu: [
+                SubMenuData(
+                  subMenuTitle: 'MAP Math',
+                  id: 1,
+                  isSelected: false,
+                ),
+                SubMenuData(
+                  subMenuTitle: 'MAP ELA',
+                  id: 2,
+                  isSelected: false,
+                )
+              ]),
+          NavBarMenu(
+              menuTitle: 'iReady',
+              id: 2,
+              isSelected: false,
+              icon: Icons.arrow_right_outlined,
+              subMenu: [
+                SubMenuData(
+                  subMenuTitle: 'iReady Math',
+                  id: 1,
+                  isSelected: false,
+                ),
+                SubMenuData(
+                  subMenuTitle: 'iReady ELA',
+                  id: 2,
+                  isSelected: false,
+                )
+              ]),
+          NavBarMenu(
+              menuTitle: 'Acadience',
+              id: 3,
+              isSelected: false,
+              icon: Icons.arrow_right_outlined,
+              subMenu: [
+                SubMenuData(
+                  subMenuTitle: 'Acadience Math',
+                  id: 1,
+                  isSelected: false,
+                ),
+                SubMenuData(
+                  subMenuTitle: 'Acadience ELA',
+                  id: 2,
+                  isSelected: false,
+                )
+              ]),
+          NavBarMenu(
+              menuTitle: 'NYS / ISA 2022',
+              id: 4,
+              isSelected: false,
+              icon: Icons.arrow_right_outlined,
+              subMenu: [
+                SubMenuData(
+                  subMenuTitle: 'NYS Math 2022',
+                  id: 1,
+                  isSelected: false,
+                ),
+                SubMenuData(
+                  subMenuTitle: 'NYS ELA 2022',
+                  id: 2,
+                  isSelected: false,
+                ),
+                SubMenuData(
+                  subMenuTitle: 'ISA Math by Class',
+                  id: 3,
+                  isSelected: false,
+                ),
+                SubMenuData(
+                  subMenuTitle: 'ISA ELA by Class',
+                  id: 4,
+                  isSelected: false,
+                ),
+                SubMenuData(
+                  subMenuTitle: 'ISA Math by Student',
+                  id: 5,
+                  isSelected: false,
+                ),
+                SubMenuData(
+                  subMenuTitle: 'ISA ELA by Student',
+                  id: 6,
+                  isSelected: false,
+                )
+              ]),
+          NavBarMenu(
+            menuTitle: 'F&P',
+            id: 5,
+            isSelected: false,
+          ),
+          NavBarMenu(
+            menuTitle: 'DRP',
+            id: 6,
+            isSelected: false,
+          ),
+          NavBarMenu(
+            menuTitle: 'SEL',
+            id: 7,
+            isSelected: false,
+          ),
+          NavBarMenu(
+              menuTitle: 'June Instructional Report',
+              id: 8,
+              isSelected: false,
+              icon: Icons.arrow_right_outlined,
+              subMenu: [
+                SubMenuData(
+                  subMenuTitle: 'Total Number of Questions',
+                  id: 1,
+                  isSelected: false,
+                ),
+                SubMenuData(
+                  subMenuTitle: 'JIR Math',
+                  id: 2,
+                  isSelected: false,
+                ),
+                SubMenuData(
+                  subMenuTitle: 'JIR ELA',
+                  id: 3,
+                  isSelected: false,
+                )
+              ]),
+        ]));
+    navBarItemList.add(NavBarModel(
+      title: 'Data Insights',
+      id: 4,
+      icon: SolvedDashboardIcons.frame_241,
+      isSelcted: false,
+    ));
+    navBarItemList.add(NavBarModel(
+        title: 'Apps+',
+        id: 5,
+        icon: SolvedDashboardIcons.frame_245,
+        isSelcted: false,
+        dropDownIcon: Icons.arrow_drop_down));
+    navBarItemList.add(NavBarModel(
+        title: 'Engagement',
+        id: 6,
+        icon: SolvedDashboardIcons.frame_242,
+        isSelcted: false,
+        dropDownIcon: Icons.arrow_drop_down,
+        menuOptions: [
+          NavBarMenu(
+            menuTitle: 'App Usage',
+            id: 1,
+            isSelected: false,
+          ),
+          NavBarMenu(
+            menuTitle: 'Digital Forms',
+            id: 2,
+            isSelected: false,
+          ),
+          NavBarMenu(
+            menuTitle: 'Website Usage',
+            id: 3,
+            isSelected: false,
+          )
+        ]));
+    navBarItemList.add(NavBarModel(
+      title: '+ Data',
+      id: 7,
+      icon: SolvedDashboardIcons.frame_243,
+      isSelcted: false,
+    ));
+    navBarItemList.add(NavBarModel(
+        title: 'Support',
+        id: 8,
+        icon: SolvedDashboardIcons.frame_244,
+        isSelcted: false,
+        dropDownIcon: Icons.arrow_drop_down,
+        menuOptions: [
+          NavBarMenu(
+            menuTitle: 'HS Dashboard',
+            id: 1,
+            isSelected: false,
+          ),
+          NavBarMenu(
+            menuTitle: 'Mobile Dashboard',
+            id: 2,
+            isSelected: false,
+          ),
+          NavBarMenu(
+            menuTitle: 'Student Feedback',
+            id: 3,
+            isSelected: false,
+          )
+        ]));
   }
 
   String extractIdFromUrl(String url) {

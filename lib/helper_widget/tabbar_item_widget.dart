@@ -34,7 +34,7 @@ Widget tabBarItemWidget(
         ),
         Icon(
           dropDownIcon,
-          color: AppColors.black,
+          color: isSelected ? AppColors.whiteColor : AppColors.black,
           size: 20.sp,
         ),
       ],

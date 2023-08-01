@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:solved_dashboard/custom_fonts/solved_dashboard_icons_icons.dart';
 import 'package:solved_dashboard/helper_widget/app_bar_widget.dart';
 import 'package:solved_dashboard/helper_widget/copy_right_widget.dart';
 import 'package:solved_dashboard/helper_widget/hover_animation_widget.dart';
 import 'package:solved_dashboard/helper_widget/tabbar_item_widget.dart';
 import 'package:solved_dashboard/helper_widget/vertical_divider_widget.dart';
+import 'package:solved_dashboard/routers/route_constants.dart';
+import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard_model.dart';
 import 'package:solved_dashboard/screen_ui/home_module/home.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 
@@ -27,12 +30,14 @@ class _DashboardState extends State<Dashboard> {
         id: 2,
         name: 'Reports',
         iconName: SolvedDashboardIcons.frame_239,
-        isSelected: false),
+        isSelected: false,
+        dropDownIcon: Icons.arrow_drop_down),
     Menu(
         id: 5,
         name: 'Assessments',
         iconName: SolvedDashboardIcons.frame_240,
-        isSelected: false),
+        isSelected: false,
+        dropDownIcon: Icons.arrow_drop_down),
     Menu(
         id: 3,
         name: 'Data Insights',
@@ -42,12 +47,14 @@ class _DashboardState extends State<Dashboard> {
         id: 4,
         name: 'Apps+',
         iconName: SolvedDashboardIcons.frame_245,
-        isSelected: false),
+        isSelected: false,
+        dropDownIcon: Icons.arrow_drop_down),
     Menu(
         id: 5,
         name: 'Engagement',
         iconName: SolvedDashboardIcons.frame_242,
-        isSelected: false),
+        isSelected: false,
+        dropDownIcon: Icons.arrow_drop_down),
     Menu(
         id: 5,
         name: '+ Data',
@@ -57,7 +64,8 @@ class _DashboardState extends State<Dashboard> {
         id: 5,
         name: 'Support',
         iconName: SolvedDashboardIcons.frame_244,
-        isSelected: false),
+        isSelected: false,
+        dropDownIcon: Icons.arrow_drop_down),
   }.toList();
 
   List<SubMenu> menuModelList = {
@@ -69,17 +77,32 @@ class _DashboardState extends State<Dashboard> {
   }.toList();
 
   @override
+  void initState() {
+    super.initState();
+    String url = RouteConstants.homeRoute;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final projectHomeViewModel =
+          Provider.of<ProjectHomeViewModel>(context, listen: false);
+      projectHomeViewModel.extractIdFromUrl(url);
+      projectHomeViewModel.getHomeData();
+    });
+  }
+
   Widget build(BuildContext context) {
+    final projectHomeViewModel = Provider.of<ProjectHomeViewModel>(context);
     return Scaffold(
       backgroundColor: AppColors.pageBGColor,
       //bottomSheet: copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.'),
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(400.h),
-          child: const AppBarWidget(
-            logoURL:
-                'https://solved-schools.s3.us-east-2.amazonaws.com/BB-P.S.+456+Bronx-Bears/app-logos/Bronx+Bears+1024.png',
-            pageViewCount: '2,444',
-          )),
+          child: AppBarWidget(
+              logoURL: projectHomeViewModel.logoURL ??
+                  'https://solved-schools.s3.us-east-2.amazonaws.com/BB-P.S.+456+Bronx-Bears/app-logos/Bronx+Bears+1024.png',
+              pageViewCount: '2,444',
+              schoolName: projectHomeViewModel.contactNameC,
+              isBusy: projectHomeViewModel.showLoader,
+              primaryColor: projectHomeViewModel
+                  .getColorFromHex(projectHomeViewModel.primaryColorC))),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
@@ -97,7 +120,10 @@ class _DashboardState extends State<Dashboard> {
               children: [
                 Home(),
                 copyRightWidget(
-                    '© 2023 Bronx Bears. All Rights Reserved.', context),
+                    '© 2023 Bronx Bears. All Rights Reserved.',
+                    context,
+                    projectHomeViewModel
+                        .getColorFromHex(projectHomeViewModel.primaryColorC)),
               ],
             ),
           )

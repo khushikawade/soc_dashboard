@@ -54,7 +54,7 @@ Widget tabBarItemWidgetText(text, context, color) {
       color: color,
       fontWeight: FontWeight.w600,
       fontSize: AppSize.size16.sp,
-      fontFamily: 'Roboto',
+      fontFamily: 'Inter',
       fontStyle: FontStyle.normal,
     ),
   );

@@ -119,7 +119,7 @@ class ProjectHomeViewModel extends ChangeNotifier {
         break;
     }
 
-    //showLoader = false;
+    showLoader = false;
   }
 
   Color getColorFromHex(String hexColor) {

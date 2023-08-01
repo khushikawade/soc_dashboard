@@ -12,7 +12,7 @@ class AppColors {
   static const Color tabBarUnselctedText = Color(0xff6A707E);
   static const Color tabBarDivider = Color(0xffDFDFDF);
   static const Color titleRedColor = Color(0xffD63F3F);
-  static const Color pageBGColor = Color(0xffEFF6FF);
+  static const Color pageBGColor = Color(0xffF3F6F9);
   static const Color linkTextColor = Color(0xff2295F1);
   static const Color linkUnderlineColor = Color(0xff008EFF);
   static const Color backgroundBlueColor = Color(0xffCBD9ED);

@@ -80,6 +80,68 @@ Widget subHeaderTextWidget(text, context) {
           .copyWith(fontSize: AppSize.size30.sp));
 }
 
+Widget labelTextForPopUpWidget(text, context) {
+  return Text(text, style: AppTheme.lightTheme.textTheme.displayLarge);
+}
+
+Widget labelTextIndex(text, context) {
+  return Text(text,
+      style: TextStyle(
+        color: AppColors.whiteColor,
+        fontWeight: FontWeight.w500,
+        fontSize: AppSize.size18,
+        fontFamily: 'Inter',
+        fontStyle: FontStyle.normal,
+      ));
+}
+
+Widget buttonText(text, context) {
+  return Text(text,
+      style: TextStyle(
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+        fontSize: AppSize.size22,
+        fontFamily: 'Poppins',
+        fontStyle: FontStyle.normal,
+      ));
+}
+
+Widget threeColumnTextWidget(text, context) {
+  //return Text(text, style: AppTheme.lightTheme.textTheme.labelSmall);
+
+  return Html(
+    data: "$text",
+    shrinkWrap: true,
+    onLinkTap: (url, attributes, element) {
+      AppUtil.urlLauncher(url);
+    },
+    extensions: [
+      TagExtension(tagsToExtend: {"flutter"}, child: const SizedBox.shrink()),
+    ],
+    style: {
+      "body": Style(
+        margin: Margins.zero,
+        alignment: Alignment.center,
+        // padding: HtmlPaddings.zero,
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+        fontSize: FontSize(AppSize.size16.sp),
+        fontFamily: 'Poppins',
+        fontStyle: FontStyle.normal,
+      ),
+      "p": Style(
+        margin: Margins.zero,
+        // padding: HtmlPaddings.zero,
+        color: AppColors.black,
+        fontWeight: FontWeight.w400,
+        fontSize: FontSize(AppSize.size16.sp),
+        fontFamily: 'Poppins',
+        fontStyle: FontStyle.normal,
+      )
+    },
+  );
+}
+
 Widget detailTextWidget(text, context) {
   //return Text(text, style: AppTheme.lightTheme.textTheme.labelSmall);
 

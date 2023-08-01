@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/helper_widget/cached_network_widget.dart';
+import 'package:solved_dashboard/helper_widget/common_widget/faq_custom_popup.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/helper_widget/shimmer_loading.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
@@ -120,6 +121,11 @@ class AppBarWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     labelSmallWidget('Total Page Views', context),
+                    // TextButton(
+                    //     onPressed: () {
+                    //       AppUtil.dialogBuilder(context);
+                    //     },
+                    //     child: labelSmallWidget('Total Page Views', context)),
                     SizedBox(
                       height: 10.h,
                     ),

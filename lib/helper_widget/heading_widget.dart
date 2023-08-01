@@ -69,7 +69,9 @@ Widget headerTextWidget(text, context) {
 }
 
 Widget subHeaderTextWidget(text, context) {
-  return Text(text, style: AppTheme.lightTheme.textTheme.displayMedium);
+  return Text(text,
+      style: AppTheme.lightTheme.textTheme.displayMedium!
+          .copyWith(fontSize: AppSize.size30.sp));
 }
 
 Widget detailTextWidget(text, context) {
@@ -77,7 +79,7 @@ Widget detailTextWidget(text, context) {
 
   return Html(
     data: "$text",
-    shrinkWrap: false,
+    shrinkWrap: true,
     onLinkTap: (url, attributes, element) {
       AppUtil.urlLauncher(url);
     },
@@ -87,10 +89,11 @@ Widget detailTextWidget(text, context) {
     style: {
       "body": Style(
         margin: Margins.zero,
+        alignment: Alignment.center,
         // padding: HtmlPaddings.zero,
         color: AppColors.black,
         fontWeight: FontWeight.w400,
-        fontSize: FontSize(AppSize.size16),
+        fontSize: FontSize(AppSize.size16.sp),
         fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
       ),
@@ -99,7 +102,7 @@ Widget detailTextWidget(text, context) {
         // padding: HtmlPaddings.zero,
         color: AppColors.black,
         fontWeight: FontWeight.w400,
-        fontSize: FontSize(AppSize.size16),
+        fontSize: FontSize(AppSize.size16.sp),
         fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
       )

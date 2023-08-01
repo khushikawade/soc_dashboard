@@ -117,7 +117,18 @@ class _HomeState extends State<Home> {
         SizedBox(
           height: 56.h,
         ),
-        instructionsWidget(),
+        const OneColumnTextAndImageRightWidget(
+          titleText: "",
+          subTitleText: "",
+          detailDescription: '''
+  <div>
+    <p>Your school’s dashboard was developed to <br>make students’ data more accessible, inform<br>classroom instruction, and empower educators<br>to discuss student progress with families.<br></p>
+    <p>Use the navigation bar at the top to access the<br>students’ data. If you have any questions,<br>feedback, or updates, please email<br><a href="mailto:admin@solvedconsulting.com">admin@solvedconsulting.com</a>.</p>
+  </div>
+''',
+          imageUrl: "assets/dummy.png",
+        )
+
       ],
     );
   }

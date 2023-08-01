@@ -35,12 +35,12 @@ class _OneColumnTextAndImageRightWidgetState
         //   bottom: 90.h,
         // ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20.r)),
+          borderRadius: BorderRadius.all(Radius.circular(8.r)),
           boxShadow: [
             BoxShadow(
-              color: AppColors.black.withOpacity(0.1),
-              blurRadius: 20.0.r,
-              offset: const Offset(0, 20),
+              color: AppColors.black.withOpacity(0.03),
+              blurRadius: 7.0.r,
+              offset: const Offset(0, 4),
               spreadRadius: 0,
             ),
           ],
@@ -51,12 +51,18 @@ class _OneColumnTextAndImageRightWidgetState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             widget.titleText != ""
-                ? headerTextWidget(widget.titleText, context)
+                ? Container(
+                    margin: EdgeInsets.only(
+                      left: 121.w,
+                      top: 55.h,
+                      bottom: 90.h,
+                    ),
+                    child: headerTextWidget(widget.titleText, context))
                 : const SizedBox.shrink(),
             // VerticalSpacerWidget(53.h),
             Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   margin: EdgeInsets.only(

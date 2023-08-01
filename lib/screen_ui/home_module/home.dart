@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:solved_dashboard/helper_widget/common_widget.dart/three_column_text_and_image.dart';
+import 'package:solved_dashboard/helper_widget/common_widget/three_column_text_and_image.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 
 import '../../helper_widget/common_widget/one_column_text_and_image_right.dart';
@@ -29,6 +29,23 @@ class _HomeState extends State<Home> {
         SizedBox(
           height: 42.h,
         ),
+//         const OneColumnTextAndImageRightWidget(
+//           titleText: "Title Here",
+//           subTitleText: "Praesent lobortis metus ex.",
+//           detailDescription: '''
+//   <div>
+//     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat libero.
+//      In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor mauris,
+//      consequat non imperdiet vel, tristique nec urna. Mauris et imperd
+//      iet ligula, imperdiet lacinia leo. Curabitur dictum veli<br><br>varius, viverra
+//      Etiam hendrerit dui vel enim dignissim tempus. Pellentesque hendrerit enim sodales, commodo sapien sed, hendrerit mi. Integer facilisis mauris a nunc euismod, id fermentum</p>
+//    <br><br>varius, viverra
+//      Etiam hendrerit dui vel enim dignissim tempus. Pellentesque hendrerit enim sodales, commodo sapien sed, hendrerit mi. Integer facilisis mauris a nunc euismod, id fermentum</p>
+
+//   </div>
+// ''',
+//           imageUrl: "assets/one_column_image.png",
+//         ),
         ThreeColumnTextAndImageWidget(
           titleTextCard1: "",
           subTitleTextCard1: "Grades & Report Cards",
@@ -53,67 +70,12 @@ class _HomeState extends State<Home> {
           detailDescriptionCard3: '''
   <div>
     <p>-Weekly Data Deep Dives directly to your email <br>
-    -Data-Driven Professional Development<br>  Resources<br>
+    -Data-Driven Professional Development<br>&nbsp &nbsp Resources<br>
     - Available in <a href="https://lookerstudio.google.com/u/0/reporting/75743c2d-5749-45e7-9562-58d0928662b2/page/p_ef0a9fdm4c">Data Insights</a><br></p>
   </div>
 ''',
           imageUrlCard3: "assets/data_inside.png",
         ),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.start,
-        //   mainAxisSize: MainAxisSize.max,
-        //   crossAxisAlignment: CrossAxisAlignment.center,
-        //   children: [
-        //     MouseRegion(
-        //       onEnter: (_) => _mouseEnter(true, 1),
-        //       onExit: (_) => _mouseEnter(false, 1),
-        //       child: informationGraphCard(
-        //           'Grades & Report Cards',
-        //           'Dashboard Permissions',
-        //           '- Marking Period 1 & 2\n-ELA, MATH, Science, Social Studies\n-Available in ',
-        //           'Student Reports ',
-        //           '& ',
-        //           'Report Card ',
-        //           'assets/tabel.png',
-        //           _isHoveringFirst,
-        //           context),
-        //     ),
-        //     SizedBox(
-        //       width: 42.w,
-        //     ),
-        //     MouseRegion(
-        //       onEnter: (_) => _mouseEnter(true, 2),
-        //       onExit: (_) => _mouseEnter(false, 2),
-        //       child: informationGraphCard(
-        //           'Correlations',
-        //           '',
-        //           '-NYS Assessment Scores vs iReady/MAP Scores\n-Targeted Quadrants for Intervention\n-Available in ',
-        //           'Correlations Report',
-        //           '',
-        //           '',
-        //           'assets/graph.png',
-        //           _isHoveringSecond,
-        //           context),
-        //     ),
-        //     SizedBox(
-        //       width: 42.w,
-        //     ),
-        //     MouseRegion(
-        //       onEnter: (_) => _mouseEnter(true, 3),
-        //       onExit: (_) => _mouseEnter(false, 3),
-        //       child: informationGraphCard(
-        //           'Data Insights',
-        //           '',
-        //           '-Weekly Data Deep Dives directly to your email\n-Data-Driven Professional Development    Resources\n-Available in ',
-        //           'Data Insights',
-        //           '',
-        //           '',
-        //           'assets/data_inside.png',
-        //           _isHoveringThird,
-        //           context),
-        //     ),
-        //   ],
-        // ),
 
         SizedBox(
           height: 56.h,

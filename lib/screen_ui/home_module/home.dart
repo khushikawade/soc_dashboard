@@ -27,6 +27,24 @@ class _HomeState extends State<Home> {
         SizedBox(
           height: 42.h,
         ),
+        const OneColumnTextAndImageRightWidget(
+          titleText: "Title Here",
+          subTitleText: "Praesent lobortis metus ex.",
+          detailDescription: '''
+  <div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat libero.
+     In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor mauris, 
+     consequat non imperdiet vel, tristique nec urna. Mauris et imperd
+     iet ligula, imperdiet lacinia leo. Curabitur dictum veli<br><br>varius, viverra
+     Etiam hendrerit dui vel enim dignissim tempus. Pellentesque hendrerit enim sodales, commodo sapien sed, hendrerit mi. Integer facilisis mauris a nunc euismod, id fermentum</p>
+   
+  </div>
+''',
+          imageUrl: "assets/dummy.png",
+        ),
+        SizedBox(
+          height: 42.h,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,

@@ -9,13 +9,15 @@ class CustomImage extends StatefulWidget {
   final double? height;
   final double? width;
   final String? darkModeIconUrl;
+  final String? imagepath;
 
   CustomImage(
       {Key? key,
-      @required this.iconUrl,
+      this.iconUrl,
       this.darkModeIconUrl,
       this.height,
-      this.width})
+      this.width,
+      this.imagepath})
       : super(key: key);
 
   @override
@@ -32,40 +34,48 @@ class _CustomImageState extends State<CustomImage> {
   Widget build(BuildContext context) {
     return Container(
       child: ClipRRect(
-          child:
-              cachedNetworkImage(widget.iconUrl, widget.height, widget.width)),
+          child: cachedNetworkImage(
+              widget.iconUrl, widget.height, widget.width, widget.imagepath)),
     );
   }
 
-  Widget cachedNetworkImage(url, double? height, double? width) {
-    return CachedNetworkImage(
-        imageUrl: url,
-        // height: height ?? 106.h,
-        // width: width ?? 106.w,
-        fit: BoxFit.fill,
-        placeholder: (context, url) => Container(
-            alignment: Alignment.center,
-            child: ShimmerLoading(
-              isLoading: true,
-              child: Container(
-                color: Colors.white,
-              ),
-            )),
-        errorWidget: (context, url, error) => CachedNetworkImage(
-              imageUrl:
-                  "https://solved-consulting-images.s3.us-east-2.amazonaws.com/Miscellaneous/default_icon.png",
-              height: 106.h,
-              width: 106.w,
-              placeholder: (context, url) => Container(
-                  alignment: Alignment.center,
-                  child: ShimmerLoading(
-                    isLoading: true,
-                    child: Container(
-                      height: 20,
-                      width: 20,
-                      color: Colors.white,
-                    ),
-                  )),
-            ));
+  Widget cachedNetworkImage(
+      String? url, double? height, double? width, String? imagePath) {
+    return url!.contains("https")
+        ? CachedNetworkImage(
+            imageUrl: url,
+            // height: height ?? 106.h,
+            // width: width ?? 106.w,
+            fit: BoxFit.fill,
+            placeholder: (context, url) => Container(
+                alignment: Alignment.center,
+                child: ShimmerLoading(
+                  isLoading: true,
+                  child: Container(
+                    color: Colors.white,
+                  ),
+                )),
+            errorWidget: (context, url, error) => CachedNetworkImage(
+                  imageUrl:
+                      "https://solved-consulting-images.s3.us-east-2.amazonaws.com/Miscellaneous/default_icon.png",
+                  height: 106.h,
+                  width: 106.w,
+                  placeholder: (context, url) => Container(
+                      alignment: Alignment.center,
+                      child: ShimmerLoading(
+                        isLoading: true,
+                        child: Container(
+                          height: 20,
+                          width: 20,
+                          color: Colors.white,
+                        ),
+                      )),
+                ))
+        : Image.asset(
+            url,
+            //height: 443.h,
+            width: 443.w,
+            fit: BoxFit.cover,
+          );
   }
 }

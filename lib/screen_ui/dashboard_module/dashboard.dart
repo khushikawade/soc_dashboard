@@ -147,7 +147,6 @@ class _DashboardState extends State<Dashboard> {
                     shrinkWrap: true,
                     children: [
                       Home(),
-<<<<<<< HEAD
                       // PushNotificationCustomCard(
                       //   icon1: "assets/group_19036.png",
                       //   icon2: "assets/group_19037.png",
@@ -162,10 +161,7 @@ class _DashboardState extends State<Dashboard> {
                       //   subNotificationText3: "11,045",
                       //   subNotificationText4: "18,126",
                       // ),
-                      projectHomeViewModel.showLoader
-=======
                       model.showLoader
->>>>>>> 7e5bacfe4c0dc7a7229003c0f455a89f0ab5728f
                           ? ShimmerLoading(
                               isLoading: model.showLoader,
                               child: Container(

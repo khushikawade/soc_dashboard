@@ -137,7 +137,6 @@ class _ThreeColumnTextAndImageWidgetState
                   imageUrl != null && imageUrl.isNotEmpty
                       ? CustomImage(
                           iconUrl: imageUrl,
-                          
                         )
                       : const SizedBox.shrink()
                 ],

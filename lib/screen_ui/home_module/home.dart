@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:solved_dashboard/helper_widget/common_widget/three_column_text_and_image.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
+import 'package:solved_dashboard/helper_widget/information_graph_card.dart';
 
 import '../../helper_widget/common_widget/one_column_text_and_image_right.dart';
 
@@ -88,7 +89,7 @@ class _HomeState extends State<Home> {
   </div>
 ''',
           imageUrl: "assets/dummy.png",
-        )
+        ),
       ],
     );
   }

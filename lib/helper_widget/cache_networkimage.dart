@@ -75,7 +75,6 @@ class _CustomImageState extends State<CustomImage> {
                 ))
         : Image.asset(
             url,
-            height: 332.h,
             width: 443.w,
             fit: BoxFit.cover,
           );

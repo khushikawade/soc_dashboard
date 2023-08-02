@@ -171,8 +171,7 @@ Widget detailTextWidget(text, context) {
 Widget pushNotifyWidget(text, context) {
   return Text(text,
       softWrap: true,
-      textAlign: TextAlign.center,
-      maxLines: 2,
+      // textAlign: TextAlign.center,
       style: AppTheme.lightTheme.textTheme.titleSmall!.copyWith(
           fontFamily: "Poppins",
           fontSize: AppSize.size14.sp,

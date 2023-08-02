@@ -95,23 +95,30 @@ class _PushNotificationCustomCardState
             ),
           ],
           borderRadius: BorderRadius.circular(8.r)),
-      child: Padding(
-        padding: EdgeInsets.only(right: 13.sp),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              icon,
-              height: 130.h,
-              width: 130.w,
-              fit: BoxFit.contain,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: 35.sp, right: 13.w, bottom: 30.h, top: 30.h),
+              child: Image.asset(
+                icon,
+                height: 140.h,
+                width: 140.w,
+                fit: BoxFit.contain,
+              ),
             ),
-            SizedBox(
-              width: 13.w,
-            ),
-            Column(
+          ),
+          // SizedBox(
+          //   width: 13.w,
+          // ),
+          Expanded(
+            flex: 2,
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,9 +129,9 @@ class _PushNotificationCustomCardState
                 ),
                 notificationNo(subnoticationText, context),
               ],
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

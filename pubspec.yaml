@@ -95,6 +95,19 @@ flutter:
         - asset: fonts/inter/Inter-Regular.ttf
         - asset: fonts/inter/Inter-Thin.ttf
         # - asset: fonts/inter/Inter-ThinItalic.ttf
+    
+    - family: Poppins
+      fonts:
+        - asset: fonts/poppins/Poppins-Black.ttf
+        # - asset: fonts/inter/Inter-BlackItalic.ttf
+        - asset: fonts/poppins/Poppins-Bold.ttf
+        - asset: fonts/inter/Poppins-Light.ttf
+        - asset: fonts/inter/Poppins-Regular.ttf
+        - asset: fonts/poppins/Poppins-Thin.ttf
+
+
+      
+    
 
     - family: SolvedDashboardIcons
       fonts: 

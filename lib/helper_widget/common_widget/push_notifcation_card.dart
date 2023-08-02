@@ -45,7 +45,8 @@ class PushNotificationCustomCard extends StatefulWidget {
       _PushNotificationCustomCardState();
 }
 
-class _PushNotificationCustomCardState extends State<PushNotificationCustomCard> {
+class _PushNotificationCustomCardState
+    extends State<PushNotificationCustomCard> {
   @override
   Widget build(BuildContext context) {
     return Container(

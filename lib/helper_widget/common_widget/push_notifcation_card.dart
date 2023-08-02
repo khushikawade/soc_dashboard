@@ -96,7 +96,7 @@ class _PushNotificationCustomCardState
           ],
           borderRadius: BorderRadius.circular(8.r)),
       child: Padding(
-        padding: EdgeInsets.only(left: 0.sp, right: 13.sp),
+        padding: EdgeInsets.only(right: 13.sp),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,

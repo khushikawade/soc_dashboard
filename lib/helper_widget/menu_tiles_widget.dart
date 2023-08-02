@@ -5,14 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/helper_widget/hover_animation_widget.dart';
+import 'package:solved_dashboard/models/nav_bar_model.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 
 class MenuTilesWidget extends StatefulWidget {
   final Widget child;
   final int index;
   final bool hovered;
-  final List<SubMenu> menuTiles;
-  final List<Menu> headerTiles;
+  final List<NavBarMenu> menuTiles;
+  final List<NavBarModel> headerTiles;
   //final BoxDecoration menuBoxDecoration;
   final Color menuTextColor;
   final double menuTextSize;
@@ -112,15 +113,8 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                       setStateForOverlay(() {});
                     }
                   },
-                  child: SizedBox(
-                    height: 400,
-                    child: SingleChildScrollView(
-                      controller: controller,
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      child: Column(
-                        children: _buildListItems(),
-                      ),
-                    ),
+                  child: Column(
+                    children: _buildListItems(),
                   ),
                 ),
               );
@@ -169,11 +163,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                     //   },
                     //   child:
                     InkWell(
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text("You Tapped On ${widget.menuTiles[i]}"),
-                        duration: const Duration(milliseconds: 500)));
-                  },
+                  onTap: () {},
                   child: Container(
                     width: 192.w,
                     alignment: Alignment.center,
@@ -189,22 +179,42 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                       ],
                     ),
                     child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: EdgeInsets.only(
+                            left: 16.sp,
+                            right: 16.sp,
+                            top: 16.sp,
+                            bottom: 16.sp),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              widget.menuTiles[i].imagePath!,
-                              height: 25.h,
-                              width: 25.w,
+                            // Image.asset(
+                            //   widget.menuTiles[i].imagePath!,
+                            //   height: 25.h,
+                            //   width: 25.w,
+                            // ),
+                            // SizedBox(
+                            //   width: 11.w,
+                            // ),
+                            Expanded(
+                              child: subMenuTitleWidget(
+                                  widget.menuTiles[i].menuTitle ?? '', context),
                             ),
                             SizedBox(
-                              width: 11.w,
+                              width:
+                                  widget.menuTiles[i].icon != null ? 16.sp : 0,
                             ),
-                            subMenuTitleWidget(
-                                widget.menuTiles[i].name ?? '', context),
+                            widget.menuTiles[i].icon != null
+                                ? Icon(
+                                    widget.menuTiles[i].icon,
+                                    color: AppColors.tabBarSelectedBG,
+                                    size: 24.sp,
+                                  )
+                                : Container(
+                                    width: 0,
+                                    height: 0,
+                                  ),
                           ],
                         )
                         // Text(

@@ -5,16 +5,17 @@ import 'package:solved_dashboard/custom_fonts/solved_dashboard_icons_icons.dart'
 import 'package:solved_dashboard/helper_widget/menu_tiles_widget.dart';
 import 'package:solved_dashboard/helper_widget/tabbar_item_widget.dart';
 import 'package:solved_dashboard/helper_widget/vertical_divider_widget.dart';
+import 'package:solved_dashboard/models/nav_bar_model.dart';
 
 class AnimatedHoverMenu extends StatefulWidget {
   ///Header properties
-  final List<Menu> headerTiles;
+  final List<NavBarModel> headerTiles;
   final BoxDecoration? headerBoxDecoration;
   final Color? headerTextColor;
   final double? headerTextSize;
 
   ///Menu properties
-  final List<SubMenu> menuTiles;
+  //final List<SubMenu> menuTiles;
   final BoxDecoration? menuBoxDecoration;
   final Color? menuTextColor;
   final double? menuTextSize;
@@ -31,7 +32,7 @@ class AnimatedHoverMenu extends StatefulWidget {
   AnimatedHoverMenu({
     Key? key,
     required this.headerTiles,
-    required this.menuTiles,
+    //required this.menuTiles,
     required this.headerPosition,
     this.backgroundWidget,
     this.headerBoxDecoration,
@@ -50,6 +51,7 @@ class AnimatedHoverMenu extends StatefulWidget {
 class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
     with SingleTickerProviderStateMixin {
   bool hovered = false;
+  List<NavBarMenu> menuList = List.empty(growable: true);
 
   @override
   Widget build(BuildContext context) {
@@ -90,20 +92,25 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
             onEnter: (PointerEnterEvent pointerEnterEvent) {
               widget.headerTiles.forEach(
                 (element) {
-                  if (element.isSelected!) {
-                    element.isSelected = false;
+                  if (element.isSelcted!) {
+                    element.isSelcted = false;
                   }
                 },
               );
               setState(() {
-                widget.headerTiles[index].isSelected = true;
+                widget.headerTiles[index].isSelcted = true;
                 hovered = true;
+                if (widget.headerTiles[index].dropDownIcon != null &&
+                    widget.headerTiles[index].menuOptions != null) {
+                  menuList.addAll(widget.headerTiles[index].menuOptions!);
+                }
               });
             },
             onExit: (PointerExitEvent pointerExitEvent) {
               setState(() {
-                widget.headerTiles[index].isSelected = false;
+                widget.headerTiles[index].isSelcted = false;
                 hovered = false;
+                menuList.clear();
               });
             },
             child: Row(
@@ -114,7 +121,7 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
                 Container(
                   width: 192.w,
                   child: MenuTilesWidget(
-                    menuTiles: widget.menuTiles,
+                    menuTiles: menuList,
                     headerTiles: widget.headerTiles,
                     index: index,
                     hovered: hovered,
@@ -124,9 +131,9 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
                     animationType:
                         widget.animationType ?? AnimationType.leftToRight,
                     child: tabBarItemWidget(
-                        widget.headerTiles[index].name ?? '',
-                        widget.headerTiles[index].isSelected!,
-                        widget.headerTiles[index].iconName,
+                        widget.headerTiles[index].title ?? '',
+                        widget.headerTiles[index].isSelcted!,
+                        widget.headerTiles[index].icon,
                         context,
                         dropDownIcon: widget.headerTiles[index].dropDownIcon),
                     // Container(

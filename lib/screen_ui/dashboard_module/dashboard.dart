@@ -25,53 +25,53 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  List<Menu> headerModelList = {
-    Menu(
-        id: 1,
-        name: 'Home',
-        iconName: SolvedDashboardIcons.frame_238,
-        isSelected: true),
-    Menu(
-        id: 2,
-        name: 'Reports',
-        iconName: SolvedDashboardIcons.frame_239,
-        isSelected: false,
-        dropDownIcon: Icons.arrow_drop_down),
-    Menu(
-        id: 5,
-        name: 'Assessments',
-        iconName: SolvedDashboardIcons.frame_240,
-        isSelected: false,
-        dropDownIcon: Icons.arrow_drop_down),
-    Menu(
-        id: 3,
-        name: 'Data Insights',
-        iconName: SolvedDashboardIcons.frame_241,
-        isSelected: false),
-    Menu(
-        id: 4,
-        name: 'Apps+',
-        iconName: SolvedDashboardIcons.frame_245,
-        isSelected: false,
-        dropDownIcon: Icons.arrow_drop_down),
-    Menu(
-        id: 5,
-        name: 'Engagement',
-        iconName: SolvedDashboardIcons.frame_242,
-        isSelected: false,
-        dropDownIcon: Icons.arrow_drop_down),
-    Menu(
-        id: 5,
-        name: '+ Data',
-        iconName: SolvedDashboardIcons.frame_243,
-        isSelected: false),
-    Menu(
-        id: 5,
-        name: 'Support',
-        iconName: SolvedDashboardIcons.frame_244,
-        isSelected: false,
-        dropDownIcon: Icons.arrow_drop_down),
-  }.toList();
+  // List<Menu> headerModelList = {
+  //   Menu(
+  //       id: 1,
+  //       name: 'Home',
+  //       iconName: SolvedDashboardIcons.frame_238,
+  //       isSelected: true),
+  //   Menu(
+  //       id: 2,
+  //       name: 'Reports',
+  //       iconName: SolvedDashboardIcons.frame_239,
+  //       isSelected: false,
+  //       dropDownIcon: Icons.arrow_drop_down),
+  //   Menu(
+  //       id: 5,
+  //       name: 'Assessments',
+  //       iconName: SolvedDashboardIcons.frame_240,
+  //       isSelected: false,
+  //       dropDownIcon: Icons.arrow_drop_down),
+  //   Menu(
+  //       id: 3,
+  //       name: 'Data Insights',
+  //       iconName: SolvedDashboardIcons.frame_241,
+  //       isSelected: false),
+  //   Menu(
+  //       id: 4,
+  //       name: 'Apps+',
+  //       iconName: SolvedDashboardIcons.frame_245,
+  //       isSelected: false,
+  //       dropDownIcon: Icons.arrow_drop_down),
+  //   Menu(
+  //       id: 5,
+  //       name: 'Engagement',
+  //       iconName: SolvedDashboardIcons.frame_242,
+  //       isSelected: false,
+  //       dropDownIcon: Icons.arrow_drop_down),
+  //   Menu(
+  //       id: 5,
+  //       name: '+ Data',
+  //       iconName: SolvedDashboardIcons.frame_243,
+  //       isSelected: false),
+  //   Menu(
+  //       id: 5,
+  //       name: 'Support',
+  //       iconName: SolvedDashboardIcons.frame_244,
+  //       isSelected: false,
+  //       dropDownIcon: Icons.arrow_drop_down),
+  // }.toList();
 
   List<SubMenu> menuModelList = {
     SubMenu(id: 1, name: 'App Usage', imagePath: 'assets/app_usage.png'),
@@ -86,44 +86,44 @@ class _DashboardState extends State<Dashboard> {
     super.initState();
     String url = RouteConstants.homeRoute;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final projectHomeViewModel =
-          Provider.of<ProjectHomeViewModel>(context, listen: false);
-      projectHomeViewModel.extractIdFromUrl(url);
-      projectHomeViewModel.getHomeData();
+      final model = Provider.of<ProjectHomeViewModel>(context, listen: false);
+      model.buildNavBar();
+      model.extractIdFromUrl(url);
+      model.getHomeData();
     });
   }
 
   Widget build(BuildContext context) {
-    final projectHomeViewModel = Provider.of<ProjectHomeViewModel>(context);
+    final model = Provider.of<ProjectHomeViewModel>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       //bottomSheet: copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.'),
-      appBar: projectHomeViewModel.showLoader
-          ? AppBar(
-              toolbarHeight: 0,
-            )
-          : PreferredSize(
-              preferredSize: Size.fromHeight(400.h),
-              child:
-                  // projectHomeViewModel.showLoader
-                  //     ? loadingWidget(context)
-                  //     // ShimmerLoading(
-                  //     //     isLoading: projectHomeViewModel.showLoader,
-                  //     //     child: Container(
-                  //     //       height: 129.h,
-                  //     //       width: double.infinity,
-                  //     //       color: Colors.white,
-                  //     //     ),
-                  //     //   )
-                  //     :
-                  AppBarWidget(
-                      logoURL: projectHomeViewModel.logoURL ?? '',
-                      pageViewCount: '2,444',
-                      schoolName: projectHomeViewModel.contactNameC,
-                      isBusy: projectHomeViewModel.showLoader,
-                      primaryColor: projectHomeViewModel.getColorFromHex(
-                          projectHomeViewModel.primaryColorC))),
-      body: projectHomeViewModel.showLoader
+      // appBar: model.showLoader
+      //     ? AppBar(
+      //         toolbarHeight: 0,
+      //       )
+      //     : PreferredSize(
+      //         preferredSize: Size.fromHeight(400.h),
+      //         child:
+      //             // model.showLoader
+      //             //     ? loadingWidget(context)
+      //             //     // ShimmerLoading(
+      //             //     //     isLoading: model.showLoader,
+      //             //     //     child: Container(
+      //             //     //       height: 129.h,
+      //             //     //       width: double.infinity,
+      //             //     //       color: Colors.white,
+      //             //     //     ),
+      //             //     //   )
+      //             //     :
+      //             AppBarWidget(
+      //                 logoURL: model.logoURL ?? '',
+      //                 pageViewCount: '2,444',
+      //                 schoolName: model.contactNameC,
+      //                 isBusy: model.showLoader,
+      //                 primaryColor:
+      //                     model.getColorFromHex(model.primaryColorC))),
+      body: model.showLoader
           ? loadingWidget(context)
           : Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -131,7 +131,13 @@ class _DashboardState extends State<Dashboard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               //shrinkWrap: true,
               children: [
-                menu(),
+                AppBarWidget(
+                    logoURL: model.logoURL ?? '',
+                    pageViewCount: '2,444',
+                    schoolName: model.contactNameC,
+                    isBusy: model.showLoader,
+                    primaryColor: model.getColorFromHex(model.primaryColorC)),
+                menu(model),
                 //tabBarView(),
                 SizedBox(
                   height: 36.h,
@@ -141,6 +147,7 @@ class _DashboardState extends State<Dashboard> {
                     shrinkWrap: true,
                     children: [
                       Home(),
+<<<<<<< HEAD
                       // PushNotificationCustomCard(
                       //   icon1: "assets/group_19036.png",
                       //   icon2: "assets/group_19037.png",
@@ -156,8 +163,11 @@ class _DashboardState extends State<Dashboard> {
                       //   subNotificationText4: "18,126",
                       // ),
                       projectHomeViewModel.showLoader
+=======
+                      model.showLoader
+>>>>>>> 7e5bacfe4c0dc7a7229003c0f455a89f0ab5728f
                           ? ShimmerLoading(
-                              isLoading: projectHomeViewModel.showLoader,
+                              isLoading: model.showLoader,
                               child: Container(
                                 height: 79.h,
                                 width: double.infinity,
@@ -167,8 +177,7 @@ class _DashboardState extends State<Dashboard> {
                           : copyRightWidget(
                               '© 2023 Bronx Bears. All Rights Reserved.',
                               context,
-                              projectHomeViewModel.getColorFromHex(
-                                  projectHomeViewModel.primaryColorC)),
+                              model.getColorFromHex(model.primaryColorC)),
                     ],
                   ),
                 )
@@ -178,7 +187,7 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget menu() {
+  Widget menu(ProjectHomeViewModel model) {
     return Container(
       margin: EdgeInsets.only(left: 190.sp, right: 190.sp, top: 36.sp),
       width: double.infinity,
@@ -186,8 +195,8 @@ class _DashboardState extends State<Dashboard> {
       decoration: BoxDecoration(color: AppColors.whiteColor),
       child: AnimatedHoverMenu(
         headerPosition: HeaderPosition.topLeft,
-        headerTiles: headerModelList,
-        menuTiles: menuModelList,
+        headerTiles: model.navBarItemList,
+        //menuTiles: menuModelList,
         headerBoxDecoration: const BoxDecoration(
             borderRadius: BorderRadius.all(
               Radius.circular(5.0),

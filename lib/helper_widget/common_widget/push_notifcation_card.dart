@@ -95,33 +95,36 @@ class _PushNotificationCustomCardState
             ),
           ],
           borderRadius: BorderRadius.circular(8.r)),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            icon,
-            height: 130.h,
-            width: 130.w,
-            fit: BoxFit.contain,
-          ),
-          SizedBox(
-            width: 13.w,
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              pushNotifyWidget(noticationText, context),
-              SizedBox(
-                height: 16.h,
-              ),
-              notificationNo(subnoticationText, context),
-            ],
-          )
-        ],
+      child: Padding(
+        padding: EdgeInsets.only(left: 0.sp, right: 13.sp),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              icon,
+              height: 130.h,
+              width: 130.w,
+              fit: BoxFit.contain,
+            ),
+            SizedBox(
+              width: 13.w,
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                pushNotifyWidget(noticationText, context),
+                SizedBox(
+                  height: 16.h,
+                ),
+                notificationNo(subnoticationText, context),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

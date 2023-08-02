@@ -97,21 +97,17 @@ class _PushNotificationCustomCardState
           borderRadius: BorderRadius.circular(8.r)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                    left: 31.w, top: 31.h, bottom: 30.h, right: 13.w),
-                child: Image.asset(
-                  icon,
-                  height: 130.h,
-                  width: 130.w,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
+          Image.asset(
+            icon,
+            height: 130.h,
+            width: 130.w,
+            fit: BoxFit.contain,
+          ),
+          SizedBox(
+            width: 13.w,
           ),
           Column(
             mainAxisSize: MainAxisSize.min,
@@ -120,7 +116,7 @@ class _PushNotificationCustomCardState
             children: [
               pushNotifyWidget(noticationText, context),
               SizedBox(
-                height: 5.5.h,
+                height: 16.h,
               ),
               notificationNo(subnoticationText, context),
             ],

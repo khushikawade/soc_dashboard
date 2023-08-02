@@ -125,7 +125,6 @@ class ProjectHomeViewModel extends ChangeNotifier {
   Color getColorFromHex(String hexColor) {
     if (hexColor.isNotEmpty) {
       hexColor = hexColor.replaceAll("#", "");
-      print("Value after replace ---------------------- $hexColor");
       final int hexValue = int.parse(hexColor, radix: 16);
       return Color(hexValue | 0xFF000000); // Add alpha value (opaque)
     } else {

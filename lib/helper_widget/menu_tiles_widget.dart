@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
@@ -135,10 +136,10 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   ///Showing list with using curve and delay
   List<Widget> _buildListItems() {
     final listItems = <Widget>[];
-    for (int i = 0; i < widget.menuTiles.length; ++i) {
+    for (int index = 0; index < widget.menuTiles.length; ++index) {
       listItems.add(
         FutureBuilder(
-            future: Future.delayed(Duration(milliseconds: (i * 200))),
+            future: Future.delayed(Duration(milliseconds: (index * 200))),
             builder: (context, value) {
               if (value.connectionState == ConnectionState.done) {
                 return
@@ -197,17 +198,49 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                             // SizedBox(
                             //   width: 11.w,
                             // ),
-                            Expanded(
-                              child: subMenuTitleWidget(
-                                  widget.menuTiles[i].menuTitle ?? '', context),
+                            MouseRegion(
+                              opaque: true,
+                              onEnter: (PointerEnterEvent pointerEnterEvent) {
+                                widget.headerTiles.forEach(
+                                  (element) {
+                                    if (element.isSelcted!) {
+                                      element.isSelcted = false;
+                                    }
+                                  },
+                                );
+                                setState(() {
+                                  widget.menuTiles[index].isSelected = true;
+                                  //hovered = true;
+                                  if (widget.menuTiles[index].icon != null &&
+                                      widget.menuTiles[index].subMenu != null) {
+                                    print(
+                                        "Submenu Item list length -------------------- ${widget.menuTiles[index].subMenu!.length}");
+                                    // menuList.addAll(
+                                    //     widget.headerTiles[index].menuOptions!);
+                                  }
+                                });
+                              },
+                              onExit: (PointerExitEvent pointerExitEvent) {
+                                setState(() {
+                                  widget.headerTiles[index].isSelcted = false;
+                                  // hovered = false;
+                                  //menuList.clear();
+                                });
+                              },
+                              child: Expanded(
+                                child: subMenuTitleWidget(
+                                    widget.menuTiles[index].menuTitle ?? '',
+                                    context),
+                              ),
                             ),
                             SizedBox(
-                              width:
-                                  widget.menuTiles[i].icon != null ? 16.sp : 0,
+                              width: widget.menuTiles[index].icon != null
+                                  ? 16.sp
+                                  : 0,
                             ),
-                            widget.menuTiles[i].icon != null
+                            widget.menuTiles[index].icon != null
                                 ? Icon(
-                                    widget.menuTiles[i].icon,
+                                    widget.menuTiles[index].icon,
                                     color: AppColors.tabBarSelectedBG,
                                     size: 24.sp,
                                   )

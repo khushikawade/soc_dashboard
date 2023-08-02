@@ -100,9 +100,17 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
               setState(() {
                 widget.headerTiles[index].isSelcted = true;
                 hovered = true;
-                if (widget.headerTiles[index].dropDownIcon != null &&
-                    widget.headerTiles[index].menuOptions != null) {
-                  menuList.addAll(widget.headerTiles[index].menuOptions!);
+                if (widget.headerTiles[index].menuOptions != null &&
+                    widget.headerTiles[index].menuOptions!.isNotEmpty) {
+                  if (widget.headerTiles[index].dropDownIcon != null &&
+                      widget.headerTiles[index].menuOptions != null) {
+                    menuList.clear();
+                    menuList.addAll(widget.headerTiles[index].menuOptions!);
+                  } else {
+                    menuList.clear();
+                  }
+                } else {
+                  menuList.clear();
                 }
               });
             },
@@ -110,7 +118,10 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
               setState(() {
                 widget.headerTiles[index].isSelcted = false;
                 hovered = false;
-                menuList.clear();
+                if (widget.headerTiles[index].menuOptions == null ||
+                    widget.headerTiles[index].menuOptions!.isEmpty) {
+                  menuList.clear();
+                }
               });
             },
             child: Row(

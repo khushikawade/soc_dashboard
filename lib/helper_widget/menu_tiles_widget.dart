@@ -253,17 +253,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                                     height: 0,
                                   ),
                           ],
-                        )
-                        // Text(
-                        //   widget.menuTiles[i].name ?? '',
-                        //   textAlign: TextAlign.left,
-                        //   overflow: TextOverflow.ellipsis,
-                        //   style: TextStyle(
-                        //       fontSize: widget.menuTextSize,
-                        //       fontWeight: FontWeight.w500,
-                        //       color: widget.menuTextColor),
-                        // ),
-                        ),
+                        )),
                   ),
                   // ),
                 );

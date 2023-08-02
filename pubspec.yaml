@@ -101,8 +101,8 @@ flutter:
         - asset: fonts/poppins/Poppins-Black.ttf
         # - asset: fonts/inter/Inter-BlackItalic.ttf
         - asset: fonts/poppins/Poppins-Bold.ttf
-        - asset: fonts/inter/Poppins-Light.ttf
-        - asset: fonts/inter/Poppins-Regular.ttf
+        - asset: fonts/poppins/Poppins-Light.ttf
+        - asset: fonts/poppins/Poppins-Regular.ttf
         - asset: fonts/poppins/Poppins-Thin.ttf
 
 

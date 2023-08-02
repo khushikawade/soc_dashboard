@@ -86,24 +86,14 @@ Widget labelTextForPopUpWidget(text, context) {
 
 Widget labelTextIndex(text, context) {
   return Text(text,
-      style: TextStyle(
+      style: AppTheme.lightTheme.textTheme.displaySmall!.copyWith(
+        fontSize: AppSize.size18.sp,
         color: AppColors.whiteColor,
-        fontWeight: FontWeight.w500,
-        fontSize: AppSize.size18,
-        fontFamily: 'Inter',
-        fontStyle: FontStyle.normal,
       ));
 }
 
 Widget buttonText(text, context) {
-  return Text(text,
-      style: TextStyle(
-        color: AppColors.black,
-        fontWeight: FontWeight.w400,
-        fontSize: AppSize.size22,
-        fontFamily: 'Poppins',
-        fontStyle: FontStyle.normal,
-      ));
+  return Text(text, style: AppTheme.lightTheme.textTheme.bodySmall);
 }
 
 Widget threeColumnTextWidget(text, context) {
@@ -194,5 +184,6 @@ Widget notificationNo(text, context) {
       style: AppTheme.lightTheme.textTheme.titleSmall!.copyWith(
           fontFamily: "Poppins",
           fontSize: AppSize.size18.sp,
+          fontWeight: FontWeight.w600,
           color: AppColors.pushNotifyNoText));
 }

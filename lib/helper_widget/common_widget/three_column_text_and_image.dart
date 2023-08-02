@@ -105,7 +105,7 @@ class _ThreeColumnTextAndImageWidgetState
                   left: 26.w, top: 39.h, bottom: 33.h, right: 26.w),
               height: 627.h,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                // borderRadius: BorderRadius.all(Radius.circular(0.r)),
                 boxShadow: isHover
                     ? [
                         BoxShadow(
@@ -126,6 +126,9 @@ class _ThreeColumnTextAndImageWidgetState
                   subTitle != null && subTitle.isNotEmpty
                       ? subHeaderTextWidget(subTitle, context)
                       : const SizedBox.shrink(),
+                  SizedBox(
+                    height: 15.h,
+                  ),
                   description != null && description.isNotEmpty
                       ? detailTextWidget(description, context)
                       : const SizedBox.shrink(),

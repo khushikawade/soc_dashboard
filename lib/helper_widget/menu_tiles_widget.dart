@@ -48,6 +48,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   ScrollController controller = ScrollController();
   bool allowAddEntry = true;
   bool allowAddEntryForSubMenu = true;
+  List<SubMenuData> subMenuList = List.empty(growable: true);
 
   @override
   void initState() {
@@ -158,7 +159,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                     //   },
                     //child:
                     Column(
-                  children: _buildListItems(),
+                  children: _buildListItemsForSubMenu(),
                 ),
                 //),
               );
@@ -245,6 +246,19 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                               child: MouseRegion(
                                 opaque: true,
                                 onHover: (_) {
+                                  subMenuList.clear();
+                                  setState(() {
+                                    if (widget.menuTiles != null &&
+                                        widget.menuTiles.isNotEmpty) {
+                                      if (widget.menuTiles[index].subMenu !=
+                                              null &&
+                                          widget.menuTiles[index].subMenu!
+                                              .isNotEmpty) {
+                                        subMenuList.addAll(
+                                            widget.menuTiles[index].subMenu!);
+                                      }
+                                    }
+                                  });
                                   if (allowAddEntryForSubMenu) {
                                     _menuHover[widget.index] = true;
                                     _addOverlay(subMenuOverlayEntry!);
@@ -276,6 +290,124 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                             widget.menuTiles[index].icon != null
                                 ? Icon(
                                     widget.menuTiles[index].icon,
+                                    color: AppColors.tabBarSelectedBG,
+                                    size: 24.sp,
+                                  )
+                                : Container(
+                                    width: 0,
+                                    height: 0,
+                                  ),
+                          ],
+                        )),
+                  ),
+                  // ),
+                );
+              }
+              return Container();
+            }),
+      );
+    }
+    return listItems;
+  }
+
+  List<Widget> _buildListItemsForSubMenu() {
+    final listItems = <Widget>[];
+    for (int index = 0; index < subMenuList.length; ++index) {
+      listItems.add(
+        FutureBuilder(
+            future: Future.delayed(Duration(milliseconds: (index * 200))),
+            builder: (context, value) {
+              if (value.connectionState == ConnectionState.done) {
+                return
+                    // TweenAnimationBuilder(
+                    //   curve: Curves.easeIn,
+                    //   duration: const Duration(milliseconds: 200),
+                    //   onEnd: () {
+                    //     if (entry != null && !_menuHover[widget.index]) {
+                    //       if (!entry!.mounted) {
+                    //         return;
+                    //       } else {
+                    //         entry!.remove();
+                    //       }
+                    //     }
+                    //   },
+                    //   tween: _menuHover[widget.index]
+                    //       ? Tween<double>(begin: 1, end: 0)
+                    //       : Tween<double>(begin: 0, end: 1),
+                    //   builder: (_, double value, _child) {
+                    //     return _defineAnimationType(
+                    //         widget.animationType, value, _child, i);
+                    //   },
+                    //   child:
+                    InkWell(
+                  onTap: () {},
+                  child: Container(
+                    width: 192.w,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.black.withOpacity(0.1),
+                          blurRadius: 20.0.r,
+                          offset: const Offset(0, 20),
+                          spreadRadius: 0,
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                        padding: EdgeInsets.only(
+                            left: 16.sp,
+                            right: 16.sp,
+                            top: 16.sp,
+                            bottom: 16.sp),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            // Image.asset(
+                            //   widget.menuTiles[i].imagePath!,
+                            //   height: 25.h,
+                            //   width: 25.w,
+                            // ),
+                            // SizedBox(
+                            //   width: 11.w,
+                            // ),
+                            Expanded(
+                              child: MouseRegion(
+                                opaque: true,
+                                onHover: (_) {
+                                  if (allowAddEntryForSubMenu) {
+                                    _menuHover[widget.index] = true;
+                                    _addOverlay(subMenuOverlayEntry!);
+                                  }
+                                },
+                                onExit: (_) {
+                                  _menuHover[widget.index] = false;
+                                  Future.delayed(
+                                      const Duration(milliseconds: 100), () {
+                                    if (subMenuOverlayEntry != null) {
+                                      if (!subMenuOverlayEntry!.mounted) {
+                                        return;
+                                      } else {
+                                        subMenuOverlayEntry?.remove();
+                                      }
+                                    }
+                                  });
+                                },
+                                child: subMenuTitleWidget(
+                                    subMenuList[index].subMenuTitle ?? '',
+                                    context),
+                              ),
+                            ),
+                            SizedBox(
+                              width:
+                                  subMenuList[index].icon != null ? 16.sp : 0,
+                            ),
+                            subMenuList[index].icon != null
+                                ? Icon(
+                                    subMenuList[index].icon,
                                     color: AppColors.tabBarSelectedBG,
                                     size: 24.sp,
                                   )

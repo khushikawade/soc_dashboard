@@ -5,6 +5,7 @@ import 'package:solved_dashboard/custom_fonts/solved_dashboard_icons_icons.dart'
 import 'package:solved_dashboard/helper_widget/app_bar_widget.dart';
 import 'package:solved_dashboard/helper_widget/copy_right_widget.dart';
 import 'package:solved_dashboard/helper_widget/hover_animation_widget.dart';
+import 'package:solved_dashboard/helper_widget/loading_widget.dart';
 import 'package:solved_dashboard/helper_widget/shimmer_loading.dart';
 import 'package:solved_dashboard/helper_widget/tabbar_item_widget.dart';
 import 'package:solved_dashboard/helper_widget/vertical_divider_widget.dart';
@@ -12,6 +13,7 @@ import 'package:solved_dashboard/routers/route_constants.dart';
 import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard_model.dart';
 import 'package:solved_dashboard/screen_ui/home_module/home.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
+import 'package:solved_dashboard/utils/app_theme.dart';
 
 enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
 
@@ -92,61 +94,70 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     final projectHomeViewModel = Provider.of<ProjectHomeViewModel>(context);
     return Scaffold(
-      backgroundColor: AppColors.pageBGColor,
+      backgroundColor: Theme.of(context).primaryColor,
       //bottomSheet: copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.'),
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(400.h),
-          child: projectHomeViewModel.showLoader
-              ? ShimmerLoading(
-                  isLoading: projectHomeViewModel.showLoader,
-                  child: Container(
-                    height: 129.h,
-                    width: double.infinity,
-                    color: Colors.white,
+      appBar: projectHomeViewModel.showLoader
+          ? AppBar(
+              toolbarHeight: 0,
+            )
+          : PreferredSize(
+              preferredSize: Size.fromHeight(400.h),
+              child:
+                  // projectHomeViewModel.showLoader
+                  //     ? loadingWidget(context)
+                  //     // ShimmerLoading(
+                  //     //     isLoading: projectHomeViewModel.showLoader,
+                  //     //     child: Container(
+                  //     //       height: 129.h,
+                  //     //       width: double.infinity,
+                  //     //       color: Colors.white,
+                  //     //     ),
+                  //     //   )
+                  //     :
+                  AppBarWidget(
+                      logoURL: projectHomeViewModel.logoURL ?? '',
+                      pageViewCount: '2,444',
+                      schoolName: projectHomeViewModel.contactNameC,
+                      isBusy: projectHomeViewModel.showLoader,
+                      primaryColor: projectHomeViewModel.getColorFromHex(
+                          projectHomeViewModel.primaryColorC))),
+      body: projectHomeViewModel.showLoader
+          ? loadingWidget(context)
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              //shrinkWrap: true,
+              children: [
+                menu(),
+                //tabBarView(),
+                SizedBox(
+                  height: 36.h,
+                ),
+                Expanded(
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      Home(),
+                      projectHomeViewModel.showLoader
+                          ? ShimmerLoading(
+                              isLoading: projectHomeViewModel.showLoader,
+                              child: Container(
+                                height: 79.h,
+                                width: double.infinity,
+                                color: Colors.white,
+                              ),
+                            )
+                          : copyRightWidget(
+                              '© 2023 Bronx Bears. All Rights Reserved.',
+                              context,
+                              projectHomeViewModel.getColorFromHex(
+                                  projectHomeViewModel.primaryColorC)),
+                    ],
                   ),
                 )
-              : AppBarWidget(
-                  logoURL: projectHomeViewModel.logoURL ?? '',
-                  pageViewCount: '2,444',
-                  schoolName: projectHomeViewModel.contactNameC,
-                  isBusy: projectHomeViewModel.showLoader,
-                  primaryColor: projectHomeViewModel
-                      .getColorFromHex(projectHomeViewModel.primaryColorC))),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        //shrinkWrap: true,
-        children: [
-          menu(),
-          //tabBarView(),
-          SizedBox(
-            height: 36.h,
-          ),
-          Expanded(
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                Home(),
-                projectHomeViewModel.showLoader
-                    ? ShimmerLoading(
-                        isLoading: projectHomeViewModel.showLoader,
-                        child: Container(
-                          height: 79.h,
-                          width: double.infinity,
-                          color: Colors.white,
-                        ),
-                      )
-                    : copyRightWidget(
-                        '© 2023 Bronx Bears. All Rights Reserved.',
-                        context,
-                        projectHomeViewModel.getColorFromHex(
-                            projectHomeViewModel.primaryColorC)),
               ],
             ),
-          )
-        ],
-      ),
       //body: Engagement(),
     );
   }

@@ -119,13 +119,17 @@ class ProjectHomeViewModel extends ChangeNotifier {
         break;
     }
 
-    //showLoader = false;
+    showLoader = false;
   }
 
   Color getColorFromHex(String hexColor) {
-    hexColor = hexColor.replaceAll("#", "");
-    print("Value after replace ---------------------- $hexColor");
-    final int hexValue = int.parse(hexColor, radix: 16);
-    return Color(hexValue | 0xFF000000); // Add alpha value (opaque)
+    if (hexColor.isNotEmpty) {
+      hexColor = hexColor.replaceAll("#", "");
+      print("Value after replace ---------------------- $hexColor");
+      final int hexValue = int.parse(hexColor, radix: 16);
+      return Color(hexValue | 0xFF000000); // Add alpha value (opaque)
+    } else {
+      return const Color(0xFF000000);
+    }
   }
 }

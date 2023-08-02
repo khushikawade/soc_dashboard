@@ -5,7 +5,61 @@ import 'package:solved_dashboard/utils/app_size.dart';
 
 class AppTheme {
   static final ThemeData lightTheme = ThemeData(
-      primaryColor: AppColors.appPrimaryColor,
+      primaryColor: AppColors.pageBGColor,
+      textTheme: TextTheme(
+        titleMedium: TextStyle(
+          color: AppColors.whiteColor,
+          fontWeight: FontWeight.w600,
+          fontSize: AppSize.size26.sp,
+          fontFamily: 'Inter',
+          fontStyle: FontStyle.normal,
+        ),
+        labelSmall: TextStyle(
+          color: AppColors.black,
+          fontWeight: FontWeight.w500,
+          fontSize: AppSize.size16.sp,
+          fontFamily: 'Inter',
+          fontStyle: FontStyle.normal,
+        ),
+        labelMedium: TextStyle(
+          color: AppColors.black,
+          fontWeight: FontWeight.w500,
+          fontSize: AppSize.size25.sp,
+          fontFamily: 'Inter',
+          fontStyle: FontStyle.normal,
+        ),
+        titleSmall: TextStyle(
+          color: AppColors.whiteColor,
+          fontWeight: FontWeight.w400,
+          fontSize: AppSize.size14.sp,
+          fontFamily: 'Inter',
+          fontStyle: FontStyle.normal,
+        ),
+        titleLarge: TextStyle(
+          color: AppColors.titleRedColor,
+          fontWeight: FontWeight.w700,
+          fontSize: AppSize.size35.sp,
+          fontFamily: 'Inter',
+          fontStyle: FontStyle.normal,
+        ),
+        displayMedium: TextStyle(
+          color: AppColors.black,
+          fontWeight: FontWeight.w500,
+          fontSize: AppSize.size30.sp,
+          fontFamily: 'Inter',
+          fontStyle: FontStyle.normal,
+        ),
+        displaySmall: TextStyle(
+          color: AppColors.tabBarUnselctedText,
+          fontWeight: FontWeight.w500,
+          fontSize: AppSize.size16,
+          fontFamily: 'Inter',
+          fontStyle: FontStyle.normal,
+        ),
+      ));
+
+  static final ThemeData darkTheme = ThemeData(
+      primaryColor: AppColors.blackColorBG,
       textTheme: TextTheme(
         titleMedium: TextStyle(
           color: AppColors.whiteColor,

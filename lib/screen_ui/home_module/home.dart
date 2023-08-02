@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:solved_dashboard/helper_widget/common_widget/three_column_text_and_image.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
+import 'package:solved_dashboard/helper_widget/information_graph_card.dart';
 
 import '../../helper_widget/common_widget/one_column_text_and_image_right.dart';
 
+import '../../helper_widget/common_widget/push_notifcation_card.dart';
 import '../../helper_widget/common_widget/two_column_text_and_image.dart';
 
 class Home extends StatefulWidget {
@@ -14,10 +16,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool _isHoveringFirst = false;
-  bool _isHoveringSecond = false;
-  bool _isHoveringThird = false;
-
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
@@ -26,6 +24,7 @@ class _HomeState extends State<Home> {
           left: 190.sp, right: 190.sp, top: 36.sp, bottom: 80.sp),
       children: [
         pageTitleTextWidget('Latest Dashboard Features', context),
+
         SizedBox(
           height: 42.h,
         ),
@@ -90,20 +89,8 @@ class _HomeState extends State<Home> {
   </div>
 ''',
           imageUrl: "assets/dummy.png",
-        )
+        ),
       ],
     );
-  }
-
-  void _mouseEnter(bool hovering, int value) {
-    setState(() {
-      if (value == 1) {
-        _isHoveringFirst = hovering;
-      } else if (value == 2) {
-        _isHoveringSecond = hovering;
-      } else if (value == 3) {
-        _isHoveringThird = hovering;
-      }
-    });
   }
 }

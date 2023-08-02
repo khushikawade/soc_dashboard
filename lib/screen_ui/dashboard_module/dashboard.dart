@@ -15,6 +15,8 @@ import 'package:solved_dashboard/screen_ui/home_module/home.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 import 'package:solved_dashboard/utils/app_theme.dart';
 
+import '../../helper_widget/common_widget/push_notifcation_card.dart';
+
 enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
 
 class Dashboard extends StatefulWidget {
@@ -144,7 +146,21 @@ class _DashboardState extends State<Dashboard> {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      Home(),
+                      //Home(),
+                      PushNotificationCustomCard(
+                        icon1: "assets/group_19036.png",
+                        icon2: "assets/group_19037.png",
+                        icon3: "assets/group_19038.png",
+                        icon4: "assets/group_19039.png",
+                        notificationText1: 'Current App Users',
+                        notificationText2: 'Push Notifications Sent',
+                        notificationText3: 'Push Notification\nEngagements',
+                        notificationText4: 'In-App Social \nEngagements',
+                        subNotificationText1: "262626",
+                        subNotificationText2: "10,253",
+                        subNotificationText3: "11,045",
+                        subNotificationText4: "18,126",
+                      ),
                       model.showLoader
                           ? ShimmerLoading(
                               isLoading: model.showLoader,

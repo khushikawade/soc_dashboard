@@ -154,12 +154,15 @@ class _DashboardState extends State<Dashboard> {
                         icon4: "assets/group_19039.png",
                         notificationText1: 'Current App Users',
                         notificationText2: 'Push Notifications Sent',
-                        notificationText3: 'Push Notification\nEngagements',
-                        notificationText4: 'In-App Social \nEngagements',
+                        notificationText3: 'Push Notification Engagements',
+                        notificationText4: 'In-App SociaL Engagements',
                         subNotificationText1: "262626",
                         subNotificationText2: "10,253",
                         subNotificationText3: "11,045",
                         subNotificationText4: "18,126",
+                      ),
+                      SizedBox(
+                        height: 80.h,
                       ),
                       model.showLoader
                           ? ShimmerLoading(

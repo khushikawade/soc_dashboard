@@ -179,11 +179,14 @@ Widget detailTextWidget(text, context) {
 }
 
 Widget pushNotifyWidget(text, context) {
-  return Text(text,
-      style: AppTheme.lightTheme.textTheme.titleSmall!.copyWith(
-          fontFamily: "Poppins",
-          fontSize: AppSize.size14.sp,
-          color: AppColors.pushNotiyTextColor));
+  return Flexible(
+    child: Text(text,
+        maxLines: 2,
+        style: AppTheme.lightTheme.textTheme.titleSmall!.copyWith(
+            fontFamily: "Poppins",
+            fontSize: AppSize.size14.sp,
+            color: AppColors.pushNotiyTextColor)),
+  );
 }
 
 Widget notificationNo(text, context) {

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
@@ -50,10 +51,10 @@ class _PushNotificationCustomCardState
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 192.w, top: 72.h, bottom: 71.w),
+      padding: EdgeInsets.only(top: 72.h, bottom: 71.w),
       color: AppColors.backgroundBlueColor,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _buildCardWidget(context, widget.icon1, widget.notificationText1!,
@@ -81,8 +82,18 @@ class _PushNotificationCustomCardState
   Widget _buildCardWidget(BuildContext context, String icon,
       String noticationText, String subnoticationText) {
     return Container(
+      width: 358.w,
+      height: 192.h,
       decoration: BoxDecoration(
           color: AppColors.whiteColor,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.black.withOpacity(0.06),
+              blurRadius: 8.r,
+              offset: const Offset(0, 8),
+              spreadRadius: 0,
+            ),
+          ],
           borderRadius: BorderRadius.circular(8.r)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -103,15 +114,13 @@ class _PushNotificationCustomCardState
             ],
           ),
           Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.only(right: 13.w),
-                child: pushNotifyWidget(noticationText, context),
-              ),
+              pushNotifyWidget(noticationText, context),
               SizedBox(
-                height: 5.h,
+                height: 5.5.h,
               ),
               notificationNo(subnoticationText, context),
             ],

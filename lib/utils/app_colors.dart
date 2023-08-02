@@ -26,4 +26,5 @@ class AppColors {
   static Color circularContainer = Color(0xffff6f6e);
   static Color buttonCircularBorder = const Color(0xff00DDC2);
   static Color pushNotiyTextColor = const Color(0xff727272);
+  static Color pushNotifyNoText = const Color(0xff262626);
 }

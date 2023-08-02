@@ -15,10 +15,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool _isHoveringFirst = false;
-  bool _isHoveringSecond = false;
-  bool _isHoveringThird = false;
-
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
@@ -27,7 +23,7 @@ class _HomeState extends State<Home> {
           left: 190.sp, right: 190.sp, top: 36.sp, bottom: 80.sp),
       children: [
         pageTitleTextWidget('Latest Dashboard Features', context),
-    
+
         SizedBox(
           height: 42.h,
         ),
@@ -95,17 +91,5 @@ class _HomeState extends State<Home> {
         )
       ],
     );
-  }
-
-  void _mouseEnter(bool hovering, int value) {
-    setState(() {
-      if (value == 1) {
-        _isHoveringFirst = hovering;
-      } else if (value == 2) {
-        _isHoveringSecond = hovering;
-      } else if (value == 3) {
-        _isHoveringThird = hovering;
-      }
-    });
   }
 }

@@ -185,3 +185,11 @@ Widget pushNotifyWidget(text, context) {
           fontSize: AppSize.size14.sp,
           color: AppColors.pushNotiyTextColor));
 }
+
+Widget notificationNo(text, context) {
+  return Text(text,
+      style: AppTheme.lightTheme.textTheme.titleSmall!.copyWith(
+          fontFamily: "Poppins",
+          fontSize: AppSize.size18.sp,
+          color: AppColors.pushNotifyNoText));
+}

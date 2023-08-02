@@ -101,8 +101,7 @@ class _ThreeColumnTextAndImageWidgetState
             onEnter: (_) => _mouseEnter(true, index),
             onExit: (_) => _mouseEnter(false, index),
             child: Container(
-              padding: EdgeInsets.only(
-                  left: 26.w, top: 39.h, bottom: 33.h, right: 26.w),
+              padding: EdgeInsets.only(left: 26.w, top: 39.h, right: 26.w),
               height: 627.h,
               decoration: BoxDecoration(
                 // borderRadius: BorderRadius.all(Radius.circular(0.r)),
@@ -136,13 +135,9 @@ class _ThreeColumnTextAndImageWidgetState
                     height: 28.h,
                   ),
                   imageUrl != null && imageUrl.isNotEmpty
-                      ? Expanded(
-                          child: CustomImage(
-                            // height: 400,
-                            // width: 300,
-                            iconUrl: imageUrl,
-                            imagepath: imageUrl,
-                          ),
+                      ? CustomImage(
+                          iconUrl: imageUrl,
+                          
                         )
                       : const SizedBox.shrink()
                 ],

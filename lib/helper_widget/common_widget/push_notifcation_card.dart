@@ -3,65 +3,119 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 
-class PushNotifcationCustomCard extends StatefulWidget {
-  const PushNotifcationCustomCard({super.key});
+class PushNotificationCustomCard extends StatefulWidget {
+  final String icon1; //============for Icon in path==================
+  final String icon2; //============for Icon in path==================
+  final String icon3; //============for Icon in path==================
+  final String icon4; //============for Icon in path==================
+
+  final String?
+      notificationText1; //============ noticationText of index 1==================
+  final String?
+      notificationText2; //============ noticationText of index 2==================
+  final String?
+      notificationText3; //============ noticationText of index 3==================
+  final String?
+      notificationText4; //============ noticationText of index 3==================
+  final String?
+      subNotificationText1; //============ subNotificationText of index 1==================
+  final String?
+      subNotificationText2; //============ subNotificationText of index 2==================
+  final String?
+      subNotificationText3; //============ subNotificationText of index 3==================
+  final String?
+      subNotificationText4; //============ subNotificationText of index 4==================
+  PushNotificationCustomCard(
+      {super.key,
+      required this.icon1,
+      required this.icon2,
+      required this.icon3,
+      required this.icon4,
+      required this.notificationText1,
+      required this.notificationText2,
+      required this.notificationText3,
+      required this.notificationText4,
+      this.subNotificationText1,
+      this.subNotificationText2,
+      this.subNotificationText3,
+      this.subNotificationText4});
 
   @override
-  State<PushNotifcationCustomCard> createState() =>
-      _PushNotifcationCustomCardState();
+  State<PushNotificationCustomCard> createState() =>
+      _PushNotificationCustomCardState();
 }
 
-class _PushNotifcationCustomCardState extends State<PushNotifcationCustomCard> {
+class _PushNotificationCustomCardState extends State<PushNotificationCustomCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300.h,
+      padding: EdgeInsets.only(left: 192.w, top: 72.h, bottom: 71.w),
       color: AppColors.backgroundBlueColor,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _buildCardWidget(
-              context, "assets/group_19036.png", "pushNotifyWidget", "")
+          _buildCardWidget(context, widget.icon1, widget.notificationText1!,
+              widget.subNotificationText1!),
+          SizedBox(
+            width: 34.5.w,
+          ),
+          _buildCardWidget(context, widget.icon2, widget.notificationText2!,
+              widget.subNotificationText2!),
+          SizedBox(
+            width: 34.5.w,
+          ),
+          _buildCardWidget(context, widget.icon3, widget.notificationText4!,
+              widget.subNotificationText3!),
+          SizedBox(
+            width: 34.5.w,
+          ),
+          _buildCardWidget(context, widget.icon4, widget.notificationText4!,
+              widget.subNotificationText4!),
         ],
       ),
     );
   }
 
-  Widget _buildCardWidget(BuildContext context, String icon, String headerText,
-      String subHeaderText) {
-    return Padding(
-      padding: EdgeInsets.only(left: 192.w),
-      child: Container(
-        height: 191.65.h,
-        width: 358.96.w,
-        decoration: BoxDecoration(
-            color: AppColors.whiteColor,
-            borderRadius: BorderRadius.circular(8.r)),
-        child: Row(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: 31.w, top: 31.h, bottom: 30.h, right: 13.w),
-                  child: Image.asset(
-                    icon,
-                    height: 130.h,
-                    width: 130.w,
-                    fit: BoxFit.cover,
-                  ),
+  Widget _buildCardWidget(BuildContext context, String icon,
+      String noticationText, String subnoticationText) {
+    return Container(
+      decoration: BoxDecoration(
+          color: AppColors.whiteColor,
+          borderRadius: BorderRadius.circular(8.r)),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                    left: 31.w, top: 31.h, bottom: 30.h, right: 13.w),
+                child: Image.asset(
+                  icon,
+                  height: 130.h,
+                  width: 130.w,
+                  fit: BoxFit.cover,
                 ),
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [pushNotifyWidget(headerText, context)],
-            )
-          ],
-        ),
+              ),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(right: 13.w),
+                child: pushNotifyWidget(noticationText, context),
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              notificationNo(subnoticationText, context),
+            ],
+          )
+        ],
       ),
     );
   }

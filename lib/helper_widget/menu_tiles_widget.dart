@@ -198,36 +198,40 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                             // SizedBox(
                             //   width: 11.w,
                             // ),
-                            MouseRegion(
-                              opaque: true,
-                              onEnter: (PointerEnterEvent pointerEnterEvent) {
-                                widget.headerTiles.forEach(
-                                  (element) {
-                                    if (element.isSelcted!) {
-                                      element.isSelcted = false;
+                            Expanded(
+                              child: MouseRegion(
+                                opaque: true,
+                                onEnter: (PointerEnterEvent pointerEnterEvent) {
+                                  // widget.headerTiles.forEach(
+                                  //   (element) {
+                                  //     if (element.isSelcted!) {
+                                  //       element.isSelcted = false;
+                                  //     }
+                                  //   },
+                                  // );
+                                  setState(() {
+                                    //widget.menuTiles[index].isSelected = true;
+                                    //hovered = true;
+                                    if (widget.menuTiles.isNotEmpty) {
+                                      if (widget.menuTiles[index].icon !=
+                                              null &&
+                                          widget.menuTiles[index].subMenu !=
+                                              null) {
+                                        print(
+                                            "Submenu Item list length -------------------- ${widget.menuTiles[index].subMenu!.length}");
+                                        // menuList.addAll(
+                                        //     widget.headerTiles[index].menuOptions!);
+                                      }
                                     }
-                                  },
-                                );
-                                setState(() {
-                                  widget.menuTiles[index].isSelected = true;
-                                  //hovered = true;
-                                  if (widget.menuTiles[index].icon != null &&
-                                      widget.menuTiles[index].subMenu != null) {
-                                    print(
-                                        "Submenu Item list length -------------------- ${widget.menuTiles[index].subMenu!.length}");
-                                    // menuList.addAll(
-                                    //     widget.headerTiles[index].menuOptions!);
-                                  }
-                                });
-                              },
-                              onExit: (PointerExitEvent pointerExitEvent) {
-                                setState(() {
-                                  widget.headerTiles[index].isSelcted = false;
-                                  // hovered = false;
-                                  //menuList.clear();
-                                });
-                              },
-                              child: Expanded(
+                                  });
+                                },
+                                onExit: (PointerExitEvent pointerExitEvent) {
+                                  setState(() {
+                                    widget.headerTiles[index].isSelcted = false;
+                                    // hovered = false;
+                                    //menuList.clear();
+                                  });
+                                },
                                 child: subMenuTitleWidget(
                                     widget.menuTiles[index].menuTitle ?? '',
                                     context),

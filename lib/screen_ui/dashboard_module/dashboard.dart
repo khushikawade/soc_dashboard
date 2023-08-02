@@ -146,21 +146,21 @@ class _DashboardState extends State<Dashboard> {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      //Home(),
-                      PushNotificationCustomCard(
-                        icon1: "assets/group_19036.png",
-                        icon2: "assets/group_19037.png",
-                        icon3: "assets/group_19038.png",
-                        icon4: "assets/group_19039.png",
-                        notificationText1: 'Current App Users',
-                        notificationText2: 'Push Notifications Sent',
-                        notificationText3: 'Push Notification\nEngagements',
-                        notificationText4: 'In-App Social \nEngagements',
-                        subNotificationText1: "262626",
-                        subNotificationText2: "10,253",
-                        subNotificationText3: "11,045",
-                        subNotificationText4: "18,126",
-                      ),
+                      Home(),
+                      // PushNotificationCustomCard(
+                      //   icon1: "assets/group_19036.png",
+                      //   icon2: "assets/group_19037.png",
+                      //   icon3: "assets/group_19038.png",
+                      //   icon4: "assets/group_19039.png",
+                      //   notificationText1: 'Current App Users',
+                      //   notificationText2: 'Push Notifications Sent',
+                      //   notificationText3: 'Push Notification\nEngagements',
+                      //   notificationText4: 'In-App Social \nEngagements',
+                      //   subNotificationText1: "262626",
+                      //   subNotificationText2: "10,253",
+                      //   subNotificationText3: "11,045",
+                      //   subNotificationText4: "18,126",
+                      // ),
                       model.showLoader
                           ? ShimmerLoading(
                               isLoading: model.showLoader,

@@ -135,9 +135,10 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
 
   OverlayEntry _overlayEntryForSubMenu() {
     return OverlayEntry(builder: (BuildContext overlayContext) {
+      final offset = _getPosition();
       return Positioned(
-        // top: offset.dy.sp + 100.sp,
-        // left: offset.dx.sp + 193.sp,
+        top: offset.dy.sp + 100.sp,
+        left: offset.dx.sp + 193.sp,
         child: ChangeNotifierProvider.value(
           value: ScrollEventNotifier(false, false),
           child: StatefulBuilder(
@@ -145,7 +146,6 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
               return Material(
                 color: Colors.transparent,
                 child: Column(
-                  key: _globalKeyForMenu,
                   children: _buildListItemsForSubMenu(),
                 ),
                 //),
@@ -213,9 +213,10 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                   child: MouseRegion(
                     opaque: true,
                     onHover: (_) {
-                      final offset = _getPositionForSubMenu();
-                      print("Tapped value dx ---------------- ${offset.dx}");
-                      print("Tapped value dy ---------------- ${offset.dy}");
+                      // final offset = _getPositionForSubMenu();
+                      // final offset = _getPosition();
+                      // print("Tapped value dx ---------------- ${offset.dx}");
+                      // print("Tapped value dy ---------------- ${offset.dy}");
                       subMenuList.clear();
                       setState(() {
                         if (widget.menuTiles != null &&
@@ -272,7 +273,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     final listItems = <Widget>[];
     for (int index = 0; index < subMenuList.length; ++index) {
       listItems.add(Container(
-        key: _globalKeyForMenu,
+        //key: _globalKeyForMenu,
         width: 192.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(

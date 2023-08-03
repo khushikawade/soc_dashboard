@@ -43,9 +43,11 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     with SingleTickerProviderStateMixin {
   final GlobalKey _globalKey = GlobalKey();
   OverlayEntry? entry;
+  OverlayEntry? subMenuOverlayEntry;
   List _menuHover = [];
   ScrollController controller = ScrollController();
   bool allowAddEntry = true;
+  bool allowAddEntryForSubMenu = true;
 
   @override
   void initState() {
@@ -55,6 +57,10 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
       entry = _overlayEntry();
       entry?.addListener(() {
         allowAddEntry = !allowAddEntry;
+      });
+      subMenuOverlayEntry = _overlayEntryForSubMenu();
+      subMenuOverlayEntry?.addListener(() {
+        allowAddEntryForSubMenu = !allowAddEntryForSubMenu;
       });
     });
   }
@@ -89,7 +95,6 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     );
   }
 
-  ///Adding overlay entry
   OverlayEntry _overlayEntry() {
     return OverlayEntry(builder: (BuildContext overlayContext) {
       final offset = _getPosition();
@@ -118,6 +123,44 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                     children: _buildListItems(),
                   ),
                 ),
+              );
+            },
+          ),
+        ),
+      );
+    });
+  }
+
+  OverlayEntry _overlayEntryForSubMenu() {
+    return OverlayEntry(builder: (BuildContext overlayContext) {
+      final offset = _getPosition();
+      return Positioned(
+        top: 240.sp,
+        left: offset.dx + 193,
+        child: ChangeNotifierProvider.value(
+          value: ScrollEventNotifier(false, false),
+          child: StatefulBuilder(
+            builder: (context, setStateForOverlay) {
+              return Material(
+                color: Colors.transparent,
+                child:
+                    // MouseRegion(
+                    //   onEnter: (_) {
+                    //     if (!_menuHover[widget.index]) {
+                    //       _menuHover[widget.index] = true;
+                    //     }
+                    //   },
+                    //   onExit: (_) {
+                    //     if (_menuHover[widget.index]) {
+                    //       _menuHover[widget.index] = false;
+                    //       setStateForOverlay(() {});
+                    //     }
+                    //   },
+                    //child:
+                    Column(
+                  children: _buildListItems(),
+                ),
+                //),
               );
             },
           ),
@@ -201,35 +244,23 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                             Expanded(
                               child: MouseRegion(
                                 opaque: true,
-                                onEnter: (PointerEnterEvent pointerEnterEvent) {
-                                  // widget.headerTiles.forEach(
-                                  //   (element) {
-                                  //     if (element.isSelcted!) {
-                                  //       element.isSelcted = false;
-                                  //     }
-                                  //   },
-                                  // );
-                                  setState(() {
-                                    //widget.menuTiles[index].isSelected = true;
-                                    //hovered = true;
-                                    if (widget.menuTiles.isNotEmpty) {
-                                      if (widget.menuTiles[index].icon !=
-                                              null &&
-                                          widget.menuTiles[index].subMenu !=
-                                              null) {
-                                        print(
-                                            "Submenu Item list length -------------------- ${widget.menuTiles[index].subMenu!.length}");
-                                        // menuList.addAll(
-                                        //     widget.headerTiles[index].menuOptions!);
+                                onHover: (_) {
+                                  if (allowAddEntryForSubMenu) {
+                                    _menuHover[widget.index] = true;
+                                    _addOverlay(subMenuOverlayEntry!);
+                                  }
+                                },
+                                onExit: (_) {
+                                  _menuHover[widget.index] = false;
+                                  Future.delayed(
+                                      const Duration(milliseconds: 100), () {
+                                    if (subMenuOverlayEntry != null) {
+                                      if (!subMenuOverlayEntry!.mounted) {
+                                        return;
+                                      } else {
+                                        subMenuOverlayEntry?.remove();
                                       }
                                     }
-                                  });
-                                },
-                                onExit: (PointerExitEvent pointerExitEvent) {
-                                  setState(() {
-                                    widget.headerTiles[index].isSelcted = false;
-                                    // hovered = false;
-                                    //menuList.clear();
                                   });
                                 },
                                 child: subMenuTitleWidget(

@@ -146,8 +146,7 @@ class _DashboardState extends State<Dashboard> {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-<<<<<<< HEAD
-                      //  Home(),
+                      // Home(),
                       PushNotificationCustomCard(
                         icon1: "assets/current_app_user.png",
                         icon2: "assets/notification.png",
@@ -162,23 +161,8 @@ class _DashboardState extends State<Dashboard> {
                         subNotificationText3: "11,045",
                         subNotificationText4: "18,126",
                       ),
-=======
                       Home(),
-                      // PushNotificationCustomCard(
-                      //   icon1: "assets/current_app_user.png",
-                      //   icon2: "assets/notification.png",
-                      //   icon3: "assets/push_notification_engagement.png",
-                      //   icon4: "assets/social_engagement.png",
-                      //   notificationText1: 'Current App Users',
-                      //   notificationText2: 'Push Notifications Sent',
-                      //   notificationText3: 'Push Notification Engagements',
-                      //   notificationText4: 'In-App Social Engagements',
-                      //   subNotificationText1: "25,456",
-                      //   subNotificationText2: "10,253",
-                      //   subNotificationText3: "11,045",
-                      //   subNotificationText4: "18,126",
-                      // ),
->>>>>>> d11dc7f4c14dddd04bcb959e9d601990275d06e9
+
                       SizedBox(
                         height: 80.h,
                       ),

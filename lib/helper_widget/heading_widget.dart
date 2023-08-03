@@ -71,7 +71,9 @@ Widget tabBarItemWidgetText(text, context, color) {
 }
 
 Widget headerTextWidget(text, context) {
-  return Text(text, style: AppTheme.lightTheme.textTheme.bodyMedium);
+  return Text(text,
+      style: AppTheme.lightTheme.textTheme.bodyMedium!
+          .copyWith(fontSize: AppSize.size40.sp, fontWeight: FontWeight.w600));
 }
 
 Widget subHeaderTextWidget(text, context) {

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+
 import 'package:solved_dashboard/helper_widget/common_widget/three_column_text_and_image.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
-import 'package:solved_dashboard/helper_widget/information_graph_card.dart';
 
+import '../../helper_widget/common_widget/iframe_custom_link_widget.dart';
 import '../../helper_widget/common_widget/one_column_text_and_image_left.dart';
 import '../../helper_widget/common_widget/one_column_text_and_image_right.dart';
 
-import '../../helper_widget/common_widget/push_notifcation_card.dart';
 import '../../helper_widget/common_widget/two_column_text_and_image.dart';
 
 class Home extends StatefulWidget {
@@ -92,6 +91,32 @@ class _HomeState extends State<Home> {
 ''',
           imageUrl: "assets/one_column_image.png",
         ),
+        const TwoColumnTextAndImageWidget(
+          titleTextCard1: "",
+          subTitleTextCard1: "Praesent lobortis metus ex.",
+          subTitleTextCard2: "Praesent lobortis metus ex.",
+          detailDescriptionCard1: '''
+  <div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat<br>libero.
+     In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor<br>mauris, consequat non imperdiet vel, tristique nec urna.</p>
+
+  </div>
+''',
+          detailDescriptionCard2: '''
+  <div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat<br>libero.
+     In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor<br>mauris, consequat non imperdiet vel, tristique nec urna.</p>
+
+  </div>
+''',
+          imageUrlCard1: "assets/hannah.png",
+          imageUrlCard2: "assets/hannah.png",
+        ),
+        // const IFrameCustomWidget(
+        //   titleText: "Data Insights Widget",
+        //   subTitleText: "Title Here",
+        //   dynamicLinkUrl: "",
+        // )
       ],
     );
   }

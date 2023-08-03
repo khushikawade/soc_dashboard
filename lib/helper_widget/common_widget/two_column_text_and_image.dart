@@ -70,12 +70,12 @@ class _TwoColumnTextAndImageWidgetState
           padding:
               EdgeInsets.only(top: 35.h, left: 41.w, right: 41.w, bottom: 40.h),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20.r)),
+            borderRadius: BorderRadius.all(Radius.circular(8.r)),
             boxShadow: [
               BoxShadow(
-                color: AppColors.black.withOpacity(0.1),
-                blurRadius: 20.0.r,
-                offset: const Offset(0, 20),
+                color: AppColors.black.withOpacity(0.03),
+                blurRadius: 7.0.r,
+                offset: const Offset(0, 4),
                 spreadRadius: 0,
               ),
             ],

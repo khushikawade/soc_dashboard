@@ -43,22 +43,18 @@ class _TwoColumnTextAndImageWidgetState
     extends State<TwoColumnTextAndImageWidget> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:
-          EdgeInsets.only(left: 191.w, right: 191.w, bottom: 105.h, top: 203.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          cardWidget(context, widget.subTitleTextCard1,
-              widget.detailDescriptionCard1, widget.imageUrlCard1),
-          SizedBox(
-            width: 20.w,
-          ),
-          cardWidget(context, widget.subTitleTextCard2,
-              widget.detailDescriptionCard2, widget.imageUrlCard2),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        cardWidget(context, widget.subTitleTextCard1,
+            widget.detailDescriptionCard1, widget.imageUrlCard1),
+        SizedBox(
+          width: 30.w,
+        ),
+        cardWidget(context, widget.subTitleTextCard2,
+            widget.detailDescriptionCard2, widget.imageUrlCard2),
+      ],
     );
   }
 
@@ -105,11 +101,19 @@ class _TwoColumnTextAndImageWidgetState
                 height: 30.h,
               ),
               imageUrl != null && imageUrl.isNotEmpty
-                  ? CustomImage(
-                      // height: 400,
-                      // width: 300,
-                      iconUrl: imageUrl,
+                  ? Align(
+                      alignment: Alignment.centerLeft,
+                      child: Image.asset(
+                        imageUrl,
+                        width: 800.w,
+                        fit: BoxFit.cover,
+                      ),
                     )
+                  // CustomImage(
+                  //     // height: 400,
+                  //     // width: 300,
+                  //     iconUrl: imageUrl,
+                  //   )
                   : const SizedBox.shrink(),
               SizedBox(
                 height: 5.h,

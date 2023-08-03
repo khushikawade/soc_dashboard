@@ -91,6 +91,9 @@ class _HomeState extends State<Home> {
 ''',
           imageUrl: "assets/one_column_image.png",
         ),
+        SizedBox(
+          height: 56.h,
+        ),
         const TwoColumnTextAndImageWidget(
           titleTextCard1: "",
           subTitleTextCard1: "Praesent lobortis metus ex.",
@@ -112,11 +115,22 @@ class _HomeState extends State<Home> {
           imageUrlCard1: "assets/hannah.png",
           imageUrlCard2: "assets/hannah.png",
         ),
-        // const IFrameCustomWidget(
-        //   titleText: "Data Insights Widget",
-        //   subTitleText: "Title Here",
-        //   dynamicLinkUrl: "",
-        // )
+        SizedBox(
+          height: 56.h,
+        ),
+        SizedBox(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height / 1.5.h,
+          child: const IFrameCustomWidget(
+            titleText: "Data Insights Widget",
+            subTitleText: "Title Here",
+            dynamicLinkUrl:
+                "https://services.solvedconsulting.net/news/a1f4W000007DQaNQAW",
+          ),
+        ),
+        SizedBox(
+          height: 56.h,
+        ),
       ],
     );
   }

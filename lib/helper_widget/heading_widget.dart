@@ -83,7 +83,9 @@ Widget subHeaderTextWidget(text, context) {
 }
 
 Widget labelTextForPopUpWidget(text, context) {
-  return Text(text, style: AppTheme.lightTheme.textTheme.displayLarge);
+  return Text(text,
+      style: AppTheme.lightTheme.textTheme.displayLarge!
+          .copyWith(fontSize: AppSize.size40.sp));
 }
 
 Widget labelTextIndex(text, context) {

@@ -43,7 +43,8 @@ class MenuTilesWidget extends StatefulWidget {
 class _MenuTilesWidgetState extends State<MenuTilesWidget>
     with SingleTickerProviderStateMixin {
   final GlobalKey _globalKey = GlobalKey();
-  final GlobalKey _globalKeyForMenu = GlobalKey();
+  List<GlobalKey> _globalKeyForMenu = [];
+  //final GlobalKey _globalKeyForMenu = GlobalKey();
   OverlayEntry? entry;
   OverlayEntry? subMenuOverlayEntry;
   List _menuHover = [];
@@ -140,12 +141,12 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     return OverlayEntry(builder: (BuildContext overlayContext) {
       // final offset = _getPosition();
       return Positioned(
-        top: _hoverOffset.dy.sp //offset.dy
-            +
-            100.sp,
-        left: _hoverOffset.dx.sp //offset.dx
-            +
-            193.sp,
+        top: _hoverOffset.dy.sp, //offset.dy
+        // +
+        // 100.sp,
+        left: _hoverOffset.dx.sp + 75.sp, //offset.dx
+        // +
+        // 193.sp,
         child: ChangeNotifierProvider.value(
           value: ScrollEventNotifier(false, false),
           child: StatefulBuilder(
@@ -173,30 +174,47 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
 
   void _handleHover(PointerHoverEvent event) {
     setState(() {
-      _hoverOffset = event.localPosition;
+      _hoverOffset = event.position;
     });
+    // final offset = _getPosition();
   }
 
-  _getPositionForSubMenu() {
-    if (_globalKeyForMenu.currentContext != null) {
-      try {
-        final renderBox =
-            _globalKeyForMenu.currentContext!.findRenderObject() as RenderBox;
-        return renderBox.localToGlobal(Offset.zero);
-      } catch (e) {
-        print("Error when getting offset position --------- $e");
-      }
+  void _getListItemPosition(PointerHoverEvent event, int index) {
+    _globalKeyForMenu = List.generate(index, (index) => GlobalKey());
+    final RenderBox renderBox = _globalKeyForMenu[index]
+        .currentContext
+        ?.findRenderObject() as RenderBox;
+    if (renderBox != null) {
+      _hoverOffset = renderBox.localToGlobal(Offset.zero);
+      print("Item $index Position: ${_hoverOffset.dx}, ${_hoverOffset.dy}");
+      print("Item $index Position: ${_hoverOffset.dx}, ${_hoverOffset.dy}");
     } else {
-      return const Offset(100, 100);
+      print("============================================null");
     }
   }
+  // _getPositionForSubMenu() {
+  //   if (_globalKeyForMenu.currentContext != null) {
+  //     try {
+  //       final RenderBox renderBox =
+  //           _globalKeyForMenu.currentContext?.findRenderObject() as RenderBox;
+  //       if (renderBox != null) {
+  //         setState(() {
+  //           subMenuOffset = renderBox.localToGlobal(Offset.zero);
+  //         });
+  //       }
+  //     } catch (e) {
+  //       print("Error when getting offset position --------- $e");
+  //     }
+  //   } else {
+  //     return const Offset(100, 100);
+  //   }
+  // }
 
   ///Showing list with using curve and delay
   List<Widget> _buildListItems() {
     final listItems = <Widget>[];
     for (int index = 0; index < widget.menuTiles.length; ++index) {
       listItems.add(Container(
-        key: Key('$_globalKeyForMenu + $index'),
         width: 192.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -229,16 +247,10 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                 Expanded(
                   child: MouseRegion(
                     opaque: true,
-                    onHover: (_) async {
-                      _handleHover;
-                      // final offset = _getPosition();
-                      print(
-                          "Tapped value offset -----sayyam----------- ${_hoverOffset}");
-                      print(
-                          "Tapped value dx -----sayyam----------- ${_hoverOffset.dx}");
-                      print(
-                          "Tapped value dy -------sayyam--------- ${_hoverOffset.dy}");
-
+                    onHover: //_handleHover,
+                        (PointerHoverEvent event) async {
+                      _handleHover(event);
+                      // _getListItemPosition(event, 3);
                       subMenuList.clear();
                       setState(() {
                         if (widget.menuTiles != null &&
@@ -250,6 +262,10 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                           }
                         }
                       });
+                      // for (int index = 0; index < subMenuList.length; ++index) {
+                      // _getListItemPosition(
+                      //     event, widget.menuTiles[index].subMenu!.length);
+                      // }
                       if (allowAddEntryForSubMenu) {
                         // _menuHover[widget.index] = true;
                         _addOverlay(subMenuOverlayEntry!);
@@ -299,7 +315,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     final listItems = <Widget>[];
     for (int index = 0; index < subMenuList.length; ++index) {
       listItems.add(Container(
-        key: Key('$_globalKeyForMenu + $index'),
+        //key: _globalKeyForMenu[index],
         width: 192.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -355,7 +371,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
 
   ///Add overlay using it's entry
   _addOverlay(OverlayEntry entry) {
-    Overlay.of(context)?.insert(entry);
+    Overlay.of(context).insert(entry);
   }
 }
 

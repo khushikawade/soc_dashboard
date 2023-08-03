@@ -84,12 +84,15 @@ Widget subHeaderTextWidget(text, context) {
 
 Widget labelTextForPopUpWidget(text, context) {
   return Text(text,
+      softWrap: true,
       style: AppTheme.lightTheme.textTheme.displayLarge!
           .copyWith(fontSize: AppSize.size40.sp));
 }
 
 Widget labelTextIndex(text, context) {
   return Text(text,
+      softWrap: true,
+      overflow: TextOverflow.ellipsis,
       style: AppTheme.lightTheme.textTheme.displaySmall!.copyWith(
         fontSize: AppSize.size18.sp,
         color: AppColors.whiteColor,
@@ -97,7 +100,9 @@ Widget labelTextIndex(text, context) {
 }
 
 Widget buttonText(text, context) {
-  return Text(text, style: AppTheme.lightTheme.textTheme.bodySmall);
+  return Text(text,
+      style: AppTheme.lightTheme.textTheme.bodySmall!
+          .copyWith(fontSize: AppSize.size22.sp));
 }
 
 Widget threeColumnTextWidget(text, context) {

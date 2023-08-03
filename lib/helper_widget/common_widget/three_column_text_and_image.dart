@@ -126,7 +126,7 @@ class _ThreeColumnTextAndImageWidgetState
                       ? subHeaderTextWidget(subTitle, context)
                       : const SizedBox.shrink(),
                   SizedBox(
-                    height: 15.h,
+                    height: 23.h,
                   ),
                   description != null && description.isNotEmpty
                       ? detailTextWidget(description, context)

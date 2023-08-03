@@ -78,16 +78,16 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
         }
       },
       onExit: (_) {
-        _menuHover[widget.index] = false;
-        Future.delayed(const Duration(milliseconds: 100), () {
-          if (!_menuHover[widget.index] && entry != null) {
-            if (!entry!.mounted) {
-              return;
-            } else {
-              entry?.remove();
-            }
-          }
-        });
+        // _menuHover[widget.index] = false;
+        // Future.delayed(const Duration(milliseconds: 100), () {
+        //   if (!_menuHover[widget.index] && entry != null) {
+        //     if (!entry!.mounted) {
+        //       return;
+        //     } else {
+        //       entry?.remove();
+        //     }
+        //   }
+        // });
       },
       child: Container(
         key: _globalKey,
@@ -134,31 +134,19 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
 
   OverlayEntry _overlayEntryForSubMenu() {
     return OverlayEntry(builder: (BuildContext overlayContext) {
-      final offset = _getPosition();
+      final offset = _getPositionForSubMenu();
+      print("Tapped value dx ---------------- ${offset.dx}");
+      print("Tapped value dy ---------------- ${offset.dy}");
       return Positioned(
-        top: 240.sp,
-        left: offset.dx + 193,
+        top: offset.dy.sp + 100.sp,
+        left: offset.dx.sp + 193.sp,
         child: ChangeNotifierProvider.value(
           value: ScrollEventNotifier(false, false),
           child: StatefulBuilder(
             builder: (context, setStateForOverlay) {
               return Material(
                 color: Colors.transparent,
-                child:
-                    // MouseRegion(
-                    //   onEnter: (_) {
-                    //     if (!_menuHover[widget.index]) {
-                    //       _menuHover[widget.index] = true;
-                    //     }
-                    //   },
-                    //   onExit: (_) {
-                    //     if (_menuHover[widget.index]) {
-                    //       _menuHover[widget.index] = false;
-                    //       setStateForOverlay(() {});
-                    //     }
-                    //   },
-                    //child:
-                    Column(
+                child: Column(
                   children: _buildListItemsForSubMenu(),
                 ),
                 //),
@@ -177,135 +165,98 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     return renderBox.localToGlobal(Offset.zero);
   }
 
+  Offset _getPositionForSubMenu() {
+    final renderBox =
+        _globalKey.currentContext!.findRenderObject() as RenderBox;
+    return renderBox.localToGlobal(Offset.zero);
+  }
+
   ///Showing list with using curve and delay
   List<Widget> _buildListItems() {
     final listItems = <Widget>[];
     for (int index = 0; index < widget.menuTiles.length; ++index) {
-      listItems.add(
-        FutureBuilder(
-            future: Future.delayed(Duration(milliseconds: (index * 200))),
-            builder: (context, value) {
-              if (value.connectionState == ConnectionState.done) {
-                return
-                    // TweenAnimationBuilder(
-                    //   curve: Curves.easeIn,
-                    //   duration: const Duration(milliseconds: 200),
-                    //   onEnd: () {
-                    //     if (entry != null && !_menuHover[widget.index]) {
-                    //       if (!entry!.mounted) {
-                    //         return;
-                    //       } else {
-                    //         entry!.remove();
-                    //       }
-                    //     }
-                    //   },
-                    //   tween: _menuHover[widget.index]
-                    //       ? Tween<double>(begin: 1, end: 0)
-                    //       : Tween<double>(begin: 0, end: 1),
-                    //   builder: (_, double value, _child) {
-                    //     return _defineAnimationType(
-                    //         widget.animationType, value, _child, i);
-                    //   },
-                    //   child:
-                    InkWell(
-                  onTap: () {},
-                  child: Container(
-                    width: 192.w,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.black.withOpacity(0.1),
-                          blurRadius: 20.0.r,
-                          offset: const Offset(0, 20),
-                          spreadRadius: 0,
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                        padding: EdgeInsets.only(
-                            left: 16.sp,
-                            right: 16.sp,
-                            top: 16.sp,
-                            bottom: 16.sp),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            // Image.asset(
-                            //   widget.menuTiles[i].imagePath!,
-                            //   height: 25.h,
-                            //   width: 25.w,
-                            // ),
-                            // SizedBox(
-                            //   width: 11.w,
-                            // ),
-                            Expanded(
-                              child: MouseRegion(
-                                opaque: true,
-                                onHover: (_) {
-                                  subMenuList.clear();
-                                  setState(() {
-                                    if (widget.menuTiles != null &&
-                                        widget.menuTiles.isNotEmpty) {
-                                      if (widget.menuTiles[index].subMenu !=
-                                              null &&
-                                          widget.menuTiles[index].subMenu!
-                                              .isNotEmpty) {
-                                        subMenuList.addAll(
-                                            widget.menuTiles[index].subMenu!);
-                                      }
-                                    }
-                                  });
-                                  if (allowAddEntryForSubMenu) {
-                                    _menuHover[widget.index] = true;
-                                    _addOverlay(subMenuOverlayEntry!);
-                                  }
-                                },
-                                onExit: (_) {
-                                  _menuHover[widget.index] = false;
-                                  Future.delayed(
-                                      const Duration(milliseconds: 100), () {
-                                    if (subMenuOverlayEntry != null) {
-                                      if (!subMenuOverlayEntry!.mounted) {
-                                        return;
-                                      } else {
-                                        subMenuOverlayEntry?.remove();
-                                      }
-                                    }
-                                  });
-                                },
-                                child: subMenuTitleWidget(
-                                    widget.menuTiles[index].menuTitle ?? '',
-                                    context),
-                              ),
-                            ),
-                            SizedBox(
-                              width: widget.menuTiles[index].icon != null
-                                  ? 16.sp
-                                  : 0,
-                            ),
-                            widget.menuTiles[index].icon != null
-                                ? Icon(
-                                    widget.menuTiles[index].icon,
-                                    color: AppColors.tabBarSelectedBG,
-                                    size: 24.sp,
-                                  )
-                                : Container(
-                                    width: 0,
-                                    height: 0,
-                                  ),
-                          ],
-                        )),
+      listItems.add(Container(
+        width: 192.w,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: AppColors.whiteColor,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.black.withOpacity(0.1),
+              blurRadius: 20.0.r,
+              offset: const Offset(0, 20),
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Padding(
+            padding: EdgeInsets.only(
+                left: 16.sp, right: 16.sp, top: 16.sp, bottom: 16.sp),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Image.asset(
+                //   widget.menuTiles[i].imagePath!,
+                //   height: 25.h,
+                //   width: 25.w,
+                // ),
+                // SizedBox(
+                //   width: 11.w,
+                // ),
+                Expanded(
+                  child: MouseRegion(
+                    opaque: true,
+                    onHover: (_) {
+                      subMenuList.clear();
+                      setState(() {
+                        if (widget.menuTiles != null &&
+                            widget.menuTiles.isNotEmpty) {
+                          if (widget.menuTiles[index].subMenu != null &&
+                              widget.menuTiles[index].subMenu!.isNotEmpty) {
+                            subMenuList
+                                .addAll(widget.menuTiles[index].subMenu!);
+                          }
+                        }
+                      });
+                      if (allowAddEntryForSubMenu) {
+                        // _menuHover[widget.index] = true;
+                        _addOverlay(subMenuOverlayEntry!);
+                      }
+                    },
+                    onExit: (_) {
+                      //_menuHover[widget.index] = false;
+                      Future.delayed(const Duration(milliseconds: 100), () {
+                        if (subMenuOverlayEntry != null) {
+                          if (!subMenuOverlayEntry!.mounted) {
+                            return;
+                          } else {
+                            subMenuOverlayEntry?.remove();
+                          }
+                        }
+                      });
+                    },
+                    child: subMenuTitleWidget(
+                        widget.menuTiles[index].menuTitle ?? '', context),
                   ),
-                  // ),
-                );
-              }
-              return Container();
-            }),
-      );
+                ),
+                SizedBox(
+                  width: widget.menuTiles[index].icon != null ? 16.sp : 0,
+                ),
+                widget.menuTiles[index].icon != null
+                    ? Icon(
+                        widget.menuTiles[index].icon,
+                        color: AppColors.tabBarSelectedBG,
+                        size: 24.sp,
+                      )
+                    : Container(
+                        width: 0,
+                        height: 0,
+                      ),
+              ],
+            )),
+      ));
     }
     return listItems;
   }
@@ -313,117 +264,60 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   List<Widget> _buildListItemsForSubMenu() {
     final listItems = <Widget>[];
     for (int index = 0; index < subMenuList.length; ++index) {
-      listItems.add(
-        FutureBuilder(
-            future: Future.delayed(Duration(milliseconds: (index * 200))),
-            builder: (context, value) {
-              if (value.connectionState == ConnectionState.done) {
-                return
-                    // TweenAnimationBuilder(
-                    //   curve: Curves.easeIn,
-                    //   duration: const Duration(milliseconds: 200),
-                    //   onEnd: () {
-                    //     if (entry != null && !_menuHover[widget.index]) {
-                    //       if (!entry!.mounted) {
-                    //         return;
-                    //       } else {
-                    //         entry!.remove();
-                    //       }
-                    //     }
-                    //   },
-                    //   tween: _menuHover[widget.index]
-                    //       ? Tween<double>(begin: 1, end: 0)
-                    //       : Tween<double>(begin: 0, end: 1),
-                    //   builder: (_, double value, _child) {
-                    //     return _defineAnimationType(
-                    //         widget.animationType, value, _child, i);
-                    //   },
-                    //   child:
-                    InkWell(
-                  onTap: () {},
-                  child: Container(
-                    width: 192.w,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.black.withOpacity(0.1),
-                          blurRadius: 20.0.r,
-                          offset: const Offset(0, 20),
-                          spreadRadius: 0,
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                        padding: EdgeInsets.only(
-                            left: 16.sp,
-                            right: 16.sp,
-                            top: 16.sp,
-                            bottom: 16.sp),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            // Image.asset(
-                            //   widget.menuTiles[i].imagePath!,
-                            //   height: 25.h,
-                            //   width: 25.w,
-                            // ),
-                            // SizedBox(
-                            //   width: 11.w,
-                            // ),
-                            Expanded(
-                              child: MouseRegion(
-                                opaque: true,
-                                onHover: (_) {
-                                  if (allowAddEntryForSubMenu) {
-                                    _menuHover[widget.index] = true;
-                                    _addOverlay(subMenuOverlayEntry!);
-                                  }
-                                },
-                                onExit: (_) {
-                                  _menuHover[widget.index] = false;
-                                  Future.delayed(
-                                      const Duration(milliseconds: 100), () {
-                                    if (subMenuOverlayEntry != null) {
-                                      if (!subMenuOverlayEntry!.mounted) {
-                                        return;
-                                      } else {
-                                        subMenuOverlayEntry?.remove();
-                                      }
-                                    }
-                                  });
-                                },
-                                child: subMenuTitleWidget(
-                                    subMenuList[index].subMenuTitle ?? '',
-                                    context),
-                              ),
-                            ),
-                            SizedBox(
-                              width:
-                                  subMenuList[index].icon != null ? 16.sp : 0,
-                            ),
-                            subMenuList[index].icon != null
-                                ? Icon(
-                                    subMenuList[index].icon,
-                                    color: AppColors.tabBarSelectedBG,
-                                    size: 24.sp,
-                                  )
-                                : Container(
-                                    width: 0,
-                                    height: 0,
-                                  ),
-                          ],
-                        )),
-                  ),
+      listItems.add(InkWell(
+        onTap: () {},
+        child: Container(
+          width: 192.w,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: AppColors.whiteColor,
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.black.withOpacity(0.1),
+                blurRadius: 20.0.r,
+                offset: const Offset(0, 20),
+                spreadRadius: 0,
+              ),
+            ],
+          ),
+          child: Padding(
+              padding: EdgeInsets.only(
+                  left: 16.sp, right: 16.sp, top: 16.sp, bottom: 16.sp),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Image.asset(
+                  //   widget.menuTiles[i].imagePath!,
+                  //   height: 25.h,
+                  //   width: 25.w,
                   // ),
-                );
-              }
-              return Container();
-            }),
-      );
+                  // SizedBox(
+                  //   width: 11.w,
+                  // ),
+                  Expanded(
+                    child: subMenuTitleWidget(
+                        subMenuList[index].subMenuTitle ?? '', context),
+                  ),
+                  SizedBox(
+                    width: subMenuList[index].icon != null ? 16.sp : 0,
+                  ),
+                  subMenuList[index].icon != null
+                      ? Icon(
+                          subMenuList[index].icon,
+                          color: AppColors.tabBarSelectedBG,
+                          size: 24.sp,
+                        )
+                      : Container(
+                          width: 0,
+                          height: 0,
+                        ),
+                ],
+              )),
+        ),
+        // ),
+      ));
     }
     return listItems;
   }

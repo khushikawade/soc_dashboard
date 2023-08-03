@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -49,7 +50,9 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   ScrollController controller = ScrollController();
   bool allowAddEntry = true;
   bool allowAddEntryForSubMenu = true;
+  Offset _hoverOffset = Offset.zero;
   List<SubMenuData> subMenuList = List.empty(growable: true);
+  Offset? subMenuOffset;
 
   @override
   void initState() {
@@ -135,10 +138,14 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
 
   OverlayEntry _overlayEntryForSubMenu() {
     return OverlayEntry(builder: (BuildContext overlayContext) {
-      final offset = _getPosition();
+      // final offset = _getPosition();
       return Positioned(
-        top: offset.dy.sp + 100.sp,
-        left: offset.dx.sp + 193.sp,
+        top: _hoverOffset.dy.sp //offset.dy
+            +
+            100.sp,
+        left: _hoverOffset.dx.sp //offset.dx
+            +
+            193.sp,
         child: ChangeNotifierProvider.value(
           value: ScrollEventNotifier(false, false),
           child: StatefulBuilder(
@@ -164,15 +171,24 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     return renderBox.localToGlobal(Offset.zero);
   }
 
-  Offset _getPositionForSubMenu() {
-    try {
-      final renderBox =
-          _globalKeyForMenu.currentContext!.findRenderObject() as RenderBox;
-      return renderBox.localToGlobal(Offset.zero);
-    } catch (e) {
-      print("Error when getting offset position --------- $e");
+  void _handleHover(PointerHoverEvent event) {
+    setState(() {
+      _hoverOffset = event.localPosition;
+    });
+  }
+
+  _getPositionForSubMenu() {
+    if (_globalKeyForMenu.currentContext != null) {
+      try {
+        final renderBox =
+            _globalKeyForMenu.currentContext!.findRenderObject() as RenderBox;
+        return renderBox.localToGlobal(Offset.zero);
+      } catch (e) {
+        print("Error when getting offset position --------- $e");
+      }
+    } else {
+      return const Offset(100, 100);
     }
-    return const Offset(100, 100);
   }
 
   ///Showing list with using curve and delay
@@ -180,6 +196,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     final listItems = <Widget>[];
     for (int index = 0; index < widget.menuTiles.length; ++index) {
       listItems.add(Container(
+        key: Key('$_globalKeyForMenu + $index'),
         width: 192.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -212,11 +229,16 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                 Expanded(
                   child: MouseRegion(
                     opaque: true,
-                    onHover: (_) {
-                      // final offset = _getPositionForSubMenu();
+                    onHover: (_) async {
+                      _handleHover;
                       // final offset = _getPosition();
-                      // print("Tapped value dx ---------------- ${offset.dx}");
-                      // print("Tapped value dy ---------------- ${offset.dy}");
+                      print(
+                          "Tapped value offset -----sayyam----------- ${_hoverOffset}");
+                      print(
+                          "Tapped value dx -----sayyam----------- ${_hoverOffset.dx}");
+                      print(
+                          "Tapped value dy -------sayyam--------- ${_hoverOffset.dy}");
+
                       subMenuList.clear();
                       setState(() {
                         if (widget.menuTiles != null &&
@@ -270,10 +292,14 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   }
 
   List<Widget> _buildListItemsForSubMenu() {
+    // print(
+    //     "++++++++++++++++++++++++++++++++++++++++++++++++${_globalKeyForMenu}+++++++++++");
+    // print(
+    //     "++++++++++++++++++++++++++++++++++++++++++++++++${_globalKeyForMenu}+++++++++++");
     final listItems = <Widget>[];
     for (int index = 0; index < subMenuList.length; ++index) {
       listItems.add(Container(
-        //key: _globalKeyForMenu,
+        key: Key('$_globalKeyForMenu + $index'),
         width: 192.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(

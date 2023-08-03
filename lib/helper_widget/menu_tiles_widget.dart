@@ -42,6 +42,7 @@ class MenuTilesWidget extends StatefulWidget {
 class _MenuTilesWidgetState extends State<MenuTilesWidget>
     with SingleTickerProviderStateMixin {
   final GlobalKey _globalKey = GlobalKey();
+  final GlobalKey _globalKeyForMenu = GlobalKey();
   OverlayEntry? entry;
   OverlayEntry? subMenuOverlayEntry;
   List _menuHover = [];
@@ -134,12 +135,9 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
 
   OverlayEntry _overlayEntryForSubMenu() {
     return OverlayEntry(builder: (BuildContext overlayContext) {
-      final offset = _getPositionForSubMenu();
-      print("Tapped value dx ---------------- ${offset.dx}");
-      print("Tapped value dy ---------------- ${offset.dy}");
       return Positioned(
-        top: offset.dy.sp + 100.sp,
-        left: offset.dx.sp + 193.sp,
+        // top: offset.dy.sp + 100.sp,
+        // left: offset.dx.sp + 193.sp,
         child: ChangeNotifierProvider.value(
           value: ScrollEventNotifier(false, false),
           child: StatefulBuilder(
@@ -147,6 +145,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
               return Material(
                 color: Colors.transparent,
                 child: Column(
+                  key: _globalKeyForMenu,
                   children: _buildListItemsForSubMenu(),
                 ),
                 //),
@@ -166,9 +165,14 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   }
 
   Offset _getPositionForSubMenu() {
-    final renderBox =
-        _globalKey.currentContext!.findRenderObject() as RenderBox;
-    return renderBox.localToGlobal(Offset.zero);
+    try {
+      final renderBox =
+          _globalKeyForMenu.currentContext!.findRenderObject() as RenderBox;
+      return renderBox.localToGlobal(Offset.zero);
+    } catch (e) {
+      print("Error when getting offset position --------- $e");
+    }
+    return const Offset(100, 100);
   }
 
   ///Showing list with using curve and delay
@@ -209,6 +213,9 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                   child: MouseRegion(
                     opaque: true,
                     onHover: (_) {
+                      final offset = _getPositionForSubMenu();
+                      print("Tapped value dx ---------------- ${offset.dx}");
+                      print("Tapped value dy ---------------- ${offset.dy}");
                       subMenuList.clear();
                       setState(() {
                         if (widget.menuTiles != null &&
@@ -264,59 +271,56 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   List<Widget> _buildListItemsForSubMenu() {
     final listItems = <Widget>[];
     for (int index = 0; index < subMenuList.length; ++index) {
-      listItems.add(InkWell(
-        onTap: () {},
-        child: Container(
-          width: 192.w,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: AppColors.whiteColor,
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.black.withOpacity(0.1),
-                blurRadius: 20.0.r,
-                offset: const Offset(0, 20),
-                spreadRadius: 0,
-              ),
-            ],
-          ),
-          child: Padding(
-              padding: EdgeInsets.only(
-                  left: 16.sp, right: 16.sp, top: 16.sp, bottom: 16.sp),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // Image.asset(
-                  //   widget.menuTiles[i].imagePath!,
-                  //   height: 25.h,
-                  //   width: 25.w,
-                  // ),
-                  // SizedBox(
-                  //   width: 11.w,
-                  // ),
-                  Expanded(
-                    child: subMenuTitleWidget(
-                        subMenuList[index].subMenuTitle ?? '', context),
-                  ),
-                  SizedBox(
-                    width: subMenuList[index].icon != null ? 16.sp : 0,
-                  ),
-                  subMenuList[index].icon != null
-                      ? Icon(
-                          subMenuList[index].icon,
-                          color: AppColors.tabBarSelectedBG,
-                          size: 24.sp,
-                        )
-                      : Container(
-                          width: 0,
-                          height: 0,
-                        ),
-                ],
-              )),
+      listItems.add(Container(
+        key: _globalKeyForMenu,
+        width: 192.w,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: AppColors.whiteColor,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.black.withOpacity(0.1),
+              blurRadius: 20.0.r,
+              offset: const Offset(0, 20),
+              spreadRadius: 0,
+            ),
+          ],
         ),
-        // ),
+        child: Padding(
+            padding: EdgeInsets.only(
+                left: 16.sp, right: 16.sp, top: 16.sp, bottom: 16.sp),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Image.asset(
+                //   widget.menuTiles[i].imagePath!,
+                //   height: 25.h,
+                //   width: 25.w,
+                // ),
+                // SizedBox(
+                //   width: 11.w,
+                // ),
+                Expanded(
+                  child: subMenuTitleWidget(
+                      subMenuList[index].subMenuTitle ?? '', context),
+                ),
+                SizedBox(
+                  width: subMenuList[index].icon != null ? 16.sp : 0,
+                ),
+                subMenuList[index].icon != null
+                    ? Icon(
+                        subMenuList[index].icon,
+                        color: AppColors.tabBarSelectedBG,
+                        size: 24.sp,
+                      )
+                    : Container(
+                        width: 0,
+                        height: 0,
+                      ),
+              ],
+            )),
       ));
     }
     return listItems;
@@ -325,247 +329,6 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   ///Add overlay using it's entry
   _addOverlay(OverlayEntry entry) {
     Overlay.of(context)?.insert(entry);
-  }
-
-  ///According to animation type returning different type of Tile with animation
-  Widget _defineAnimationType(
-      AnimationType animationType, double value, Widget? child, int i) {
-    if (animationType == AnimationType.rightToLeft) {
-      return RightToLeftAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    } else if (animationType == AnimationType.leftToRight) {
-      return LeftToRightAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    } else if (animationType == AnimationType.topToBottom) {
-      return TopToBottomAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    } else if (animationType == AnimationType.centerToTop) {
-      return CenterTopAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    } else if (animationType == AnimationType.springAcrossAxis) {
-      return SpringAcrossAxisAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    } else if (animationType == AnimationType.swingAcrossAxis) {
-      return SwingAcrossAxisAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    } else {
-      return LeftToRightAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    }
-  }
-}
-
-///This is the Tile which performs animation
-class RightToLeftAnimationTile extends StatelessWidget {
-  final int index;
-  final double value;
-  final Widget child;
-
-  const RightToLeftAnimationTile(
-      {Key? key, required this.value, required this.child, required this.index})
-      : super(key: key);
-
-  ///Widget that performs animation from right to left
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: index == 0
-          ? const EdgeInsets.only(top: 10)
-          : const EdgeInsets.only(top: 0),
-      child: Opacity(
-        opacity: 1 - value,
-        child: Transform(
-          alignment: Alignment.centerLeft,
-          transform: Matrix4.identity()
-            ..translate(210, 0, 0)
-            ..rotateY(value / 0.5)
-            ..translate(-210, 0, 0),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-///This is the Tile which performs animation
-class LeftToRightAnimationTile extends StatelessWidget {
-  final int index;
-  final double value;
-  final Widget child;
-
-  const LeftToRightAnimationTile(
-      {Key? key, required this.value, required this.child, required this.index})
-      : super(key: key);
-
-  ///Widget that performs animation from left to right
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: index == 0
-          ? const EdgeInsets.only(top: 10)
-          : const EdgeInsets.only(top: 0),
-      child: Opacity(
-        opacity: 1 - value,
-        child: Transform(
-          alignment: Alignment.centerLeft,
-          transform: Matrix4.identity()
-            ..setEntry(3, 2, 0.01)
-            ..rotateX(value < 0.2 ? value * pi / 6 : pi / 6)
-            ..translate(-80, -30, 0)
-            ..setRotationZ(pi / 2 * value)
-            ..translate(80, 30, 0),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-///This is the Tile which performs animation
-class TopToBottomAnimationTile extends StatelessWidget {
-  final int index;
-  final double value;
-  final Widget child;
-
-  const TopToBottomAnimationTile(
-      {Key? key, required this.value, required this.child, required this.index})
-      : super(key: key);
-
-  ///Widget that performs animation from bottom to top
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: index == 0
-          ? const EdgeInsets.only(top: 10)
-          : const EdgeInsets.only(top: 0),
-      child: Opacity(
-        opacity: 1 - value,
-        child: Transform(
-          alignment: Alignment.centerLeft,
-          transform: Matrix4.identity()
-            ..setEntry(3, 2, 0.01)
-            ..rotateY(value * 0.03),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-///This is the Tile which performs animation
-class CenterTopAnimationTile extends StatelessWidget {
-  final int index;
-  final double value;
-  final Widget child;
-
-  const CenterTopAnimationTile(
-      {Key? key, required this.value, required this.child, required this.index})
-      : super(key: key);
-
-  ///Widget that performs animation from center to top
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: index == 0
-          ? const EdgeInsets.only(top: 10)
-          : const EdgeInsets.only(top: 0),
-      child: Opacity(
-        opacity: 1 - value,
-        child: Transform(
-          alignment: Alignment.centerLeft,
-          transform: Matrix4.identity()
-            ..translate(-30, 0, 0)
-            ..rotateX(value / 0.5)
-            ..translate(30, 0, 0),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-///This is the Tile which performs animation
-class SpringAcrossAxisAnimationTile extends StatelessWidget {
-  final int index;
-  final double value;
-  final Widget child;
-
-  const SpringAcrossAxisAnimationTile(
-      {Key? key, required this.value, required this.child, required this.index})
-      : super(key: key);
-
-  ///Widget that performs animation spring between x and y
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: index == 0
-          ? const EdgeInsets.only(top: 10)
-          : const EdgeInsets.only(top: 0),
-      child: Opacity(
-        opacity: 1 - value,
-        child: Transform(
-          alignment: Alignment.bottomCenter,
-          transform: Matrix4.identity()
-            ..translate(0, -10, -110)
-            ..rotateY(value / 0.2)
-            ..translate(0, 10, 110),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-///This is the Tile which performs animation
-class SwingAcrossAxisAnimationTile extends StatelessWidget {
-  final int index;
-  final double value;
-  final Widget child;
-
-  const SwingAcrossAxisAnimationTile(
-      {Key? key, required this.value, required this.child, required this.index})
-      : super(key: key);
-
-  ///Widget that performs animation swing between x and y
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: index == 0
-          ? const EdgeInsets.only(top: 10)
-          : const EdgeInsets.only(top: 0),
-      child: Opacity(
-        opacity: 1 - value,
-        child: Transform(
-          alignment: Alignment.bottomCenter,
-          transform: Matrix4.identity()
-            ..translate(0, -10, 0)
-            ..rotateZ(value / 0.05)
-            ..translate(0, 10, 110),
-          child: child,
-        ),
-      ),
-    );
   }
 }
 

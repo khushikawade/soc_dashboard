@@ -53,11 +53,12 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   ScrollController controller = ScrollController();
   bool allowAddEntry = true;
   bool allowAddEntryForSubMenu = true;
-  Offset _hoverOffset = Offset.zero;
+  final ValueNotifier<Offset> _hoverOffset = ValueNotifier<Offset>(Offset.zero);
+  // Offset _hoverOffset = Offset.zero;
   List<SubMenuData> subMenuList = List.empty(growable: true);
   Offset subMenuOffset = Offset.zero;
   List<GlobalKey>? _listItemKeys;
-  final _debouncer = Debouncer(milliseconds: 100);
+  final _debouncer = Debouncer(milliseconds: 10);
   bool _hasHovered = false;
 
   @override
@@ -78,28 +79,26 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
 
   Offset _getListItemPosition(PointerHoverEvent event, int item, int index) {
     if (_hasHovered) {
-      _debouncer.run(() {
-        if (_listItemKeys == null) {
-          setState(() {
-            _listItemKeys = List.generate(item, (index) => GlobalKey());
-          });
-        }
+      // _debouncer.run(() {
+      if (_listItemKeys == null) {
+        setState(() {
+          _listItemKeys = List.generate(item, (index) => GlobalKey());
+        });
+      }
 
-        final RenderBox? renderBox = _listItemKeys?[index]
-            .currentContext
-            ?.findRenderObject() as RenderBox?;
-        if (renderBox != null) {
-          Offset listItemPosition = renderBox.localToGlobal(Offset.zero);
-          subMenuOffset = const Offset(0.0, 0.0);
-          setState(() {
-            subMenuOffset = listItemPosition;
-            _hasHovered = true;
-          });
+      final RenderBox? renderBox = _listItemKeys?[index]
+          .currentContext
+          ?.findRenderObject() as RenderBox?;
+      if (renderBox != null) {
+        subMenuOffset = renderBox.localToGlobal(Offset.zero);
+        // subMenuOffset = listItemPosition;
+        setState(() {
+          _hasHovered = true;
+        });
 
-          print(
-              "Item $index Position: ${listItemPosition.dx}, ${listItemPosition.dy}");
-        }
-      });
+        print("Item $index Position: ${subMenuOffset.dx}, ${subMenuOffset.dy}");
+      }
+      //});
     }
 
     return subMenuOffset;
@@ -139,7 +138,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     return OverlayEntry(builder: (BuildContext overlayContext) {
       final offset = _getPosition();
       return Positioned(
-        top: 205.sp,
+        top: offset.dy + 68.h, //205.sp,
         left: offset.dx,
         child: ChangeNotifierProvider.value(
           value: ScrollEventNotifier(false, false),
@@ -174,31 +173,61 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   OverlayEntry _overlayEntryForSubMenu() {
     return OverlayEntry(builder: (BuildContext overlayContext) {
       // final offset = _getPosition();
-      return _hoverOffset != Offset.zero
-          ? Positioned(
-              top: _hoverOffset.dy.sp - 1.sp, //offset.dy
-              // +
-              // 100.sp,
-              left: _hoverOffset.dx.sp + 192.sp, //offset.dx
-              // bottom: 4.sp,
-              // +
-              // 193.sp,
-              child: ChangeNotifierProvider.value(
-                value: ScrollEventNotifier(false, false),
-                child: StatefulBuilder(
-                  builder: (context, setStateForOverlay) {
-                    return Material(
-                      color: Colors.transparent,
-                      child: Column(
-                        children: _buildListItemsForSubMenu(),
-                      ),
-                      //),
-                    );
-                  },
-                ),
-              ),
-            )
-          : const SizedBox.shrink();
+      return ValueListenableBuilder<Offset>(
+        valueListenable: _hoverOffset,
+        builder: (context, value, child) => Positioned(
+          top: _hoverOffset.value.dy - 1.sp, //offset.dy
+          // +
+          // 100.sp,
+          left: _hoverOffset.value.dx + 192.sp, //offset.dx
+          // bottom: 4.sp,
+          // +
+          // 193.sp,
+          child: ChangeNotifierProvider.value(
+            value: ScrollEventNotifier(false, false),
+            child: StatefulBuilder(
+              builder: (context, setStateForOverlay) {
+                return Material(
+                  color: Colors.transparent,
+                  child: _hoverOffset.value != Offset.zero
+                      ? Column(
+                          children: _buildListItemsForSubMenu(),
+                        )
+                      : const SizedBox.shrink(),
+                  //),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+
+      //   child: Positioned(
+      //       top: _hoverOffset.dy.sp - 1.sp, //offset.dy
+      //       // +
+      //       // 100.sp,
+      //       left: _hoverOffset.dx.sp + 192.sp, //offset.dx
+      //       // bottom: 4.sp,
+      //       // +
+      //       // 193.sp,
+      //       child: ChangeNotifierProvider.value(
+      //         value: ScrollEventNotifier(false, false),
+      //         child: StatefulBuilder(
+      //           builder: (context, setStateForOverlay) {
+      //             return Material(
+      //               color: Colors.transparent,
+      //               child: Column(
+      //                 children: _buildListItemsForSubMenu(),
+      //               ),
+      //               //),
+      //             );
+      //           },
+      //         ),
+      //       ),
+      //     ),
+
+      // )
+      // : const SizedBox.shrink();
     });
   }
 
@@ -267,17 +296,9 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                   child: MouseRegion(
                     opaque: true,
                     onHover: //_handleHover,
-                        (PointerHoverEvent event) async {
+                        (PointerHoverEvent event) {
                       // _handleHover(event);
                       // subMenuOffset = Offset(0, 0);
-                      if (widget.menuTiles[index].subMenu != null &&
-                          widget.menuTiles[index].subMenu!.isNotEmpty) {
-                        _hasHovered = true;
-                        _hoverOffset = Offset.zero;
-                        Offset getOffset = _getListItemPosition(
-                            event, widget.menuTiles.length, index);
-                        _hoverOffset = getOffset;
-                      }
 
                       subMenuList.clear();
                       setState(() {
@@ -290,13 +311,29 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                           }
                         }
                       });
+                      print(
+                          "============getIndex=========================$index");
+                      print(
+                          "============getList=========================${widget.menuTiles.length}");
 
                       if (allowAddEntryForSubMenu) {
                         // _menuHover[widget.index] = true;
                         _addOverlay(subMenuOverlayEntry!);
+                        if (widget.menuTiles[index].subMenu != null &&
+                            widget.menuTiles[index].subMenu!.isNotEmpty) {
+                          _hasHovered = true;
+                          _hoverOffset.value = Offset.zero;
+                          Offset getOffset = _getListItemPosition(
+                              event, widget.menuTiles.length, index);
+                          print(
+                              "===========$index=====getOffset=============$getOffset");
+
+                          _hoverOffset.value = getOffset;
+                        }
                       }
                     },
                     onExit: (_) {
+                      _hoverOffset.value = Offset.zero;
                       //_menuHover[widget.index] = false;
                       Future.delayed(const Duration(milliseconds: 100), () {
                         if (subMenuOverlayEntry != null) {

@@ -71,7 +71,9 @@ Widget tabBarItemWidgetText(text, context, color) {
 }
 
 Widget headerTextWidget(text, context) {
-  return Text(text, style: AppTheme.lightTheme.textTheme.bodyMedium);
+  return Text(text,
+      style: AppTheme.lightTheme.textTheme.bodyMedium!
+          .copyWith(fontSize: AppSize.size40.sp, fontWeight: FontWeight.w600));
 }
 
 Widget subHeaderTextWidget(text, context) {
@@ -81,11 +83,16 @@ Widget subHeaderTextWidget(text, context) {
 }
 
 Widget labelTextForPopUpWidget(text, context) {
-  return Text(text, style: AppTheme.lightTheme.textTheme.displayLarge);
+  return Text(text,
+      softWrap: true,
+      style: AppTheme.lightTheme.textTheme.displayLarge!
+          .copyWith(fontSize: AppSize.size40.sp));
 }
 
 Widget labelTextIndex(text, context) {
   return Text(text,
+      softWrap: true,
+      overflow: TextOverflow.ellipsis,
       style: AppTheme.lightTheme.textTheme.displaySmall!.copyWith(
         fontSize: AppSize.size18.sp,
         color: AppColors.whiteColor,
@@ -93,7 +100,9 @@ Widget labelTextIndex(text, context) {
 }
 
 Widget buttonText(text, context) {
-  return Text(text, style: AppTheme.lightTheme.textTheme.bodySmall);
+  return Text(text,
+      style: AppTheme.lightTheme.textTheme.bodySmall!
+          .copyWith(fontSize: AppSize.size22.sp));
 }
 
 Widget threeColumnTextWidget(text, context) {
@@ -171,8 +180,7 @@ Widget detailTextWidget(text, context) {
 Widget pushNotifyWidget(text, context) {
   return Text(text,
       softWrap: true,
-      textAlign: TextAlign.center,
-      maxLines: 2,
+      // textAlign: TextAlign.center,
       style: AppTheme.lightTheme.textTheme.titleSmall!.copyWith(
           fontFamily: "Poppins",
           fontSize: AppSize.size14.sp,

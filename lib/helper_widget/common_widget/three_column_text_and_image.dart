@@ -102,7 +102,7 @@ class _ThreeColumnTextAndImageWidgetState
             onExit: (_) => _mouseEnter(false, index),
             child: Container(
               padding: EdgeInsets.only(left: 26.w, top: 39.h, right: 26.w),
-              height: 627.h,
+              height: 660.h,
               decoration: BoxDecoration(
                 // borderRadius: BorderRadius.all(Radius.circular(0.r)),
                 boxShadow: isHover
@@ -126,7 +126,7 @@ class _ThreeColumnTextAndImageWidgetState
                       ? subHeaderTextWidget(subTitle, context)
                       : const SizedBox.shrink(),
                   SizedBox(
-                    height: 15.h,
+                    height: 23.h,
                   ),
                   description != null && description.isNotEmpty
                       ? detailTextWidget(description, context)

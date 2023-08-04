@@ -83,16 +83,16 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
         }
       },
       onExit: (_) {
-        // _menuHover[widget.index] = false;
-        // Future.delayed(const Duration(milliseconds: 100), () {
-        //   if (!_menuHover[widget.index] && entry != null) {
-        //     if (!entry!.mounted) {
-        //       return;
-        //     } else {
-        //       entry?.remove();
-        //     }
-        //   }
-        // });
+        _menuHover[widget.index] = false;
+        Future.delayed(const Duration(milliseconds: 100), () {
+          if (!_menuHover[widget.index] && entry != null) {
+            if (!entry!.mounted) {
+              return;
+            } else {
+              entry?.remove();
+            }
+          }
+        });
       },
       child: Container(
         key: _globalKey,

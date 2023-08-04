@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+
 import 'package:solved_dashboard/helper_widget/common_widget/three_column_text_and_image.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
-import 'package:solved_dashboard/helper_widget/information_graph_card.dart';
 
+import '../../helper_widget/common_widget/iframe_custom_link_widget.dart';
+import '../../helper_widget/common_widget/one_column_text_and_image_left.dart';
 import '../../helper_widget/common_widget/one_column_text_and_image_right.dart';
 
-import '../../helper_widget/common_widget/push_notifcation_card.dart';
 import '../../helper_widget/common_widget/two_column_text_and_image.dart';
 
 class Home extends StatefulWidget {
@@ -24,27 +24,9 @@ class _HomeState extends State<Home> {
           left: 190.sp, right: 190.sp, top: 36.sp, bottom: 80.sp),
       children: [
         pageTitleTextWidget('Latest Dashboard Features', context),
-
         SizedBox(
           height: 42.h,
         ),
-//         const OneColumnTextAndImageRightWidget(
-//           titleText: "Title Here",
-//           subTitleText: "Praesent lobortis metus ex.",
-//           detailDescription: '''
-//   <div>
-//     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat libero.
-//      In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor mauris,
-//      consequat non imperdiet vel, tristique nec urna. Mauris et imperd
-//      iet ligula, imperdiet lacinia leo. Curabitur dictum veli<br><br>varius, viverra
-//      Etiam hendrerit dui vel enim dignissim tempus. Pellentesque hendrerit enim sodales, commodo sapien sed, hendrerit mi. Integer facilisis mauris a nunc euismod, id fermentum</p>
-//    <br><br>varius, viverra
-//      Etiam hendrerit dui vel enim dignissim tempus. Pellentesque hendrerit enim sodales, commodo sapien sed, hendrerit mi. Integer facilisis mauris a nunc euismod, id fermentum</p>
-
-//   </div>
-// ''',
-//           imageUrl: "assets/one_column_image.png",
-//         ),
         ThreeColumnTextAndImageWidget(
           titleTextCard1: "",
           subTitleTextCard1: "Grades & Report Cards",
@@ -75,7 +57,6 @@ class _HomeState extends State<Home> {
 ''',
           imageUrlCard3: "assets/data_inside.png",
         ),
-
         SizedBox(
           height: 56.h,
         ),
@@ -90,7 +71,68 @@ class _HomeState extends State<Home> {
 ''',
           imageUrl: "assets/dummy.png",
         ),
+        SizedBox(
+          height: 56.h,
+        ),
+        const OneColumnTextAndImageLeftWidget(
+          titleText: "Title Here",
+          subTitleText: "Praesent lobortis metus ex.",
+          detailDescription: '''
+  <div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat libero.
+     In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor mauris,
+     consequat non imperdiet vel, tristique nec urna. Mauris et imperd
+     iet ligula, imperdiet lacinia leo. Curabitur dictum veli<br><br>varius, viverra
+     Etiam hendrerit dui vel enim dignissim tempus. Pellentesque hendrerit enim sodales, commodo sapien sed, hendrerit mi. Integer facilisis mauris a nunc euismod, id fermentum</p>
+   <br><br>varius, viverra
+     Etiam hendrerit dui vel enim dignissim tempus. Pellentesque hendrerit enim sodales, commodo sapien sed, hendrerit mi. Integer facilisis mauris a nunc euismod, id fermentum</p>
+
+  </div>
+''',
+          imageUrl: "assets/one_column_image.png",
+        ),
+        SizedBox(
+          height: 56.h,
+        ),
+        const TwoColumnTextAndImageWidget(
+          titleTextCard1: "",
+          subTitleTextCard1: "Praesent lobortis metus ex.",
+          subTitleTextCard2: "Praesent lobortis metus ex.",
+          detailDescriptionCard1: '''
+  <div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat<br>libero.
+     In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor<br>mauris, consequat non imperdiet vel, tristique nec urna.</p>
+
+  </div>
+''',
+          detailDescriptionCard2: '''
+  <div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat<br>libero.
+     In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor<br>mauris, consequat non imperdiet vel, tristique nec urna.</p>
+
+  </div>
+''',
+          imageUrlCard1: "assets/hannah.png",
+          imageUrlCard2: "assets/hannah.png",
+        ),
+        SizedBox(
+          height: 56.h,
+        ),
+        SizedBox(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height / 1.5.h,
+          child: const IFrameCustomWidget(
+            titleText: "Data Insights Widget",
+            subTitleText: "Title Here",
+            dynamicLinkUrl:
+                "https://services.solvedconsulting.net/news/a1f4W000007DQaNQAW",
+          ),
+        ),
+        SizedBox(
+          height: 56.h,
+        ),
       ],
     );
   }
 }
+//-----------------

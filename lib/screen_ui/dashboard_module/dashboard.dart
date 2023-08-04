@@ -197,6 +197,7 @@ class _DashboardState extends State<Dashboard> {
       child: AnimatedHoverMenu(
         headerPosition: HeaderPosition.topLeft,
         headerTiles: model.navBarItemList,
+
         //menuTiles: menuModelList,
         headerBoxDecoration: const BoxDecoration(
             borderRadius: BorderRadius.all(

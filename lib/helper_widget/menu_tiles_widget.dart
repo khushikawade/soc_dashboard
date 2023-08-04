@@ -249,7 +249,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                     opaque: true,
                     onHover: //_handleHover,
                         (PointerHoverEvent event) async {
-                      //  _handleHover(event);
+                      _handleHover(event);
                       // _getListItemPosition(event, 3);
                       subMenuList.clear();
                       setState(() {

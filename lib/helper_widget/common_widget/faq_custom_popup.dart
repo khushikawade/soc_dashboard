@@ -46,9 +46,9 @@ class _FaqCustomPopupState extends State<FaqCustomPopup> {
       children: <Widget>[
         SelectionArea(
           child: Container(
-            height: 871.h,
-            width: 732.w,
-            margin: EdgeInsets.symmetric(horizontal: 73.h, vertical: 84.w),
+            // height: 871.h,
+            width: 600.w,
+            margin: EdgeInsets.symmetric(horizontal: 53.h, vertical: 64.w),
             decoration: BoxDecoration(
               color: AppColors.whiteColor,
               // shape: BoxShape.rectangle,
@@ -56,7 +56,7 @@ class _FaqCustomPopupState extends State<FaqCustomPopup> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.black26,
-                  blurRadius: 10.0.r,
+                  blurRadius: 8.0.r,
                   offset: const Offset(0.0, 10.0),
                 ),
               ],
@@ -73,7 +73,7 @@ class _FaqCustomPopupState extends State<FaqCustomPopup> {
                         topRight: Radius.circular(10.r)),
                   ),
                   padding: EdgeInsets.only(
-                      left: 90.w, bottom: 85.h, top: 64.h, right: 90.w),
+                      left: 90.sp, bottom: 65.h, top: 64.h, right: 90.sp),
                   child: labelTextForPopUpWidget(
                       widget.headerTitle ??
                           "There are many variations of passages",
@@ -90,30 +90,34 @@ class _FaqCustomPopupState extends State<FaqCustomPopup> {
                       middleViewWidget(
                           context,
                           widget.description1Text ??
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat libero. In sed lorem at turpis cursus imperdiet",
+                              """
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat libero. In sed lorem at turpis cursus imperdiet.</p>
+    """,
                           1),
                       SizedBox(
-                        height: 46.h,
+                        height: 26.h,
                       ),
                       middleViewWidget(
                           context,
                           widget.description2Text ??
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat libero. In sed lorem at turpis cursus imperdiet",
+                              """
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat libero. In sed lorem at turpis cursus imperdiet.</p>
+    """,
                           2),
                       SizedBox(
-                        height: 46.h,
+                        height: 26.h,
                       ),
                       middleViewWidget(
                           context,
                           widget.description3Text ??
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat libero. In sed lorem at turpis cursus imperdiet",
+                              """
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat libero. In sed lorem at turpis cursus imperdiet.</p>
+    """,
                           3),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 52.h,
-                ),
+                SizedBox(height: 32.h),
                 bottomButtonView(context, widget.buttonText)
               ],
             ),
@@ -161,7 +165,7 @@ class _FaqCustomPopupState extends State<FaqCustomPopup> {
   Widget bottomButtonView(BuildContext context, String? text) {
     return Container(
       width: 74.w,
-      margin: EdgeInsets.only(left: 84.w, right: 74.w, bottom: 81.h),
+      margin: EdgeInsets.only(left: 84.w, right: 74.w, bottom: 61.h),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50.r),
           color: AppColors.whiteColor,

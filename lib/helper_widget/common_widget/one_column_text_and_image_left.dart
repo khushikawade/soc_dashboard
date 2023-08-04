@@ -33,12 +33,12 @@ class _OneColumnTextAndImageLeftWidgetState
         padding:
             EdgeInsets.only(left: 40.w, top: 55.h, bottom: 90.h, right: 55.w),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10.r)),
+          borderRadius: BorderRadius.all(Radius.circular(8.r)),
           boxShadow: [
             BoxShadow(
-              color: AppColors.black.withOpacity(0.1),
-              blurRadius: 20.0.r,
-              offset: const Offset(0, 20),
+              color: AppColors.black.withOpacity(0.03),
+              blurRadius: 7.0.r,
+              offset: const Offset(0, 4),
               spreadRadius: 0,
             ),
           ],

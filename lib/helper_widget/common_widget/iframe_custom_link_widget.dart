@@ -58,8 +58,8 @@ class _IFrameCustomWidgetState extends State<IFrameCustomWidget> {
     // print('url is ${widget.dynamicLinkUrl}');
     return SelectionArea(
       child: Container(
-        height: widget.customContainerHeight ?? double.infinity,
-        width: widget.customContainerWidth ?? double.infinity,
+        height: double.infinity,
+        width: double.infinity,
         padding: widget.padding ??
             EdgeInsets.only(
               left: 189.w,
@@ -75,7 +75,7 @@ class _IFrameCustomWidgetState extends State<IFrameCustomWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             widget.titleText != null && widget.titleText!.isNotEmpty
-                ? pageTitleTextWidget(widget.titleText, AppUtil.getContext())
+                ? pageTitleTextWidget(widget.titleText, context)
                 : const SizedBox.shrink(),
             widget.titleText != null && widget.titleText!.isNotEmpty
                 ? SizedBox(

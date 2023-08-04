@@ -50,31 +50,33 @@ class _PushNotificationCustomCardState
     extends State<PushNotificationCustomCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 72.h, bottom: 71.w),
-      color: AppColors.backgroundBlueColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _buildCardWidget(context, widget.icon1, widget.notificationText1!,
-              widget.subNotificationText1!),
-          SizedBox(
-            width: 34.5.w,
-          ),
-          _buildCardWidget(context, widget.icon2, widget.notificationText2!,
-              widget.subNotificationText2!),
-          SizedBox(
-            width: 34.5.w,
-          ),
-          _buildCardWidget(context, widget.icon3, widget.notificationText4!,
-              widget.subNotificationText3!),
-          SizedBox(
-            width: 34.5.w,
-          ),
-          _buildCardWidget(context, widget.icon4, widget.notificationText4!,
-              widget.subNotificationText4!),
-        ],
+    return SelectionArea(
+      child: Container(
+        padding: EdgeInsets.only(top: 72.h, bottom: 71.w),
+        color: AppColors.backgroundBlueColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _buildCardWidget(context, widget.icon1, widget.notificationText1!,
+                widget.subNotificationText1!),
+            SizedBox(
+              width: 34.5.w,
+            ),
+            _buildCardWidget(context, widget.icon2, widget.notificationText2!,
+                widget.subNotificationText2!),
+            SizedBox(
+              width: 34.5.w,
+            ),
+            _buildCardWidget(context, widget.icon3, widget.notificationText4!,
+                widget.subNotificationText3!),
+            SizedBox(
+              width: 34.5.w,
+            ),
+            _buildCardWidget(context, widget.icon4, widget.notificationText4!,
+                widget.subNotificationText4!),
+          ],
+        ),
       ),
     );
   }
@@ -95,23 +97,30 @@ class _PushNotificationCustomCardState
             ),
           ],
           borderRadius: BorderRadius.circular(8.r)),
-      child: Padding(
-        padding: EdgeInsets.only(right: 13.sp),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              icon,
-              height: 130.h,
-              width: 130.w,
-              fit: BoxFit.contain,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: 35.sp, right: 13.w, bottom: 30.h, top: 30.h),
+              child: Image.asset(
+                icon,
+                height: 140.h,
+                width: 140.w,
+                fit: BoxFit.contain,
+              ),
             ),
-            SizedBox(
-              width: 13.w,
-            ),
-            Column(
+          ),
+          // SizedBox(
+          //   width: 13.w,
+          // ),
+          Expanded(
+            flex: 2,
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,9 +131,9 @@ class _PushNotificationCustomCardState
                 ),
                 notificationNo(subnoticationText, context),
               ],
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/helper_widget/shimmer_loading.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 import 'package:solved_dashboard/utils/app_size.dart';
+import 'package:solved_dashboard/utils/app_util.dart';
 
 class AppBarWidget extends StatelessWidget {
   final String? logoURL;
@@ -43,8 +44,13 @@ class AppBarWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CustomIconMode(
-                iconUrl: logoURL,
+              InkWell(
+                onTap: () {
+                  AppUtil.dialogBuilder(context);
+                },
+                child: CustomIconMode(
+                  iconUrl: logoURL,
+                ),
               ),
               SizedBox(
                 width: 10.w,

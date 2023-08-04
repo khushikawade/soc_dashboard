@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:solved_dashboard/helper_widget/debounce.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/helper_widget/hover_animation_widget.dart';
+import 'package:solved_dashboard/helper_widget/vertical_divider_widget.dart';
 import 'package:solved_dashboard/models/nav_bar_model.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 
@@ -53,7 +55,10 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   bool allowAddEntryForSubMenu = true;
   Offset _hoverOffset = Offset.zero;
   List<SubMenuData> subMenuList = List.empty(growable: true);
-  Offset? subMenuOffset;
+  Offset subMenuOffset = Offset.zero;
+  List<GlobalKey>? _listItemKeys;
+  final _debouncer = Debouncer(milliseconds: 100);
+  bool _hasHovered = false;
 
   @override
   void initState() {
@@ -69,6 +74,35 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
         allowAddEntryForSubMenu = !allowAddEntryForSubMenu;
       });
     });
+  }
+
+  Offset _getListItemPosition(PointerHoverEvent event, int item, int index) {
+    if (_hasHovered) {
+      _debouncer.run(() {
+        if (_listItemKeys == null) {
+          setState(() {
+            _listItemKeys = List.generate(item, (index) => GlobalKey());
+          });
+        }
+
+        final RenderBox? renderBox = _listItemKeys?[index]
+            .currentContext
+            ?.findRenderObject() as RenderBox?;
+        if (renderBox != null) {
+          Offset listItemPosition = renderBox.localToGlobal(Offset.zero);
+          subMenuOffset = const Offset(0.0, 0.0);
+          setState(() {
+            subMenuOffset = listItemPosition;
+            _hasHovered = true;
+          });
+
+          print(
+              "Item $index Position: ${listItemPosition.dx}, ${listItemPosition.dy}");
+        }
+      });
+    }
+
+    return subMenuOffset;
   }
 
   ///Mouse region of header and perform animation according to it
@@ -140,28 +174,31 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   OverlayEntry _overlayEntryForSubMenu() {
     return OverlayEntry(builder: (BuildContext overlayContext) {
       // final offset = _getPosition();
-      return Positioned(
-        top: _hoverOffset.dy.sp, //offset.dy
-        // +
-        // 100.sp,
-        left: _hoverOffset.dx.sp + 75.sp, //offset.dx
-        // +
-        // 193.sp,
-        child: ChangeNotifierProvider.value(
-          value: ScrollEventNotifier(false, false),
-          child: StatefulBuilder(
-            builder: (context, setStateForOverlay) {
-              return Material(
-                color: Colors.transparent,
-                child: Column(
-                  children: _buildListItemsForSubMenu(),
+      return _hoverOffset != Offset.zero
+          ? Positioned(
+              top: _hoverOffset.dy.sp - 1.sp, //offset.dy
+              // +
+              // 100.sp,
+              left: _hoverOffset.dx.sp + 192.sp, //offset.dx
+              // bottom: 4.sp,
+              // +
+              // 193.sp,
+              child: ChangeNotifierProvider.value(
+                value: ScrollEventNotifier(false, false),
+                child: StatefulBuilder(
+                  builder: (context, setStateForOverlay) {
+                    return Material(
+                      color: Colors.transparent,
+                      child: Column(
+                        children: _buildListItemsForSubMenu(),
+                      ),
+                      //),
+                    );
+                  },
                 ),
-                //),
-              );
-            },
-          ),
-        ),
-      );
+              ),
+            )
+          : const SizedBox.shrink();
     });
   }
 
@@ -172,26 +209,6 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     return renderBox.localToGlobal(Offset.zero);
   }
 
-  void _handleHover(PointerHoverEvent event) {
-    setState(() {
-      _hoverOffset = event.position;
-    });
-    // final offset = _getPosition();
-  }
-
-  void _getListItemPosition(PointerHoverEvent event, int index) {
-    _globalKeyForMenu = List.generate(index, (index) => GlobalKey());
-    final RenderBox renderBox = _globalKeyForMenu[index]
-        .currentContext
-        ?.findRenderObject() as RenderBox;
-    if (renderBox != null) {
-      _hoverOffset = renderBox.localToGlobal(Offset.zero);
-      print("Item $index Position: ${_hoverOffset.dx}, ${_hoverOffset.dy}");
-      print("Item $index Position: ${_hoverOffset.dx}, ${_hoverOffset.dy}");
-    } else {
-      print("============================================null");
-    }
-  }
   // _getPositionForSubMenu() {
   //   if (_globalKeyForMenu.currentContext != null) {
   //     try {
@@ -214,23 +231,25 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   List<Widget> _buildListItems() {
     final listItems = <Widget>[];
     for (int index = 0; index < widget.menuTiles.length; ++index) {
-      listItems.add(Container(
-        width: 192.w,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: AppColors.whiteColor,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.black.withOpacity(0.1),
-              blurRadius: 20.0.r,
-              offset: const Offset(0, 20),
-              spreadRadius: 0,
-            ),
-          ],
-        ),
-        child: Padding(
+      listItems.add(Column(
+        children: [
+          Container(
+            key: _listItemKeys != null ? _listItemKeys![index] : null,
             padding: EdgeInsets.only(
                 left: 16.w, right: 16.w, top: 16.h, bottom: 16.h),
+            width: 192.w,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: AppColors.whiteColor,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.black.withOpacity(0.1),
+                  blurRadius: 20.0.r,
+                  offset: const Offset(0, 20),
+                  spreadRadius: 0,
+                ),
+              ],
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
@@ -249,8 +268,17 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                     opaque: true,
                     onHover: //_handleHover,
                         (PointerHoverEvent event) async {
-                      _handleHover(event);
-                      // _getListItemPosition(event, 3);
+                      // _handleHover(event);
+                      // subMenuOffset = Offset(0, 0);
+                      if (widget.menuTiles[index].subMenu != null &&
+                          widget.menuTiles[index].subMenu!.isNotEmpty) {
+                        _hasHovered = true;
+                        _hoverOffset = Offset.zero;
+                        Offset getOffset = _getListItemPosition(
+                            event, widget.menuTiles.length, index);
+                        _hoverOffset = getOffset;
+                      }
+
                       subMenuList.clear();
                       setState(() {
                         if (widget.menuTiles != null &&
@@ -262,10 +290,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                           }
                         }
                       });
-                      // for (int index = 0; index < subMenuList.length; ++index) {
-                      // _getListItemPosition(
-                      //     event, widget.menuTiles[index].subMenu!.length);
-                      // }
+
                       if (allowAddEntryForSubMenu) {
                         // _menuHover[widget.index] = true;
                         _addOverlay(subMenuOverlayEntry!);
@@ -283,8 +308,13 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                         }
                       });
                     },
-                    child: subMenuTitleWidget(
-                        widget.menuTiles[index].menuTitle ?? '', context),
+                    child: Container(
+                      // key: _listItemKeys != null
+                      //     ? _listItemKeys![index]
+                      //     : null,
+                      child: subMenuTitleWidget(
+                          widget.menuTiles[index].menuTitle ?? '', context),
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -301,7 +331,14 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                         height: 0,
                       ),
               ],
-            )),
+            ),
+          ),
+          Container(
+            height: 1.h,
+            width: 192.w,
+            color: AppColors.tabBarDivider,
+          )
+        ],
       ));
     }
     return listItems;
@@ -314,56 +351,65 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     //     "++++++++++++++++++++++++++++++++++++++++++++++++${_globalKeyForMenu}+++++++++++");
     final listItems = <Widget>[];
     for (int index = 0; index < subMenuList.length; ++index) {
-      listItems.add(Container(
-        //key: _globalKeyForMenu[index],
-        width: 192.w,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: AppColors.whiteColor,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.black.withOpacity(0.1),
-              blurRadius: 20.0.r,
-              offset: const Offset(0, 20),
-              spreadRadius: 0,
-            ),
-          ],
-        ),
-        child: Padding(
-            padding: EdgeInsets.only(
-                left: 16.sp, right: 16.sp, top: 16.sp, bottom: 16.sp),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Image.asset(
-                //   widget.menuTiles[i].imagePath!,
-                //   height: 25.h,
-                //   width: 25.w,
-                // ),
-                // SizedBox(
-                //   width: 11.w,
-                // ),
-                Expanded(
-                  child: subMenuTitleWidget(
-                      subMenuList[index].subMenuTitle ?? '', context),
+      listItems.add(Column(
+        children: [
+          Container(
+            //key: _globalKeyForMenu[index],
+            width: 192.w,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: AppColors.whiteColor,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.black.withOpacity(0.1),
+                  blurRadius: 20.0.r,
+                  offset: const Offset(0, 20),
+                  spreadRadius: 0,
                 ),
-                SizedBox(
-                  width: subMenuList[index].icon != null ? 16.sp : 0,
-                ),
-                subMenuList[index].icon != null
-                    ? Icon(
-                        subMenuList[index].icon,
-                        color: AppColors.tabBarSelectedBG,
-                        size: 24.sp,
-                      )
-                    : Container(
-                        width: 0,
-                        height: 0,
-                      ),
               ],
-            )),
+            ),
+            child: Padding(
+                padding: EdgeInsets.only(
+                    left: 16.sp, right: 16.sp, top: 16.sp, bottom: 16.sp),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Image.asset(
+                    //   widget.menuTiles[i].imagePath!,
+                    //   height: 25.h,
+                    //   width: 25.w,
+                    // ),
+                    // SizedBox(
+                    //   width: 11.w,
+                    // ),
+                    Expanded(
+                      child: subMenuTitleWidget(
+                          subMenuList[index].subMenuTitle ?? '', context),
+                    ),
+                    SizedBox(
+                      width: subMenuList[index].icon != null ? 16.sp : 0,
+                    ),
+                    subMenuList[index].icon != null
+                        ? Icon(
+                            subMenuList[index].icon,
+                            color: AppColors.tabBarSelectedBG,
+                            size: 24.sp,
+                          )
+                        : Container(
+                            width: 0,
+                            height: 0,
+                          ),
+                  ],
+                )),
+          ),
+          Container(
+            height: 1.h,
+            width: 192.w,
+            color: AppColors.tabBarDivider,
+          )
+        ],
       ));
     }
     return listItems;

@@ -51,10 +51,11 @@ Widget informationTitleWidget(text, BuildContext context) {
           .copyWith(fontSize: AppSize.size30.sp));
 }
 
-Widget subMenuTitleWidget(text, BuildContext context) {
+Widget subMenuTitleWidget(text, BuildContext context, bool value) {
   return Text(text,
-      style: AppTheme.lightTheme.textTheme.displaySmall!
-          .copyWith(fontSize: AppSize.size16.sp));
+      style: AppTheme.lightTheme.textTheme.displaySmall!.copyWith(
+          fontSize: AppSize.size16.sp,
+          color: value ? AppColors.whiteColor : AppColors.tabBarSelectedBG));
 }
 
 Widget tabBarItemWidgetText(text, context, color) {

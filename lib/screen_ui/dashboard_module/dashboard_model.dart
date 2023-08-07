@@ -69,7 +69,7 @@ class ProjectHomeViewModel extends ChangeNotifier {
       title: 'Home',
       id: 1,
       icon: SolvedDashboardIcons.frame_238,
-      isSelcted: false,
+      isSelcted: true,
     ));
     navBarItemList.add(NavBarModel(
         title: 'Reports',

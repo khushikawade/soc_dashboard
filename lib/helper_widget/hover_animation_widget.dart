@@ -90,6 +90,9 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
         itemBuilder: (context, index) {
           return MouseRegion(
             opaque: true,
+            // onHover: (event) {
+            //   hovered = true;
+            // },
             onEnter: (PointerEnterEvent pointerEnterEvent) {
               widget.headerTiles.forEach(
                 (element) {
@@ -99,6 +102,9 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
                 },
               );
               setState(() {
+                print(index);
+                print(index);
+
                 widget.headerTiles[index].isSelcted = true;
                 hovered = true;
                 if (widget.headerTiles[index].menuOptions != null &&
@@ -114,16 +120,35 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
                   menuList.clear();
                 }
               });
+              print(menuList);
+              print(menuList);
             },
             onExit: (PointerExitEvent pointerExitEvent) {
               setState(() {
-                widget.headerTiles[index].isSelcted = false;
+                // widget.headerTiles.forEach(
+                //   (element) {
+                //     if (element.isSelcted!) {
+                //       element.isSelcted = false;
+                //     }
+                //   },
+                // );
+                if (widget.headerTiles[index].menuOptions == null ||
+                    widget.headerTiles[index].menuOptions!.isEmpty) {
+                  widget.headerTiles[index].isSelcted = false;
+
+                  widget.headerTiles[0].isSelcted = true;
+                }
+
+                // Set the isSelcted of the first element (index 0) to true
+
                 hovered = false;
                 if (widget.headerTiles[index].menuOptions == null ||
                     widget.headerTiles[index].menuOptions!.isEmpty) {
                   menuList.clear();
                 }
               });
+              print(menuList);
+              print(menuList);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -136,7 +161,7 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
                     menuTiles: menuList,
                     headerTiles: widget.headerTiles,
                     index: index,
-                    hovered: hovered,
+                    hoverValue: hovered,
                     menuTextColor: widget.menuTextColor ?? Colors.white,
                     menuTextSize: widget.menuTextSize ?? 16.0,
                     headerPosition: widget.headerPosition,
@@ -169,6 +194,7 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
                     // ),
                   ),
                 ),
+
                 //==================sayyam=====================
                 verticalDivider(),
               ],

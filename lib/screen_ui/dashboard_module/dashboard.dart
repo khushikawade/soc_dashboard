@@ -13,9 +13,8 @@ import 'package:solved_dashboard/routers/route_constants.dart';
 import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard_model.dart';
 import 'package:solved_dashboard/screen_ui/home_module/home.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
-import 'package:solved_dashboard/utils/app_theme.dart';
-
 import '../../helper_widget/common_widget/push_notifcation_card.dart';
+import 'dart:html' as html;
 
 enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
 
@@ -85,6 +84,18 @@ class _DashboardState extends State<Dashboard> {
   void initState() {
     super.initState();
     String url = RouteConstants.homeRoute;
+    // print("Location -------------- ${html.window.location}");
+    // if (html.window.location.toString().contains("?code=")) {
+    //   String url = html.window.location.href;
+    //   Uri stringUri = Uri.parse(url);
+    //   //String authenticationCode = stringUri.queryParameters["code"]!;
+    //   print("Contains code --------------------------------------- ");
+    //   print("Code value --------------------- ${stringUri}");
+    //   // callSaveCodeAPI(authenticationCode);
+    // } else {
+    //   print("Not contained --------------------------------------");
+    // }
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final model = Provider.of<ProjectHomeViewModel>(context, listen: false);
       model.buildNavBar();

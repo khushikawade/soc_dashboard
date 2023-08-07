@@ -3,27 +3,45 @@ import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard.dart';
 import 'package:solved_dashboard/routers/route_constants.dart';
 import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard_model.dart';
 import 'package:solved_dashboard/utils/app_theme.dart';
+import 'package:solved_dashboard/utils/overrides.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'package:vrouter/vrouter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
-
+import 'dart:html' as html;
 import 'screen_ui/home_module/home_model.dart';
 
 void main() async {
+  setPathUrlStrategy();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  String currentUrl = html.window.location.href;
+
   @override
   Widget build(BuildContext context) {
+    print("Current URL ------------------------ $currentUrl");
+
+    Uri uri = Uri.parse(currentUrl);
+    String path = uri.path;
+    List<String> pathSegments = path.split('/');
+    if (pathSegments.length >= 2) {
+      String id = pathSegments[1];
+      if (id != null && id.isNotEmpty) {
+        Overrides.SCHOOL_ID = id;
+      }
+      print("extrat id ------------$id");
+    }
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProjectHomeViewModel()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
       ],
       child: ScreenUtilInit(
-        designSize: Size(1920, 1080),
+        designSize: const Size(1920, 1080),
         builder: (context, child) {
           return AdaptiveTheme(
             initial: AdaptiveThemeMode.system,

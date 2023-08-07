@@ -15,7 +15,7 @@ class AnimatedHoverMenu extends StatefulWidget {
   final double? headerTextSize;
 
   ///Menu properties
-  //final List<SubMenu> menuTiles;
+
   final BoxDecoration? menuBoxDecoration;
   final Color? menuTextColor;
   final double? menuTextSize;
@@ -32,6 +32,7 @@ class AnimatedHoverMenu extends StatefulWidget {
   AnimatedHoverMenu({
     Key? key,
     required this.headerTiles,
+
     //required this.menuTiles,
     required this.headerPosition,
     this.backgroundWidget,
@@ -168,6 +169,7 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
                     // ),
                   ),
                 ),
+                //==================sayyam=====================
                 verticalDivider(),
               ],
             ),

@@ -10,24 +10,27 @@ import 'package:solved_dashboard/utils/app_util.dart';
 
 class AppBarWidget extends StatelessWidget {
   final String? logoURL;
-  final String? schoolName;
+  String? schoolName;
   final String? pageTitle;
   final String? pageViewCount;
   final dynamic onclick;
   final Color? primaryColor;
   final bool? isBusy;
 
-  const AppBarWidget(
-      {this.logoURL,
-      this.schoolName,
-      this.pageTitle,
-      this.pageViewCount,
-      this.onclick,
-      this.primaryColor,
-      this.isBusy});
+  AppBarWidget({
+    this.logoURL,
+    this.schoolName,
+    this.pageTitle,
+    this.pageViewCount,
+    this.onclick,
+    this.primaryColor,
+    this.isBusy,
+  });
 
   @override
   Widget build(BuildContext context) {
+    // Use ScreenUtil for responsive design
+
     return Container(
       padding: EdgeInsets.only(
           left: 192.sp, right: 192.sp, top: 11.sp, bottom: 11.sp),
@@ -36,13 +39,9 @@ class AppBarWidget extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               InkWell(
                 onTap: () {
@@ -52,12 +51,8 @@ class AppBarWidget extends StatelessWidget {
                   iconUrl: logoURL,
                 ),
               ),
-              SizedBox(
-                width: 10.w,
-              ),
+              SizedBox(width: 10.w),
               Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   isBusy!
@@ -69,164 +64,172 @@ class AppBarWidget extends StatelessWidget {
                             color: Colors.white,
                           ),
                         )
-                      : Text(schoolName!,
-                          // 'P.S. 456',
-                          style: TextStyle(
-                            color: AppColors.whiteColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: AppSize.size25.sp,
-                            fontFamily: 'Inter',
-                            fontStyle: FontStyle.normal,
-                          )),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  // Text('The Bronx Bears',
-                  //     style: TextStyle(
-                  //       color: AppColors.whiteColor,
-                  //       fontWeight: FontWeight.w400,
-                  //       fontSize: AppSize.size18.sp,
-                  //       fontFamily: 'Inter',
-                  //       fontStyle: FontStyle.normal,
-                  //     )),
+                      : FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Container(
+                            height: 57.h,
+                            width: 195.w, // Take the available width
+                            child: SelectionArea(
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    splitDynamicText(schoolName ?? '')
+                                            .isNotEmpty
+                                        ? Text(
+                                            splitDynamicText(
+                                                    schoolName ?? '')[0] ??
+                                                '',
+                                            softWrap: true,
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: AppColors.whiteColor,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: AppSize.size22.sp,
+                                              fontFamily: 'Inter',
+                                              fontStyle: FontStyle.normal,
+                                            ),
+                                          )
+                                        : const SizedBox.shrink(),
+                                    splitDynamicText(schoolName ?? '')
+                                            .isNotEmpty
+                                        ? Flexible(
+                                            fit: FlexFit.loose,
+                                            child: Text(
+                                              splitDynamicText(
+                                                      schoolName ?? '')[1] ??
+                                                  '',
+                                              softWrap: true,
+                                              maxLines: 2,
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                color: AppColors.whiteColor,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: AppSize.size18.sp,
+                                                fontFamily: 'Inter',
+                                                fontStyle: FontStyle.normal,
+                                              ),
+                                            ),
+                                          )
+                                        : const SizedBox.shrink()
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+
+                  //     fit: BoxFit.scaleDown,
+                  //     child: SizedBox(
+                  //       width: 191.w,
+                  //       // color: Colors.pink,
+
+                  //       child: Align(
+                  //         alignment: Alignment.center,
+                  //         child: Text(
+                  //           schoolName!,
+                  //           softWrap: false,
+                  //           //maxLines: 2,
+                  //           textAlign: TextAlign.center,
+                  //           style: TextStyle(
+                  //             color: AppColors.whiteColor,
+                  //             fontWeight: FontWeight.w500,
+                  //             fontSize: AppSize.size25.sp,
+                  //             fontFamily: 'Inter',
+                  //             fontStyle: FontStyle.normal,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+
+                  ,
+                  SizedBox(height: 5.h),
                 ],
               ),
             ],
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              titleTextWidget('SOLVED DASHBOARD+', context),
-              SizedBox(
-                height: 10.h,
-              ),
-              titleTextWidget('Home', context),
-            ],
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                titleTextWidget('SOLVED DASHBOARD+', context),
+                SizedBox(height: 10.h),
+                titleTextWidget('Home', context),
+              ],
+            ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                height: 75.h,
-                alignment: Alignment.center,
-                padding: EdgeInsets.only(
-                    //top: 13.sp, bottom: 13.sp,
-                    left: 25.sp,
-                    right: 25.sp),
+                padding: EdgeInsets.only(left: 25.sp, right: 25.sp),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.r),
                   color: AppColors.blueColorBG,
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    labelSmallWidget('Total Page Views', context),
-                    // TextButton(
-                    //     onPressed: () {
-                    //       AppUtil.dialogBuilder(context);
-                    //     },
-                    //     child: labelSmallWidget('Total Page Views', context)),
-                    SizedBox(
-                      height: 10.h,
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 10.h,
+                      ),
+                      child: labelSmallWidget('Total Page Views', context),
                     ),
-                    labelMediumWidget(pageViewCount, context)
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 9.h),
+                      child: labelMediumWidget(pageViewCount, context),
+                    ),
                   ],
                 ),
               ),
-              SizedBox(
-                width: 10.sp,
-              ),
+              SizedBox(width: 10.sp),
               Container(
-                height: 75.h,
-                alignment: Alignment.center,
                 padding: EdgeInsets.only(
-                    //top: 13.sp, bottom: 13.sp,
-                    left: 25.sp,
-                    right: 25.sp),
+                    left: 25.sp, right: 25.sp, top: 7.h, bottom: 8.h),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.r),
                   color: AppColors.whiteColor,
                 ),
-                child: Image.asset(
-                  'assets/logo.png',
-                  height: 40.h,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 7.h, bottom: 8.h),
+                  child: Image.asset(
+                    'assets/logo.png',
+                    height: 40.h,
+                  ),
                 ),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
-    // AppBar(
-    //     automaticallyImplyLeading: false,
-    //     elevation: 0,
-    //     backgroundColor: AppColors.appPrimaryColor,
-    //     title: Container(
-    //       width: 39.w,
-    //       height: 39.h,
-    //       decoration: BoxDecoration(
-    //         border: Border.all(color: AppColors.fieldBorderColor),
-    //         borderRadius: BorderRadius.circular(10.r),
-    //       ),
-    //       child: InkWell(
-    //           onTap: () {
-    //             onclick ? exit(0) : Navigator.pop(context);
-    //           },
-    //           child: Icon(
-    //             MicroMitti.chevron_left,
-    //             color: AppColors.black,
-    //             size: 15.sp,
-    //           )),
-    //     ),
-    //     actions: [
-    //       appBarTitle != ''
-    //           ? Row(
-    //               mainAxisAlignment: MainAxisAlignment.start,
-    //               mainAxisSize: MainAxisSize.min,
-    //               crossAxisAlignment: CrossAxisAlignment.center,
-    //               children: [
-    //                   Text(
-    //                     appBarTitle!,
-    //                     style: TextStyle(
-    //                         fontSize: AppSize.size14,
-    //                         color: AppColors.lightGrey,
-    //                         fontWeight: FontWeight.w400,
-    //                         fontFamily: 'Inter'),
-    //                   ),
-    //                   InkWell(
-    //                     onTap: () {
-    //                       if (appBarAdditionalText == " Sign Up") {
-    //                         Navigator.pushNamed(
-    //                             AppUtil.getContext(), '/register_screen');
-    //                       } else if (appBarAdditionalText == " Log In") {
-    //                         Navigator.pushNamed(
-    //                             AppUtil.getContext(), '/login_screen');
-    //                       }
-    //                     },
-    //                     child: Text(
-    //                       appBarAdditionalText,
-    //                       style: TextStyle(
-    //                           color: AppColors.yellow,
-    //                           fontSize: AppSize.size14,
-    //                           fontWeight: FontWeight.w400,
-    //                           fontFamily: 'Inter'),
-    //                     ),
-    //                   ),
-    //                   SizedBox(
-    //                     width: 16.sp,
-    //                   )
-    //                 ])
-    //           : Container()
-    //     ]);
   }
 
-  @override
-  // TODO: implement child
-  Widget get child => throw UnimplementedError();
+  List<String> splitDynamicText(String dynamicText) {
+    final numberMatch = RegExp(r'\d+').firstMatch(dynamicText);
+    if (numberMatch != null) {
+      final index = numberMatch.end;
+      final firstPart = dynamicText.substring(0, index);
+      final secondPart = dynamicText.substring(index);
+
+      // Find the first non-digit character in the second part
+      final nonDigitMatch = RegExp(r'\D').firstMatch(secondPart);
+      if (nonDigitMatch != null) {
+        final secondIndex = nonDigitMatch.start;
+        return [
+          firstPart + secondPart.substring(0, secondIndex),
+          secondPart.substring(secondIndex),
+        ];
+      } else {
+        return [dynamicText, ''];
+      }
+    } else {
+      return [dynamicText, ''];
+    }
+  }
 }

@@ -21,12 +21,15 @@ Widget titleTextWidget(text, context) {
 
 Widget labelSmallWidget(text, context) {
   return Text(text,
+      softWrap: false,
+      textAlign: TextAlign.center,
       style: AppTheme.lightTheme.textTheme.labelSmall!
           .copyWith(fontSize: AppSize.size16.sp));
 }
 
 Widget labelMediumWidget(text, context) {
   return Text(text,
+      softWrap: false,
       style: AppTheme.lightTheme.textTheme.labelMedium!.copyWith(
         fontSize: AppSize.size25.sp,
       ));

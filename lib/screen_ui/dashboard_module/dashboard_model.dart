@@ -1,8 +1,13 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:solved_dashboard/custom_fonts/solved_dashboard_icons_icons.dart';
+import 'package:solved_dashboard/models/dashboard_data_model.dart';
 import 'package:solved_dashboard/models/nav_bar_model.dart';
 import 'package:solved_dashboard/services/api.dart';
 import 'package:solved_dashboard/services/models/home_response.dart';
+import 'package:solved_dashboard/utils/app_util.dart';
 import 'package:solved_dashboard/utils/constant.dart';
 import 'package:solved_dashboard/utils/overrides.dart';
 import 'package:vrouter/vrouter.dart';
@@ -34,21 +39,21 @@ class ProjectHomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _contactNameC = '';
+  // String _contactNameC = '';
 
-  String get contactNameC => _contactNameC;
-  set contactNameC(String contactNameC) {
-    _contactNameC = contactNameC;
-    notifyListeners();
-  }
+  // String get contactNameC => _contactNameC;
+  // set contactNameC(String contactNameC) {
+  //   _contactNameC = contactNameC;
+  //   notifyListeners();
+  // }
 
-  String _primaryColorC = '';
+  // String _primaryColorC = '';
 
-  String get primaryColorC => _primaryColorC;
-  set primaryColorC(String primaryColorC) {
-    _primaryColorC = primaryColorC;
-    notifyListeners();
-  }
+  // String get primaryColorC => _primaryColorC;
+  // set primaryColorC(String primaryColorC) {
+  //   _primaryColorC = primaryColorC;
+  //   notifyListeners();
+  // }
 
   String? _menuTitleValue = "Home";
 
@@ -66,13 +71,13 @@ class ProjectHomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _logoURL = '';
+  // String _logoURL = '';
 
-  String get logoURL => _logoURL;
-  set logoURL(String logoURL) {
-    _logoURL = logoURL;
-    notifyListeners();
-  }
+  // String get logoURL => _logoURL;
+  // set logoURL(String logoURL) {
+  //   _logoURL = logoURL;
+  //   notifyListeners();
+  // }
 
   bool _showLoader = false;
   bool get showLoader => _showLoader;
@@ -402,7 +407,7 @@ class ProjectHomeViewModel extends ChangeNotifier {
   }
 
   // Call API for get home details
-  getHomeData() async {
+  getHomeData(BuildContext context) async {
     showLoader = true;
     String objectName = "School_App__c";
 
@@ -414,22 +419,25 @@ class ProjectHomeViewModel extends ChangeNotifier {
       case Constants.sucessCode:
         if (homeResponse.body != null && homeResponse.body!.isNotEmpty) {
           homeDataList.addAll(homeResponse.body!);
+
+          saveDashboardData(homeDataList[0], context);
         }
-        for (int i = 0; i < homeDataList.length; i++) {
-          if (homeDataList[i].contactNameC != null &&
-              homeDataList[i].contactNameC!.isNotEmpty) {
-            contactNameC = homeDataList[i].contactNameC.toString();
-          }
-          if (homeDataList[i].primaryColorC != null &&
-              homeDataList[i].primaryColorC!.isNotEmpty) {
-            primaryColorC = homeDataList[i].primaryColorC.toString();
-            print(primaryColorC);
-          }
-          if (homeDataList[i].fullLogoC != null &&
-              homeDataList[i].fullLogoC!.isNotEmpty) {
-            logoURL = homeDataList[i].fullLogoC.toString();
-          }
-        }
+
+        // for (int i = 0; i < homeDataList.length; i++) {
+        //   if (homeDataList[i].contactNameC != null &&
+        //       homeDataList[i].contactNameC!.isNotEmpty) {
+        //     contactNameC = homeDataList[i].contactNameC.toString();
+        //   }
+        //   if (homeDataList[i].primaryColorC != null &&
+        //       homeDataList[i].primaryColorC!.isNotEmpty) {
+        //     primaryColorC = homeDataList[i].primaryColorC.toString();
+        //     print(primaryColorC);
+        //   }
+        //   if (homeDataList[i].fullLogoC != null &&
+        //       homeDataList[i].fullLogoC!.isNotEmpty) {
+        //     logoURL = homeDataList[i].fullLogoC.toString();
+        //   }
+        // }
 
         break;
       case Constants.wrongError:
@@ -455,6 +463,11 @@ class ProjectHomeViewModel extends ChangeNotifier {
     }
 
     showLoader = false;
+  }
+
+  // Save user local data
+  saveDashboardData(HomeList? data, BuildContext context) async {
+    Provider.of<DashboardData>(context, listen: false).setDashBoardData(data);
   }
 
   Color getColorFromHex(String hexColor) {

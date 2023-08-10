@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 
-class Engagement extends StatefulWidget {
+class DataInsights extends StatefulWidget {
   @override
-  _EngagementState createState() => _EngagementState();
+  _DataInsightsState createState() => _DataInsightsState();
 }
 
-class _EngagementState extends State<Engagement> {
+class _DataInsightsState extends State<DataInsights> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(Object context) {
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -22,7 +22,7 @@ class _EngagementState extends State<Engagement> {
         children: [
           Padding(
             padding: EdgeInsets.only(left: 190.sp, right: 190.sp, top: 40.sp),
-            child: pageTitleTextWidget('Engagement', context),
+            child: pageTitleTextWidget('Data Insights', context),
           ),
           SizedBox(
             height: 40.h,

@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:solved_dashboard/helper_widget/app_bar_widget.dart';
+import 'package:solved_dashboard/helper_widget/copy_right_widget.dart';
 import 'package:solved_dashboard/helper_widget/hover_animation_widget.dart';
+import 'package:solved_dashboard/helper_widget/loading_widget.dart';
+import 'package:solved_dashboard/models/dashboard_data_model.dart';
 import 'package:solved_dashboard/routers/route_constants.dart';
 import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard_model.dart';
+import 'package:solved_dashboard/screen_ui/home_module/home.dart';
+import 'package:solved_dashboard/services/models/home_response.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 import 'dart:html' as html;
 
@@ -27,33 +32,59 @@ class _DashboardState extends State<Dashboard> {
       final model = Provider.of<ProjectHomeViewModel>(context, listen: false);
       model.buildNavBar();
       model.extractIdFromUrl(url);
-      model.getHomeData();
+      model.getHomeData(context);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<ProjectHomeViewModel>(context);
+    HomeList dashboardData = HomeList();
+    if (!model.showLoader) {
+      dashboardData =
+          Provider.of<DashboardData>(context, listen: false).dashboardData!;
+    }
+
     return Scaffold(
       //backgroundColor: Theme.of(context).primaryColor,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(280.h),
+        preferredSize: Size.fromHeight(model.showLoader ? 0 : 280.h),
         child: AppBarWidget(
-          logoURL: model.logoURL,
+          logoURL: dashboardData.fullLogoC != null &&
+                  dashboardData.fullLogoC!.isNotEmpty
+              ? dashboardData.fullLogoC
+              : '',
           pageTitle:
               model.menuTitleValue != null && model.menuTitleValue!.isNotEmpty
                   ? model.menuTitleValue
                   : model.tabTitleValue,
           pageViewCount: '2,444',
-          primaryColor: model.getColorFromHex(model.primaryColorC),
-          schoolName: model.contactNameC,
+          primaryColor: model.getColorFromHex(
+              dashboardData.primaryColorC != null &&
+                      dashboardData.primaryColorC!.isNotEmpty
+                  ? dashboardData.primaryColorC!.toString()
+                  : ''),
+          schoolName: dashboardData.contactNameC != null &&
+                  dashboardData.contactNameC!.isNotEmpty
+              ? dashboardData.contactNameC!.toString()
+              : '',
           isBusy: model.showLoader,
           context: context,
           sectionList: model.navBarItemList,
           model: model,
         ),
       ),
-      body: widget.child,
+      body: model.showLoader ? loadingWidget(context) : widget.child,
+      // ListView(
+      //     shrinkWrap: true,
+      //     children: [
+      //       //Home(),
+      //       widget.child,
+      //       copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.',
+      //           context, model.getColorFromHex(model.primaryColorC)),
+      //     ],
+      //   ),
+      //widget.child,
       // body: model.showLoader
       //     ? loadingWidget(context)
       //     : Column(

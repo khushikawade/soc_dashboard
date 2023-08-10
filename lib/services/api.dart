@@ -22,7 +22,7 @@ class Api {
     Response response = await _apiClient.getMethod(
         '${_apiMethods.home}' + '?schoolID=$schoolID&objectName=$objectName',
         queryParams: queryParams);
-    print(response.request);
+    print("Request URL ---------- ${response.request}");
     if (response.statusCode == 200) {
       try {
         if (response.body.contains('error')) {

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:solved_dashboard/helper_widget/common_widget/iframe_custom_link_widget.dart';
+import 'package:solved_dashboard/helper_widget/common_widget/one_column_text_and_image_left.dart';
+import 'package:solved_dashboard/helper_widget/common_widget/one_column_text_and_image_right.dart';
 import 'package:solved_dashboard/helper_widget/common_widget/three_column_text_and_image.dart';
+import 'package:solved_dashboard/helper_widget/common_widget/two_column_text_and_image.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
-
-import '../../helper_widget/common_widget/iframe_custom_link_widget.dart';
-import '../../helper_widget/common_widget/one_column_text_and_image_left.dart';
-import '../../helper_widget/common_widget/one_column_text_and_image_right.dart';
-
-import '../../helper_widget/common_widget/two_column_text_and_image.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -16,6 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,

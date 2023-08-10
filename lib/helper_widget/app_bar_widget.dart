@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:solved_dashboard/helper_widget/cached_network_widget.dart';
+import 'package:solved_dashboard/helper_widget/copy_right_widget.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/helper_widget/hover_animation_widget.dart';
 import 'package:solved_dashboard/helper_widget/shimmer_loading.dart';
@@ -172,7 +173,11 @@ class AppBarWidget extends StatelessWidget {
                   children: [
                     titleTextWidget('SOLVED DASHBOARD+', context),
                     SizedBox(height: 10.h),
-                    titleTextWidget('Home', context),
+                    titleTextWidget(
+                        pageTitle != null && pageTitle!.isNotEmpty
+                            ? pageTitle!
+                            : 'N/A',
+                        context),
                   ],
                 ),
               ),
@@ -361,6 +366,9 @@ class AppBarWidget extends StatelessWidget {
         // ),
 
         menu(sectionList, model!),
+
+        // copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.', context,
+        //     model!.getColorFromHex(model!.primaryColorC)),
       ],
     );
     // return Container(

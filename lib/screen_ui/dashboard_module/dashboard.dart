@@ -13,6 +13,8 @@ import 'package:solved_dashboard/services/models/home_response.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 import 'dart:html' as html;
 
+import 'package:solved_dashboard/utils/app_util.dart';
+
 class Dashboard extends StatefulWidget {
   final Widget child;
   final List<Tab> tabs;
@@ -59,7 +61,7 @@ class _DashboardState extends State<Dashboard> {
                   ? model.menuTitleValue
                   : model.tabTitleValue,
           pageViewCount: '2,444',
-          primaryColor: model.getColorFromHex(
+          primaryColor: AppUtil.getColorFromHex(
               dashboardData.primaryColorC != null &&
                       dashboardData.primaryColorC!.isNotEmpty
                   ? dashboardData.primaryColorC!.toString()

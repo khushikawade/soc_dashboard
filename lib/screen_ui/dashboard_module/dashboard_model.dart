@@ -469,14 +469,4 @@ class ProjectHomeViewModel extends ChangeNotifier {
   saveDashboardData(HomeList? data, BuildContext context) async {
     Provider.of<DashboardData>(context, listen: false).setDashBoardData(data);
   }
-
-  Color getColorFromHex(String hexColor) {
-    if (hexColor.isNotEmpty) {
-      hexColor = hexColor.replaceAll("#", "");
-      final int hexValue = int.parse(hexColor, radix: 16);
-      return Color(hexValue | 0xFF000000); // Add alpha value (opaque)
-    } else {
-      return const Color(0xFF000000);
-    }
-  }
 }

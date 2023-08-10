@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:solved_dashboard/helper_widget/app_bar_widget.dart';
 import 'package:solved_dashboard/models/dashboard_data_model.dart';
 import 'package:solved_dashboard/screen_ui/apps_module/apps.dart';
 import 'package:solved_dashboard/screen_ui/assessment_module/assessment.dart';
 import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard.dart';
-import 'package:solved_dashboard/routers/route_constants.dart';
 import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard_model.dart';
 import 'package:solved_dashboard/screen_ui/data_insights_module/data_insights.dart';
 import 'package:solved_dashboard/screen_ui/data_module/data.dart';
@@ -12,7 +10,6 @@ import 'package:solved_dashboard/screen_ui/engegment_module/engegment.dart';
 import 'package:solved_dashboard/screen_ui/home_module/home.dart';
 import 'package:solved_dashboard/screen_ui/report_module/report.dart';
 import 'package:solved_dashboard/screen_ui/support_module/support.dart';
-import 'package:solved_dashboard/utils/app_colors.dart';
 import 'package:solved_dashboard/utils/app_theme.dart';
 import 'package:solved_dashboard/utils/overrides.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -63,11 +60,13 @@ class MyApp extends StatelessWidget {
           designSize: const Size(1920, 1080),
           builder: (context, child) {
             return AdaptiveTheme(
-              initial: AdaptiveThemeMode.light,
+              initial: AdaptiveThemeMode.system,
               light: AppTheme.lightTheme,
               dark: AppTheme.darkTheme,
               builder: (light, dark) {
                 return VRouter(
+                  darkTheme: dark,
+                  theme: light,
                   debugShowCheckedModeBanner: false,
                   checkerboardOffscreenLayers: false,
                   initialUrl: Overrides.SCHOOL_ID.isNotEmpty

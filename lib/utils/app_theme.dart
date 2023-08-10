@@ -5,7 +5,8 @@ import 'package:solved_dashboard/utils/app_size.dart';
 
 class AppTheme {
   static final ThemeData lightTheme = ThemeData(
-      primaryColor: AppColors.pageBGColor,
+      primaryColor: AppColors.appPrimaryColor,
+      scaffoldBackgroundColor: AppColors.pageBGColor,
       textTheme: TextTheme(
           titleMedium: TextStyle(
             color: AppColors.whiteColor,
@@ -65,6 +66,7 @@ class AppTheme {
           )));
   static final ThemeData darkTheme = ThemeData(
       primaryColor: AppColors.blackColorBG,
+      scaffoldBackgroundColor: AppColors.blackColorBG,
       textTheme: TextTheme(
           titleMedium: TextStyle(
             color: AppColors.whiteColor,

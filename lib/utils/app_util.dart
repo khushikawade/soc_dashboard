@@ -132,6 +132,17 @@ class AppUtil {
     return header;
   }
 
+  //get Dashboard primary color
+  static Color getColorFromHex(String hexColor) {
+    if (hexColor.isNotEmpty) {
+      hexColor = hexColor.replaceAll("#", "");
+      final int hexValue = int.parse(hexColor, radix: 16);
+      return Color(hexValue | 0xFF000000); // Add alpha value (opaque)
+    } else {
+      return const Color(0xFF000000);
+    }
+  }
+
   // Show loading dialog
   static void showLoadingDialog({BuildContext? context, String? msg}) async {
     return showDialog<void>(

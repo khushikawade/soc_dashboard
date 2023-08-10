@@ -39,14 +39,13 @@ class _DashboardState extends State<Dashboard> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(280.h),
         child: AppBarWidget(
-          logoURL:
-              'https://solved-schools.s3.us-east-2.amazonaws.com/BB-P.S.+456+Bronx-Bears/app-logos/Bronx+Bears+1024.png',
+          logoURL: model.logoURL,
           pageTitle:
               model.menuTitleValue != null && model.menuTitleValue!.isNotEmpty
                   ? model.menuTitleValue
                   : model.tabTitleValue,
           pageViewCount: '2,444',
-          primaryColor: AppColors.appPrimaryColor,
+          primaryColor: model.getColorFromHex(model.primaryColorC),
           schoolName: model.contactNameC,
           isBusy: model.showLoader,
           context: context,

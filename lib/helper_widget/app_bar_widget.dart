@@ -49,13 +49,9 @@ class AppBarWidget extends StatelessWidget {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   InkWell(
                     onTap: () {
@@ -65,12 +61,8 @@ class AppBarWidget extends StatelessWidget {
                       iconUrl: logoURL,
                     ),
                   ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
+                  SizedBox(width: 10.w),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       isBusy!
@@ -82,104 +74,292 @@ class AppBarWidget extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             )
-                          : Text(schoolName!,
-                              // 'P.S. 456',
-                              style: TextStyle(
-                                color: AppColors.whiteColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: AppSize.size25.sp,
-                                fontFamily: 'Inter',
-                                fontStyle: FontStyle.normal,
-                              )),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      // Text('The Bronx Bears',
-                      //     style: TextStyle(
-                      //       color: AppColors.whiteColor,
-                      //       fontWeight: FontWeight.w400,
-                      //       fontSize: AppSize.size18.sp,
-                      //       fontFamily: 'Inter',
-                      //       fontStyle: FontStyle.normal,
-                      //     )),
+                          : FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Container(
+                                height: 57.h,
+                                width: 195.w, // Take the available width
+                                child: SelectionArea(
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        splitDynamicText(schoolName ?? '')
+                                                .isNotEmpty
+                                            ? Text(
+                                                splitDynamicText(
+                                                        schoolName ?? '')[0] ??
+                                                    '',
+                                                softWrap: true,
+                                                maxLines: 2,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: AppColors.whiteColor,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: AppSize.size22.sp,
+                                                  fontFamily: 'Inter',
+                                                  fontStyle: FontStyle.normal,
+                                                ),
+                                              )
+                                            : const SizedBox.shrink(),
+                                        splitDynamicText(schoolName ?? '')
+                                                .isNotEmpty
+                                            ? Flexible(
+                                                fit: FlexFit.loose,
+                                                child: Text(
+                                                  splitDynamicText(schoolName ??
+                                                          '')[1] ??
+                                                      '',
+                                                  softWrap: true,
+                                                  maxLines: 2,
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(
+                                                    color: AppColors.whiteColor,
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: AppSize.size18.sp,
+                                                    fontFamily: 'Inter',
+                                                    fontStyle: FontStyle.normal,
+                                                  ),
+                                                ),
+                                              )
+                                            : const SizedBox.shrink()
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+
+                      //     fit: BoxFit.scaleDown,
+                      //     child: SizedBox(
+                      //       width: 191.w,
+                      //       // color: Colors.pink,
+
+                      //       child: Align(
+                      //         alignment: Alignment.center,
+                      //         child: Text(
+                      //           schoolName!,
+                      //           softWrap: false,
+                      //           //maxLines: 2,
+                      //           textAlign: TextAlign.center,
+                      //           style: TextStyle(
+                      //             color: AppColors.whiteColor,
+                      //             fontWeight: FontWeight.w500,
+                      //             fontSize: AppSize.size25.sp,
+                      //             fontFamily: 'Inter',
+                      //             fontStyle: FontStyle.normal,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+
+                      ,
+                      SizedBox(height: 5.h),
                     ],
                   ),
                 ],
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  titleTextWidget('SOLVED DASHBOARD+', context),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  titleTextWidget(
-                      pageTitle != null && pageTitle!.isNotEmpty
-                          ? pageTitle!
-                          : 'N/A',
-                      context),
-                ],
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    titleTextWidget('SOLVED DASHBOARD+', context),
+                    SizedBox(height: 10.h),
+                    titleTextWidget('Home', context),
+                  ],
+                ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    height: 75.h,
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.only(
-                        //top: 13.sp, bottom: 13.sp,
-                        left: 25.sp,
-                        right: 25.sp),
+                    padding: EdgeInsets.only(left: 25.sp, right: 25.sp),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.r),
                       color: AppColors.blueColorBG,
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        labelSmallWidget('Total Page Views', context),
-                        // TextButton(
-                        //     onPressed: () {
-                        //       AppUtil.dialogBuilder(context);
-                        //     },
-                        //     child: labelSmallWidget('Total Page Views', context)),
-                        SizedBox(
-                          height: 10.h,
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: 10.h,
+                          ),
+                          child: labelSmallWidget('Total Page Views', context),
                         ),
-                        labelMediumWidget(pageViewCount, context)
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 9.h),
+                          child: labelMediumWidget(pageViewCount, context),
+                        ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: 10.sp,
-                  ),
+                  SizedBox(width: 10.sp),
                   Container(
-                    height: 75.h,
-                    alignment: Alignment.center,
                     padding: EdgeInsets.only(
-                        //top: 13.sp, bottom: 13.sp,
-                        left: 25.sp,
-                        right: 25.sp),
+                        left: 25.sp, right: 25.sp, top: 7.h, bottom: 8.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.r),
                       color: AppColors.whiteColor,
                     ),
-                    child: Image.asset(
-                      'assets/logo.png',
-                      height: 40.h,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 7.h, bottom: 8.h),
+                      child: Image.asset(
+                        'assets/logo.png',
+                        height: 40.h,
+                      ),
                     ),
-                  )
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
+        // Container(
+        //   padding: EdgeInsets.only(
+        //       left: 192.sp, right: 192.sp, top: 11.sp, bottom: 11.sp),
+        //   decoration: BoxDecoration(
+        //     color: primaryColor ?? AppColors.appPrimaryColor,
+        //   ),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //     mainAxisSize: MainAxisSize.max,
+        //     crossAxisAlignment: CrossAxisAlignment.center,
+        //     children: [
+        //       Row(
+        //         mainAxisAlignment: MainAxisAlignment.start,
+        //         mainAxisSize: MainAxisSize.min,
+        //         crossAxisAlignment: CrossAxisAlignment.center,
+        //         children: [
+        //           InkWell(
+        //             onTap: () {
+        //               AppUtil.dialogBuilder(context);
+        //             },
+        //             child: CustomIconMode(
+        //               iconUrl: logoURL,
+        //             ),
+        //           ),
+        //           SizedBox(
+        //             width: 10.w,
+        //           ),
+        //           Column(
+        //             mainAxisAlignment: MainAxisAlignment.start,
+        //             mainAxisSize: MainAxisSize.min,
+        //             crossAxisAlignment: CrossAxisAlignment.start,
+        //             children: [
+        //               isBusy!
+        //                   ? ShimmerLoading(
+        //                       isLoading: true,
+        //                       child: Container(
+        //                         height: 20.h,
+        //                         width: 50.w,
+        //                         color: Colors.white,
+        //                       ),
+        //                     )
+        //                   : Text(schoolName!,
+        //                       // 'P.S. 456',
+        //                       style: TextStyle(
+        //                         color: AppColors.whiteColor,
+        //                         fontWeight: FontWeight.w500,
+        //                         fontSize: AppSize.size25.sp,
+        //                         fontFamily: 'Inter',
+        //                         fontStyle: FontStyle.normal,
+        //                       )),
+        //               SizedBox(
+        //                 height: 5.h,
+        //               ),
+        //               // Text('The Bronx Bears',
+        //               //     style: TextStyle(
+        //               //       color: AppColors.whiteColor,
+        //               //       fontWeight: FontWeight.w400,
+        //               //       fontSize: AppSize.size18.sp,
+        //               //       fontFamily: 'Inter',
+        //               //       fontStyle: FontStyle.normal,
+        //               //     )),
+        //             ],
+        //           ),
+        //         ],
+        //       ),
+        //       Column(
+        //         mainAxisAlignment: MainAxisAlignment.start,
+        //         mainAxisSize: MainAxisSize.min,
+        //         crossAxisAlignment: CrossAxisAlignment.center,
+        //         children: [
+        //           titleTextWidget('SOLVED DASHBOARD+', context),
+        //           SizedBox(
+        //             height: 10.h,
+        //           ),
+        //           titleTextWidget(
+        //               pageTitle != null && pageTitle!.isNotEmpty
+        //                   ? pageTitle!
+        //                   : 'N/A',
+        //               context),
+        //         ],
+        //       ),
+        //       Row(
+        //         mainAxisAlignment: MainAxisAlignment.start,
+        //         mainAxisSize: MainAxisSize.max,
+        //         crossAxisAlignment: CrossAxisAlignment.center,
+        //         children: [
+        //           Container(
+        //             height: 75.h,
+        //             alignment: Alignment.center,
+        //             padding: EdgeInsets.only(
+        //                 //top: 13.sp, bottom: 13.sp,
+        //                 left: 25.sp,
+        //                 right: 25.sp),
+        //             decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(5.r),
+        //               color: AppColors.blueColorBG,
+        //             ),
+        //             child: Column(
+        //               mainAxisAlignment: MainAxisAlignment.start,
+        //               mainAxisSize: MainAxisSize.min,
+        //               crossAxisAlignment: CrossAxisAlignment.center,
+        //               children: [
+        //                 labelSmallWidget('Total Page Views', context),
+        //                 // TextButton(
+        //                 //     onPressed: () {
+        //                 //       AppUtil.dialogBuilder(context);
+        //                 //     },
+        //                 //     child: labelSmallWidget('Total Page Views', context)),
+        //                 SizedBox(
+        //                   height: 10.h,
+        //                 ),
+        //                 labelMediumWidget(pageViewCount, context)
+        //               ],
+        //             ),
+        //           ),
+        //           SizedBox(
+        //             width: 10.sp,
+        //           ),
+        //           Container(
+        //             height: 75.h,
+        //             alignment: Alignment.center,
+        //             padding: EdgeInsets.only(
+        //                 //top: 13.sp, bottom: 13.sp,
+        //                 left: 25.sp,
+        //                 right: 25.sp),
+        //             decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(5.r),
+        //               color: AppColors.whiteColor,
+        //             ),
+        //             child: Image.asset(
+        //               'assets/logo.png',
+        //               height: 40.h,
+        //             ),
+        //           )
+        //         ],
+        //       )
+        //     ],
+        //   ),
+        // ),
+
         menu(sectionList, model!),
       ],
     );

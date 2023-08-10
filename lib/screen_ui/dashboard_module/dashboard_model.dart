@@ -4,6 +4,8 @@ import 'package:solved_dashboard/models/nav_bar_model.dart';
 import 'package:solved_dashboard/services/api.dart';
 import 'package:solved_dashboard/services/models/home_response.dart';
 import 'package:solved_dashboard/utils/constant.dart';
+import 'package:solved_dashboard/utils/overrides.dart';
+import 'package:vrouter/vrouter.dart';
 
 class ProjectHomeViewModel extends ChangeNotifier {
   final Api _api = Api();
@@ -48,6 +50,22 @@ class ProjectHomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String? _menuTitleValue = "Home";
+
+  String? get menuTitleValue => _menuTitleValue;
+  set menuTitleValue(String? value) {
+    _menuTitleValue = value;
+    notifyListeners();
+  }
+
+  String _tabTitleValue = 'Home';
+
+  String get tabTitleValue => _tabTitleValue;
+  set tabTitleValue(String value) {
+    _tabTitleValue = value;
+    notifyListeners();
+  }
+
   String _logoURL = '';
 
   String get logoURL => _logoURL;
@@ -61,6 +79,63 @@ class ProjectHomeViewModel extends ChangeNotifier {
   set showLoader(bool value) {
     _showLoader = value;
     notifyListeners();
+  }
+
+  // handle Main Section Selection
+  void handleTabSelection(String sectionName, BuildContext context) {
+    final to = context.vRouter.to;
+
+    switch (sectionName) {
+      case 'Home':
+        return to(Overrides.SCHOOL_ID.isNotEmpty
+            ? '/${Overrides.SCHOOL_ID}/Home'
+            : '/Home');
+      case 'Reports':
+        return to(Overrides.SCHOOL_ID.isNotEmpty
+            ? '/${Overrides.SCHOOL_ID}/Reports'
+            : '/Reports');
+      case 'Assessments':
+        return to(Overrides.SCHOOL_ID.isNotEmpty
+            ? '/${Overrides.SCHOOL_ID}/Assessments'
+            : '/Assessments');
+      case 'Data Insights':
+        return to(Overrides.SCHOOL_ID.isNotEmpty
+            ? '/${Overrides.SCHOOL_ID}/Data_Insights'
+            : '/Data_Insides');
+      case 'Apps+':
+        return to(Overrides.SCHOOL_ID.isNotEmpty
+            ? '/${Overrides.SCHOOL_ID}/Apps'
+            : '/Apps');
+      case 'Engagement':
+        return to(Overrides.SCHOOL_ID.isNotEmpty
+            ? '/${Overrides.SCHOOL_ID}/Engagement'
+            : '/Engagement');
+      case '+ Data':
+        return to(Overrides.SCHOOL_ID.isNotEmpty
+            ? '/${Overrides.SCHOOL_ID}/Data'
+            : '/Data');
+      case 'Support':
+        return to(Overrides.SCHOOL_ID.isNotEmpty
+            ? '/${Overrides.SCHOOL_ID}/Support'
+            : '/Support');
+    }
+  }
+
+  // handle Sub menu selection
+  void handleSubMenuSelection(
+      String subMenu, String menuTitle, BuildContext context) {
+    final to = context.vRouter.to;
+    Overrides.SUB_MENU = subMenu.replaceAll(" ", "_");
+
+    if (menuTitle == "Reports") {
+      to(Overrides.SCHOOL_ID.isNotEmpty
+          ? '/${Overrides.SCHOOL_ID}/Reports/${Overrides.SUB_MENU}'
+          : '/Reports');
+    } else if (menuTitle == "Assessments") {
+      to(Overrides.SCHOOL_ID.isNotEmpty
+          ? '/${Overrides.SCHOOL_ID}/Assessments/${Overrides.SUB_MENU}'
+          : '/Assessments');
+    }
   }
 
   // Build Nav bar widget & its items
@@ -173,7 +248,7 @@ class ProjectHomeViewModel extends ChangeNotifier {
                 )
               ]),
           NavBarMenu(
-              menuTitle: 'NYS / ISA 2022',
+              menuTitle: 'NYS/ISA 2022',
               id: 4,
               isSelected: false,
               icon: Icons.arrow_right_outlined,

@@ -23,20 +23,22 @@ class MenuTilesWidget extends StatefulWidget {
   final double menuTextSize;
   final HeaderPosition headerPosition;
   final AnimationType animationType;
+  final Function(String, String)? receiveValue;
 
-  const MenuTilesWidget({
-    Key? key,
-    required this.menuTiles,
-    required this.headerTiles,
-    required this.child,
-    required this.index,
-    required this.hoverValue,
-    //required this.menuBoxDecoration,
-    required this.menuTextColor,
-    required this.menuTextSize,
-    required this.headerPosition,
-    required this.animationType,
-  }) : super(key: key);
+  const MenuTilesWidget(
+      {Key? key,
+      required this.menuTiles,
+      required this.headerTiles,
+      required this.child,
+      required this.index,
+      required this.hoverValue,
+      //required this.menuBoxDecoration,
+      required this.menuTextColor,
+      required this.menuTextSize,
+      required this.headerPosition,
+      required this.animationType,
+      this.receiveValue})
+      : super(key: key);
 
   @override
   _MenuTilesWidgetState createState() => _MenuTilesWidgetState();
@@ -324,151 +326,164 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   List<Widget> _buildListItems() {
     final listItems = <Widget>[];
     for (int index = 0; index < widget.menuTiles.length; ++index) {
-      listItems.add(Column(
-        children: [
-          MouseRegion(
-            opaque: true,
-            onHover: //_handleHover,
-                (PointerHoverEvent event) {
-              // _handleHover(event);
-              // subMenuOffset = Offset(0, 0);
+      listItems.add(InkWell(
+        onTap: () {
+          String tabTitle = '';
+          if (widget.headerTiles != null && widget.headerTiles.isNotEmpty) {
+            widget.headerTiles.forEach((element) {
+              if (element.isSelcted!) {
+                tabTitle = element.title!;
+              }
+            });
+          }
+          widget.receiveValue!(widget.menuTiles[index].menuTitle!, tabTitle);
+        },
+        child: Column(
+          children: [
+            MouseRegion(
+              opaque: true,
+              onHover: //_handleHover,
+                  (PointerHoverEvent event) {
+                // _handleHover(event);
+                // subMenuOffset = Offset(0, 0);
 
-              subMenuList.clear();
+                subMenuList.clear();
 
-              setState(() {
-                widget.menuTiles[index].isSelected = true;
-                if (widget.menuTiles != null && widget.menuTiles.isNotEmpty) {
+                setState(() {
+                  widget.menuTiles[index].isSelected = true;
+                  if (widget.menuTiles != null && widget.menuTiles.isNotEmpty) {
+                    if (widget.menuTiles[index].subMenu != null &&
+                        widget.menuTiles[index].subMenu!.isNotEmpty) {
+                      subMenuList.addAll(widget.menuTiles[index].subMenu!);
+                    }
+                  }
+                });
+                print("============getIndex=========================$index");
+                print(
+                    "============getList=========================${widget.menuTiles.length}");
+
+                if (allowAddEntryForSubMenu) {
+                  // _menuHover[widget.index] = true;
+
                   if (widget.menuTiles[index].subMenu != null &&
                       widget.menuTiles[index].subMenu!.isNotEmpty) {
-                    subMenuList.addAll(widget.menuTiles[index].subMenu!);
+                    _hasHovered = true;
+
+                    Offset getOffset =
+                        _getListItemPosition(widget.menuTiles.length, index);
+                    setState(() {});
+                    print(
+                        "===========$index=====getOffset=============$getOffset");
+
+                    _hoverOffset.value = getOffset;
+                    setOffsetFormMenu = _hoverOffset.value;
                   }
+                  _addOverlay(subMenuOverlayEntry!);
                 }
-              });
-              print("============getIndex=========================$index");
-              print(
-                  "============getList=========================${widget.menuTiles.length}");
-
-              if (allowAddEntryForSubMenu) {
-                // _menuHover[widget.index] = true;
-
-                if (widget.menuTiles[index].subMenu != null &&
-                    widget.menuTiles[index].subMenu!.isNotEmpty) {
-                  _hasHovered = true;
-
-                  Offset getOffset =
-                      _getListItemPosition(widget.menuTiles.length, index);
-                  setState(() {});
-                  print(
-                      "===========$index=====getOffset=============$getOffset");
-
-                  _hoverOffset.value = getOffset;
-                  setOffsetFormMenu = _hoverOffset.value;
+              },
+              onExit: (_) {
+                // _hoverOffset.value = Offset.zero;
+                if (subMenuList.isEmpty) {
+                  _hoverOffset.value = Offset.zero;
+                  _hasHovered = false;
                 }
-                _addOverlay(subMenuOverlayEntry!);
-              }
-            },
-            onExit: (_) {
-              // _hoverOffset.value = Offset.zero;
-              if (subMenuList.isEmpty) {
-                _hoverOffset.value = Offset.zero;
-                _hasHovered = false;
-              }
 
-              setState(() {
-                widget.menuTiles[index].isSelected = false;
-              });
-              //_menuHover[widget.index] = true;
-              if (subMenuList.isEmpty) {
-                Future.delayed(const Duration(milliseconds: 100), () {
-                  if (subMenuOverlayEntry != null) {
-                    if (!subMenuOverlayEntry!.mounted) {
-                      return;
-                    } else {
-                      subMenuOverlayEntry?.remove();
-                    }
-                  }
+                setState(() {
+                  widget.menuTiles[index].isSelected = false;
                 });
-              } else {
-                Future.delayed(const Duration(milliseconds: 100), () {
-                  if (subMenuOverlayEntry != null) {
-                    if (!subMenuOverlayEntry!.mounted) {
-                      return;
-                    } else {
-                      //subMenuOverlayEntry?.remove();
+                //_menuHover[widget.index] = true;
+                if (subMenuList.isEmpty) {
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    if (subMenuOverlayEntry != null) {
+                      if (!subMenuOverlayEntry!.mounted) {
+                        return;
+                      } else {
+                        subMenuOverlayEntry?.remove();
+                      }
                     }
-                  }
-                });
-              }
-            },
-            child: Container(
-              key: _listItemKeys != null ? _listItemKeys![index] : null,
-              padding: EdgeInsets.only(
-                  left: 16.w, right: 16.w, top: 16.h, bottom: 16.h),
-              width: 192.w,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: widget.menuTiles[index].isSelected != null &&
-                        widget.menuTiles[index].isSelected == true
-                    ? AppColors.tabBarSelectedBG
-                    : AppColors.whiteColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.black.withOpacity(0.1),
-                    blurRadius: 20.0.r,
-                    offset: const Offset(0, 20),
-                    spreadRadius: 0,
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // Image.asset(
-                  //   widget.menuTiles[i].imagePath!,
-                  //   height: 25.h,
-                  //   width: 25.w,
-                  // ),
-                  // SizedBox(
-                  //   width: 11.w,
-                  // ),
-                  Expanded(
-                    child: Container(
-                      // key: _listItemKeys != null
-                      //     ? _listItemKeys![index]
-                      //     : null,
-                      child: subMenuTitleWidget(
-                          widget.menuTiles[index].menuTitle ?? '',
-                          context,
-                          widget.menuTiles[index].isSelected!),
+                  });
+                } else {
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    if (subMenuOverlayEntry != null) {
+                      if (!subMenuOverlayEntry!.mounted) {
+                        return;
+                      } else {
+                        //subMenuOverlayEntry?.remove();
+                      }
+                    }
+                  });
+                }
+              },
+              child: Container(
+                key: _listItemKeys != null ? _listItemKeys![index] : null,
+                padding: EdgeInsets.only(
+                    left: 16.w, right: 16.w, top: 16.h, bottom: 16.h),
+                width: 192.w,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: widget.menuTiles[index].isSelected != null &&
+                          widget.menuTiles[index].isSelected == true
+                      ? AppColors.tabBarSelectedBG
+                      : AppColors.whiteColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.black.withOpacity(0.1),
+                      blurRadius: 20.0.r,
+                      offset: const Offset(0, 20),
+                      spreadRadius: 0,
                     ),
-                  ),
-                  SizedBox(
-                    width: widget.menuTiles[index].icon != null ? 16.sp : 0,
-                  ),
-                  widget.menuTiles[index].icon != null
-                      ? Icon(
-                          widget.menuTiles[index].icon,
-                          color: widget.menuTiles[index].isSelected == true
-                              ? AppColors.whiteColor
-                              : AppColors.tabBarSelectedBG,
-                          size: 24.sp,
-                        )
-                      : Container(
-                          width: 0,
-                          height: 0,
-                        ),
-                ],
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Image.asset(
+                    //   widget.menuTiles[i].imagePath!,
+                    //   height: 25.h,
+                    //   width: 25.w,
+                    // ),
+                    // SizedBox(
+                    //   width: 11.w,
+                    // ),
+                    Expanded(
+                      child: Container(
+                        // key: _listItemKeys != null
+                        //     ? _listItemKeys![index]
+                        //     : null,
+                        child: subMenuTitleWidget(
+                            widget.menuTiles[index].menuTitle ?? '',
+                            context,
+                            widget.menuTiles[index].isSelected!),
+                      ),
+                    ),
+                    SizedBox(
+                      width: widget.menuTiles[index].icon != null ? 16.sp : 0,
+                    ),
+                    widget.menuTiles[index].icon != null
+                        ? Icon(
+                            widget.menuTiles[index].icon,
+                            color: widget.menuTiles[index].isSelected == true
+                                ? AppColors.whiteColor
+                                : AppColors.tabBarSelectedBG,
+                            size: 24.sp,
+                          )
+                        : Container(
+                            width: 0,
+                            height: 0,
+                          ),
+                  ],
+                ),
               ),
             ),
-          ),
-          Container(
-            height: 1.h,
-            width: 192.w,
-            color: AppColors.tabBarDivider,
-          )
-        ],
+            Container(
+              height: 1.h,
+              width: 192.w,
+              color: AppColors.tabBarDivider,
+            )
+          ],
+        ),
       ));
     }
     return listItems;

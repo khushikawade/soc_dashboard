@@ -13,6 +13,7 @@ class AnimatedHoverMenu extends StatefulWidget {
   final BoxDecoration? headerBoxDecoration;
   final Color? headerTextColor;
   final double? headerTextSize;
+  final Function(String, String)? receiveValue;
 
   ///Menu properties
 
@@ -29,21 +30,22 @@ class AnimatedHoverMenu extends StatefulWidget {
   ///Background gradient
   final Widget? backgroundWidget;
 
-  AnimatedHoverMenu({
-    Key? key,
-    required this.headerTiles,
+  AnimatedHoverMenu(
+      {Key? key,
+      required this.headerTiles,
 
-    //required this.menuTiles,
-    required this.headerPosition,
-    this.backgroundWidget,
-    this.headerBoxDecoration,
-    this.headerTextColor,
-    this.headerTextSize,
-    this.menuBoxDecoration,
-    this.menuTextColor,
-    this.menuTextSize,
-    this.animationType,
-  }) : super(key: key);
+      //required this.menuTiles,
+      required this.headerPosition,
+      this.backgroundWidget,
+      this.headerBoxDecoration,
+      this.headerTextColor,
+      this.headerTextSize,
+      this.menuBoxDecoration,
+      this.menuTextColor,
+      this.menuTextSize,
+      this.animationType,
+      this.receiveValue})
+      : super(key: key);
 
   @override
   _AnimatedHoverMenuState createState() => _AnimatedHoverMenuState();
@@ -88,116 +90,121 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
         shrinkWrap:
             widget.headerPosition == HeaderPosition.topLeft ? true : true,
         itemBuilder: (context, index) {
-          return MouseRegion(
-            opaque: true,
-            // onHover: (event) {
-            //   hovered = true;
-            // },
-            onEnter: (PointerEnterEvent pointerEnterEvent) {
-              widget.headerTiles.forEach(
-                (element) {
-                  if (element.isSelcted!) {
-                    element.isSelcted = false;
-                  }
-                },
-              );
-              setState(() {
-                print(index);
-                print(index);
-
-                widget.headerTiles[index].isSelcted = true;
-                hovered = true;
-                if (widget.headerTiles[index].menuOptions != null &&
-                    widget.headerTiles[index].menuOptions!.isNotEmpty) {
-                  if (widget.headerTiles[index].dropDownIcon != null &&
-                      widget.headerTiles[index].menuOptions != null) {
-                    menuList.clear();
-                    menuList.addAll(widget.headerTiles[index].menuOptions!);
+          return InkWell(
+            onTap: () {
+              widget.receiveValue!('', widget.headerTiles[index].title!);
+            },
+            child: MouseRegion(
+              opaque: true,
+              // onHover: (event) {
+              //   hovered = true;
+              // },
+              onEnter: (PointerEnterEvent pointerEnterEvent) {
+                widget.headerTiles.forEach(
+                  (element) {
+                    if (element.isSelcted!) {
+                      element.isSelcted = false;
+                    }
+                  },
+                );
+                setState(() {
+                  widget.headerTiles[index].isSelcted = true;
+                  hovered = true;
+                  if (widget.headerTiles[index].menuOptions != null &&
+                      widget.headerTiles[index].menuOptions!.isNotEmpty) {
+                    if (widget.headerTiles[index].dropDownIcon != null &&
+                        widget.headerTiles[index].menuOptions != null) {
+                      menuList.clear();
+                      menuList.addAll(widget.headerTiles[index].menuOptions!);
+                    } else {
+                      menuList.clear();
+                    }
                   } else {
                     menuList.clear();
                   }
-                } else {
-                  menuList.clear();
-                }
-              });
-              print(menuList);
-              print(menuList);
-            },
-            onExit: (PointerExitEvent pointerExitEvent) {
-              setState(() {
-                // widget.headerTiles.forEach(
-                //   (element) {
-                //     if (element.isSelcted!) {
-                //       element.isSelcted = false;
-                //     }
-                //   },
-                // );
-                if (widget.headerTiles[index].menuOptions == null ||
-                    widget.headerTiles[index].menuOptions!.isEmpty) {
-                  widget.headerTiles[index].isSelcted = false;
+                });
+                print(menuList);
+                print(menuList);
+              },
+              onExit: (PointerExitEvent pointerExitEvent) {
+                setState(() {
+                  // widget.headerTiles.forEach(
+                  //   (element) {
+                  //     if (element.isSelcted!) {
+                  //       element.isSelcted = false;
+                  //     }
+                  //   },
+                  // );
+                  if (widget.headerTiles[index].menuOptions == null ||
+                      widget.headerTiles[index].menuOptions!.isEmpty) {
+                    widget.headerTiles[index].isSelcted = false;
 
-                  widget.headerTiles[0].isSelcted = true;
-                }
+                    widget.headerTiles[0].isSelcted = true;
+                  }
 
-                // Set the isSelcted of the first element (index 0) to true
+                  // Set the isSelcted of the first element (index 0) to true
 
-                hovered = false;
-                if (widget.headerTiles[index].menuOptions == null ||
-                    widget.headerTiles[index].menuOptions!.isEmpty) {
-                  menuList.clear();
-                }
-              });
-              print(menuList);
-              print(menuList);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: 192.w,
-                  child: MenuTilesWidget(
-                    menuTiles: menuList,
-                    headerTiles: widget.headerTiles,
-                    index: index,
-                    hoverValue: hovered,
-                    menuTextColor: widget.menuTextColor ?? Colors.white,
-                    menuTextSize: widget.menuTextSize ?? 16.0,
-                    headerPosition: widget.headerPosition,
-                    animationType:
-                        widget.animationType ?? AnimationType.leftToRight,
-                    child: tabBarItemWidget(
-                        widget.headerTiles[index].title ?? '',
-                        widget.headerTiles[index].isSelcted!,
-                        widget.headerTiles[index].icon,
-                        context,
-                        dropDownIcon: widget.headerTiles[index].dropDownIcon),
-                    // Container(
-                    //   width: 190,
-                    //   //margin: const EdgeInsets.only(left: 10.0),
-                    //   decoration: widget.headerBoxDecoration ??
-                    //       const BoxDecoration(
-                    //           borderRadius: BorderRadius.all(
-                    //             Radius.circular(5.0),
-                    //           ),
-                    //           color: Colors.black),
-                    //   alignment: Alignment.center,
-                    //   child: Text(
-                    //     widget.headerTiles[index].name ?? '',
-                    //     textAlign: TextAlign.left,
-                    //     style: TextStyle(
-                    //         fontSize: widget.headerTextSize ?? 15.0,
-                    //         fontWeight: FontWeight.w500,
-                    //         color: widget.headerTextColor ?? Colors.white),
-                    //   ),
-                    // ),
+                  hovered = false;
+                  if (widget.headerTiles[index].menuOptions == null ||
+                      widget.headerTiles[index].menuOptions!.isEmpty) {
+                    menuList.clear();
+                  }
+                });
+                print(menuList);
+                print(menuList);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 192.w,
+                    child: MenuTilesWidget(
+                      menuTiles: menuList,
+                      receiveValue: (menuTitle, tabTitle) {
+                        widget.receiveValue!(menuTitle, tabTitle);
+                      },
+                      headerTiles: widget.headerTiles,
+                      index: index,
+                      hoverValue: hovered,
+                      menuTextColor: widget.menuTextColor ?? Colors.white,
+                      menuTextSize: widget.menuTextSize ?? 16.0,
+                      headerPosition: widget.headerPosition,
+                      animationType:
+                          widget.animationType ?? AnimationType.leftToRight,
+                      child: tabBarItemWidget(
+                          widget.headerTiles[index].title ?? '',
+                          widget.headerTiles[index].isSelcted!,
+                          widget.headerTiles[index].icon,
+                          context,
+                          dropDownIcon: widget.headerTiles[index].dropDownIcon),
+                      // Container(
+                      //   width: 190,
+                      //   //margin: const EdgeInsets.only(left: 10.0),
+                      //   decoration: widget.headerBoxDecoration ??
+                      //       const BoxDecoration(
+                      //           borderRadius: BorderRadius.all(
+                      //             Radius.circular(5.0),
+                      //           ),
+                      //           color: Colors.black),
+                      //   alignment: Alignment.center,
+                      //   child: Text(
+                      //     widget.headerTiles[index].name ?? '',
+                      //     textAlign: TextAlign.left,
+                      //     style: TextStyle(
+                      //         fontSize: widget.headerTextSize ?? 15.0,
+                      //         fontWeight: FontWeight.w500,
+                      //         color: widget.headerTextColor ?? Colors.white),
+                      //   ),
+                      // ),
+                    ),
                   ),
-                ),
 
-                //==================sayyam=====================
-                verticalDivider(),
-              ],
+                  //==================sayyam=====================
+                  verticalDivider(),
+                ],
+              ),
             ),
           );
         });

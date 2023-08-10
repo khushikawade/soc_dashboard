@@ -1,100 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:solved_dashboard/custom_fonts/solved_dashboard_icons_icons.dart';
 import 'package:solved_dashboard/helper_widget/app_bar_widget.dart';
-import 'package:solved_dashboard/helper_widget/copy_right_widget.dart';
 import 'package:solved_dashboard/helper_widget/hover_animation_widget.dart';
-import 'package:solved_dashboard/helper_widget/loading_widget.dart';
-import 'package:solved_dashboard/helper_widget/shimmer_loading.dart';
-import 'package:solved_dashboard/helper_widget/tabbar_item_widget.dart';
-import 'package:solved_dashboard/helper_widget/vertical_divider_widget.dart';
 import 'package:solved_dashboard/routers/route_constants.dart';
 import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard_model.dart';
-import 'package:solved_dashboard/screen_ui/home_module/home.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
-import '../../helper_widget/common_widget/push_notifcation_card.dart';
 import 'dart:html' as html;
 
-enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
-
 class Dashboard extends StatefulWidget {
+  final Widget child;
+  final List<Tab> tabs;
+
+  Dashboard({required this.child, required this.tabs});
   @override
   _DashboardState createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
-  // List<Menu> headerModelList = {
-  //   Menu(
-  //       id: 1,
-  //       name: 'Home',
-  //       iconName: SolvedDashboardIcons.frame_238,
-  //       isSelected: true),
-  //   Menu(
-  //       id: 2,
-  //       name: 'Reports',
-  //       iconName: SolvedDashboardIcons.frame_239,
-  //       isSelected: false,
-  //       dropDownIcon: Icons.arrow_drop_down),
-  //   Menu(
-  //       id: 5,
-  //       name: 'Assessments',
-  //       iconName: SolvedDashboardIcons.frame_240,
-  //       isSelected: false,
-  //       dropDownIcon: Icons.arrow_drop_down),
-  //   Menu(
-  //       id: 3,
-  //       name: 'Data Insights',
-  //       iconName: SolvedDashboardIcons.frame_241,
-  //       isSelected: false),
-  //   Menu(
-  //       id: 4,
-  //       name: 'Apps+',
-  //       iconName: SolvedDashboardIcons.frame_245,
-  //       isSelected: false,
-  //       dropDownIcon: Icons.arrow_drop_down),
-  //   Menu(
-  //       id: 5,
-  //       name: 'Engagement',
-  //       iconName: SolvedDashboardIcons.frame_242,
-  //       isSelected: false,
-  //       dropDownIcon: Icons.arrow_drop_down),
-  //   Menu(
-  //       id: 5,
-  //       name: '+ Data',
-  //       iconName: SolvedDashboardIcons.frame_243,
-  //       isSelected: false),
-  //   Menu(
-  //       id: 5,
-  //       name: 'Support',
-  //       iconName: SolvedDashboardIcons.frame_244,
-  //       isSelected: false,
-  //       dropDownIcon: Icons.arrow_drop_down),
-  // }.toList();
-
-  List<SubMenu> menuModelList = {
-    SubMenu(id: 1, name: 'App Usage', imagePath: 'assets/app_usage.png'),
-    SubMenu(
-        id: 2, name: 'Digital Forms', imagePath: 'assets/digital_forms.png'),
-    SubMenu(
-        id: 3, name: 'Website Usage', imagePath: 'assets/webside_usage.png'),
-  }.toList();
-
   @override
   void initState() {
     super.initState();
     String url = RouteConstants.homeRoute;
-    // print("Location -------------- ${html.window.location}");
-    // if (html.window.location.toString().contains("?code=")) {
-    //   String url = html.window.location.href;
-    //   Uri stringUri = Uri.parse(url);
-    //   //String authenticationCode = stringUri.queryParameters["code"]!;
-    //   print("Contains code --------------------------------------- ");
-    //   print("Code value --------------------- ${stringUri}");
-    //   // callSaveCodeAPI(authenticationCode);
-    // } else {
-    //   print("Not contained --------------------------------------");
-    // }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final model = Provider.of<ProjectHomeViewModel>(context, listen: false);
@@ -104,203 +31,119 @@ class _DashboardState extends State<Dashboard> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     final model = Provider.of<ProjectHomeViewModel>(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      //bottomSheet: copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.'),
-      // appBar: model.showLoader
-      //     ? AppBar(
-      //         toolbarHeight: 0,
-      //       )
-      //     : PreferredSize(
-      //         preferredSize: Size.fromHeight(400.h),
-      //         child:
-      //             // model.showLoader
-      //             //     ? loadingWidget(context)
-      //             //     // ShimmerLoading(
-      //             //     //     isLoading: model.showLoader,
-      //             //     //     child: Container(
-      //             //     //       height: 129.h,
-      //             //     //       width: double.infinity,
-      //             //     //       color: Colors.white,
-      //             //     //     ),
-      //             //     //   )
-      //             //     :
-      //             AppBarWidget(
-      //                 logoURL: model.logoURL ?? '',
-      //                 pageViewCount: '2,444',
-      //                 schoolName: model.contactNameC,
-      //                 isBusy: model.showLoader,
-      //                 primaryColor:
-      //                     model.getColorFromHex(model.primaryColorC))),
-      body: model.showLoader
-          ? loadingWidget(context)
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              //shrinkWrap: true,
-              children: [
-                AppBarWidget(
-                    logoURL: model.logoURL ?? '',
-                    pageViewCount: '2,444',
-                    schoolName: model.contactNameC,
-                    isBusy: model.showLoader,
-                    primaryColor: model.getColorFromHex(model.primaryColorC)),
-                menu(model),
-                //tabBarView(),
-                SizedBox(
-                  height: 36.h,
-                ),
-                Expanded(
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: [
-                      // Home(),
-                      PushNotificationCustomCard(
-                        icon1: "assets/current_app_user.png",
-                        icon2: "assets/notification.png",
-                        icon3: "assets/push_notification_engagement.png",
-                        icon4: "assets/social_engagement.png",
-                        notificationText1: 'Current App Users',
-                        notificationText2: 'Push Notifications Sent',
-                        notificationText3: 'Push Notification Engagements',
-                        notificationText4: 'In-App Social Engagements',
-                        subNotificationText1: "25,456",
-                        subNotificationText2: "10,253",
-                        subNotificationText3: "11,045",
-                        subNotificationText4: "18,126",
-                      ),
-                      Home(),
-
-                      SizedBox(
-                        height: 80.h,
-                      ),
-                      model.showLoader
-                          ? ShimmerLoading(
-                              isLoading: model.showLoader,
-                              child: Container(
-                                height: 79.h,
-                                width: double.infinity,
-                                color: Colors.white,
-                              ),
-                            )
-                          : copyRightWidget(
-                              '© 2023 Bronx Bears. All Rights Reserved.',
-                              context,
-                              model.getColorFromHex(model.primaryColorC)),
-                    ],
-                  ),
-                )
-              ],
-            ),
-      //body: Engagement(),
-    );
-  }
-
-  Widget menu(ProjectHomeViewModel model) {
-    return Container(
-      margin: EdgeInsets.only(left: 190.sp, right: 190.sp, top: 36.sp),
-      width: double.infinity,
-      height: 74.h,
-      decoration: BoxDecoration(color: AppColors.whiteColor),
-      child: AnimatedHoverMenu(
-        headerPosition: HeaderPosition.topLeft,
-        headerTiles: model.navBarItemList,
-
-        //menuTiles: menuModelList,
-        headerBoxDecoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(5.0),
-            ),
-            color: Color(0xff996617)),
-        headerTextColor: Colors.white,
-        headerTextSize: 15.0,
-        menuBoxDecoration: const BoxDecoration(
-          border: Border.fromBorderSide(
-            BorderSide(color: Color(0xff996617), width: 2),
-          ),
+      //backgroundColor: Theme.of(context).primaryColor,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(280.h),
+        child: AppBarWidget(
+          logoURL:
+              'https://solved-schools.s3.us-east-2.amazonaws.com/BB-P.S.+456+Bronx-Bears/app-logos/Bronx+Bears+1024.png',
+          pageTitle:
+              model.menuTitleValue != null && model.menuTitleValue!.isNotEmpty
+                  ? model.menuTitleValue
+                  : model.tabTitleValue,
+          pageViewCount: '2,444',
+          primaryColor: AppColors.appPrimaryColor,
+          schoolName: model.contactNameC,
+          isBusy: model.showLoader,
+          context: context,
+          sectionList: model.navBarItemList,
+          model: model,
         ),
-        menuTextColor: const Color(0xff996617),
-        animationType: AnimationType.springAcrossAxis,
-        menuTextSize: 16.0,
       ),
+      body: widget.child,
+      // body: model.showLoader
+      //     ? loadingWidget(context)
+      //     : Column(
+      //         mainAxisAlignment: MainAxisAlignment.start,
+      //         mainAxisSize: MainAxisSize.max,
+      //         crossAxisAlignment: CrossAxisAlignment.center,
+      //         //shrinkWrap: true,
+      //         children: [
+      //           AppBarWidget(
+      //               logoURL: model.logoURL ?? '',
+      //               pageViewCount: '2,444',
+      //               schoolName: model.contactNameC,
+      //               isBusy: model.showLoader,
+      //               primaryColor: model.getColorFromHex(model.primaryColorC)),
+      //           menu(model),
+      //           //tabBarView(),
+      //           SizedBox(
+      //             height: 36.h,
+      //           ),
+      //           Expanded(
+      //             child: ListView(
+      //               shrinkWrap: true,
+      //               children: [
+      //                 // Home(),
+      //                 PushNotificationCustomCard(
+      //                   icon1: "assets/current_app_user.png",
+      //                   icon2: "assets/notification.png",
+      //                   icon3: "assets/push_notification_engagement.png",
+      //                   icon4: "assets/social_engagement.png",
+      //                   notificationText1: 'Current App Users',
+      //                   notificationText2: 'Push Notifications Sent',
+      //                   notificationText3: 'Push Notification Engagements',
+      //                   notificationText4: 'In-App Social Engagements',
+      //                   subNotificationText1: "25,456",
+      //                   subNotificationText2: "10,253",
+      //                   subNotificationText3: "11,045",
+      //                   subNotificationText4: "18,126",
+      //                 ),
+      //                 Home(),
+
+      //                 SizedBox(
+      //                   height: 80.h,
+      //                 ),
+      //                 model.showLoader
+      //                     ? ShimmerLoading(
+      //                         isLoading: model.showLoader,
+      //                         child: Container(
+      //                           height: 79.h,
+      //                           width: double.infinity,
+      //                           color: Colors.white,
+      //                         ),
+      //                       )
+      //                     : copyRightWidget(
+      //                         '© 2023 Bronx Bears. All Rights Reserved.',
+      //                         context,
+      //                         model.getColorFromHex(model.primaryColorC)),
+      //               ],
+      //             ),
+      //           )
+      //         ],
+      //       ),
     );
   }
 
-  // Make widget that will create custom tabbar view
-  Widget tabBarView() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: EdgeInsets.only(left: 190.sp, right: 190.sp, top: 36.sp),
-          width: double.infinity,
-          height: 74.h,
-          decoration: BoxDecoration(color: AppColors.whiteColor),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: tabBarItemWidget(
-                    'Home', true, SolvedDashboardIcons.frame_238, context),
-              ),
-              verticalDivider(),
-              Expanded(
-                child: tabBarItemWidget(
-                    'Reports', false, SolvedDashboardIcons.frame_239, context,
-                    dropDownIcon: Icons.arrow_drop_down),
-              ),
-              verticalDivider(),
-              Expanded(
-                  child: tabBarItemWidget('Assessments', false,
-                      SolvedDashboardIcons.frame_240, context,
-                      dropDownIcon: Icons.arrow_drop_down)),
-              verticalDivider(),
-              Expanded(
-                child: tabBarItemWidget(
-                  'Data Insights',
-                  false,
-                  SolvedDashboardIcons.frame_241,
-                  context,
-                ),
-              ),
-              verticalDivider(),
-              Expanded(
-                child: tabBarItemWidget(
-                    'Apps+', false, SolvedDashboardIcons.frame_245, context,
-                    dropDownIcon: Icons.arrow_drop_down),
-              ),
-              verticalDivider(),
-              Expanded(
-                child: tabBarItemWidget('Engagement', false,
-                    SolvedDashboardIcons.frame_242, context,
-                    dropDownIcon: Icons.arrow_drop_down),
-              ),
-              verticalDivider(),
-              Expanded(
-                child: tabBarItemWidget(
-                  '+ Data',
-                  false,
-                  SolvedDashboardIcons.frame_243,
-                  context,
-                ),
-              ),
-              verticalDivider(),
-              Expanded(
-                child: tabBarItemWidget(
-                    'Support', false, SolvedDashboardIcons.frame_244, context,
-                    dropDownIcon: Icons.arrow_drop_down),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget menu(ProjectHomeViewModel model) {
+  //   return Container(
+  //     margin: EdgeInsets.only(left: 190.sp, right: 190.sp, top: 36.sp),
+  //     width: double.infinity,
+  //     height: 74.h,
+  //     decoration: const BoxDecoration(color: AppColors.whiteColor),
+  //     child: AnimatedHoverMenu(
+  //       headerPosition: HeaderPosition.topLeft,
+  //       headerTiles: model.navBarItemList,
+  //       headerBoxDecoration: const BoxDecoration(
+  //           borderRadius: BorderRadius.all(
+  //             Radius.circular(5.0),
+  //           ),
+  //           color: Color(0xff996617)),
+  //       headerTextColor: Colors.white,
+  //       headerTextSize: 15.0,
+  //       menuBoxDecoration: const BoxDecoration(
+  //         border: Border.fromBorderSide(
+  //           BorderSide(color: Color(0xff996617), width: 2),
+  //         ),
+  //       ),
+  //       menuTextColor: const Color(0xff996617),
+  //       animationType: AnimationType.springAcrossAxis,
+  //       menuTextSize: 16.0,
+  //     ),
+  //   );
+  // }
 }

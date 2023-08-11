@@ -204,7 +204,17 @@ class MyApp extends StatelessWidget {
                                 widget: Apps()),
                             VWidget(
                                 path: Overrides.SCHOOL_ID.isNotEmpty
-                                    ? '/${Overrides.SCHOOL_ID}/Engagement'
+                                    ? '/${Overrides.SCHOOL_ID}/Engagement/App_Usage'
+                                    : '/Engagement',
+                                widget: Engagement()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Engagement/Digital_Forms'
+                                    : '/Engagement',
+                                widget: Engagement()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Engagement/Website_Usage'
                                     : '/Engagement',
                                 widget: Engagement()),
                             VWidget(
@@ -214,9 +224,95 @@ class MyApp extends StatelessWidget {
                                 widget: Data()),
                             VWidget(
                                 path: Overrides.SCHOOL_ID.isNotEmpty
-                                    ? '/${Overrides.SCHOOL_ID}/Support'
+                                    ? '/${Overrides.SCHOOL_ID}/Support/HS_Dashboard'
                                     : '/Support',
                                 widget: Support()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Support/Mobile_Dashboard'
+                                    : '/Support',
+                                widget: Support()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Support/Student_Feedback'
+                                    : '/Support',
+                                widget: Support()),
+                            //=====================SUBSECTION===========================
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/MAP/MAP_Math'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/MAP/MAP_ELA'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/iReady/iReady_Math'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/iReady/iReady_ELA'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/Acadience/Acadience_Math'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/Acadience/Acadience_ELA'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/NYS/ISA_2022/NYS_Math_2022'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/NYS/ISA_2022/NYS_ELA_2022'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/NYS/ISA_2022/ISA_Math_by_Class'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/NYS/ISA_2022/ISA_ELA_by_Class'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/NYS/ISA_2022/ISA_Math_by_Student'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/NYS/ISA_2022/ISA_ELA_by_Student'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/June_Instructional_Report/Total_Number_of_Questions'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/June_Instructional_Report/JIR_Math'
+                                    : '/Assessments',
+                                widget: Assessment()),
+                            VWidget(
+                                path: Overrides.SCHOOL_ID.isNotEmpty
+                                    ? '/${Overrides.SCHOOL_ID}/Assessments/June_Instructional_Report/JIR_ELA'
+                                    : '/Assessments',
+                                widget: Assessment()),
                           ],
                         ),
                       ],

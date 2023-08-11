@@ -373,16 +373,31 @@ class AppBarWidget extends StatelessWidget {
       height: 74.h,
       decoration: const BoxDecoration(color: AppColors.whiteColor),
       child: AnimatedHoverMenu(
-        receiveValue: (menuName, tabTitle) {
-          model.menuTitleValue = menuName;
-          model.tabTitleValue = tabTitle;
-          if (model.menuTitleValue == null || model.menuTitleValue!.isEmpty) {
+        receiveValue: (headerTitle, mainSection, subSection) {
+          model.menuTitleValue = headerTitle;
+          model.tabTitleValue = mainSection;
+          model.subTitleValue = subSection;
+          if (model.menuTitleValue == null ||
+              model.menuTitleValue!.isEmpty && subSection == '') {
             model.handleTabSelection(model.tabTitleValue, context!);
-          } else {
+          } else if (subSection == '') {
             model.handleSubMenuSelection(
                 model.menuTitleValue!, model.tabTitleValue, context!);
+          } else {
+            model.handleSubSelection(model.menuTitleValue!, model.tabTitleValue,
+                model.subTitleValue!, context!);
           }
         },
+        // receiveValue: (menuName, tabTitle) {
+        //   model.menuTitleValue = menuName;
+        //   model.tabTitleValue = tabTitle;
+        //   if (model.menuTitleValue == null || model.menuTitleValue!.isEmpty) {
+        //     model.handleTabSelection(model.tabTitleValue, context!);
+        //   } else {
+        //     model.handleSubMenuSelection(
+        //         model.menuTitleValue!, model.tabTitleValue, context!);
+        //   }
+        // },
         headerPosition: HeaderPosition.topLeft,
         headerTiles: sectionList!,
         headerBoxDecoration: const BoxDecoration(

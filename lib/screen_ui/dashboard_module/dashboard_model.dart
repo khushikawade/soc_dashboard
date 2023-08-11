@@ -63,6 +63,13 @@ class ProjectHomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String? _subTitleValue = "";
+  String? get subTitleValue => _subTitleValue;
+  set subTitleValue(String? value) {
+    _subTitleValue = value;
+    notifyListeners();
+  }
+
   String _tabTitleValue = 'Home';
 
   String get tabTitleValue => _tabTitleValue;
@@ -127,6 +134,20 @@ class ProjectHomeViewModel extends ChangeNotifier {
   }
 
   // handle Sub menu selection
+  void handleSubSelection(
+      String subMenu, String menuTitle, String subTitle, BuildContext context) {
+    final to = context.vRouter.to;
+    Overrides.SUB_SECTION_MENU = subMenu.replaceAll(" ", "_");
+    Overrides.SUB_MENU = subTitle.replaceAll(" ", "_");
+
+    if (menuTitle == "Assessments") {
+      to(Overrides.SCHOOL_ID.isNotEmpty
+          ? '/${Overrides.SCHOOL_ID}/Assessments/${Overrides.SUB_MENU}/${Overrides.SUB_SECTION_MENU}'
+          : '/Assessments');
+    }
+  }
+
+  // handle Sub menu selection
   void handleSubMenuSelection(
       String subMenu, String menuTitle, BuildContext context) {
     final to = context.vRouter.to;
@@ -140,6 +161,14 @@ class ProjectHomeViewModel extends ChangeNotifier {
       to(Overrides.SCHOOL_ID.isNotEmpty
           ? '/${Overrides.SCHOOL_ID}/Assessments/${Overrides.SUB_MENU}'
           : '/Assessments');
+    } else if (menuTitle == "Engagement") {
+      to(Overrides.SCHOOL_ID.isNotEmpty
+          ? '/${Overrides.SCHOOL_ID}/Engagement/${Overrides.SUB_MENU}'
+          : '/Engagement');
+    } else if (menuTitle == "Support") {
+      to(Overrides.SCHOOL_ID.isNotEmpty
+          ? '/${Overrides.SCHOOL_ID}/Support/${Overrides.SUB_MENU}'
+          : '/Support');
     }
   }
 

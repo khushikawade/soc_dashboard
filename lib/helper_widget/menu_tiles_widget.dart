@@ -23,7 +23,8 @@ class MenuTilesWidget extends StatefulWidget {
   final double menuTextSize;
   final HeaderPosition headerPosition;
   final AnimationType animationType;
-  final Function(String, String)? receiveValue;
+  final Function(String headerTitle, String mainSection, String subSection)?
+      receiveValue;
 
   const MenuTilesWidget(
       {Key? key,
@@ -60,7 +61,8 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   List<SubMenuData> subMenuList = List.empty(growable: true);
   Offset subMenuOffset = Offset.zero;
   final ValueNotifier<Offset> menuOffset = ValueNotifier<Offset>(Offset.zero);
-
+  String? getTitle;
+  String? menuTitle;
   List<GlobalKey>? _listItemKeys;
 
   bool _hasHovered = false;
@@ -195,6 +197,14 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                             if (!_menuHover[widget.index]) {
                               _menuHover[widget.index] = true;
                             }
+                            if (widget.headerTiles != null &&
+                                widget.headerTiles.isNotEmpty) {
+                              widget.headerTiles.forEach((element) {
+                                if (element.isSelcted!) {
+                                  getTitle = element.title!;
+                                }
+                              });
+                            }
                           },
                           onExit: (_) {
                             if (_menuHover[widget.index] && !_hasHovered) {
@@ -328,15 +338,18 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     for (int index = 0; index < widget.menuTiles.length; ++index) {
       listItems.add(InkWell(
         onTap: () {
-          String tabTitle = '';
-          if (widget.headerTiles != null && widget.headerTiles.isNotEmpty) {
-            widget.headerTiles.forEach((element) {
-              if (element.isSelcted!) {
-                tabTitle = element.title!;
-              }
-            });
+          if (subMenuList.isEmpty) {
+            String tabTitle = '';
+            if (widget.headerTiles != null && widget.headerTiles.isNotEmpty) {
+              widget.headerTiles.forEach((element) {
+                if (element.isSelcted!) {
+                  tabTitle = element.title!;
+                }
+              });
+            }
+            widget.receiveValue!(
+                widget.menuTiles[index].menuTitle!, tabTitle, '');
           }
-          widget.receiveValue!(widget.menuTiles[index].menuTitle!, tabTitle);
         },
         child: Column(
           children: [
@@ -358,6 +371,10 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                     }
                   }
                 });
+                menuTitle = widget.menuTiles[index].menuTitle;
+
+                print("++++++++++++++++++++++++++$menuTitle");
+                print("++++++++++++++++++++++++++$menuTitle");
                 print("============getIndex=========================$index");
                 print(
                     "============getList=========================${widget.menuTiles.length}");
@@ -501,6 +518,20 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
           InkWell(
             onTap: () {
               print("Submenu item tapped: ${subMenuList[index].subMenuTitle}");
+              String tabTitle = '';
+              String? getsubTitle;
+              if (subMenuList.isNotEmpty && widget.headerTiles.isNotEmpty) {
+                // subMenuList.forEach((element) {
+                tabTitle = subMenuList[index].subMenuTitle!;
+
+                print(getsubTitle);
+
+                print(getTitle);
+                widget.receiveValue!(subMenuList[index].subMenuTitle!,
+                    getTitle ?? '', menuTitle ?? '');
+
+                //  });
+              }
 
               setState(() {
                 _hasHovered = false;

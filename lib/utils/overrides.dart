@@ -36,4 +36,5 @@ class Overrides {
 //   static bool STANDALONE_GRADED_APP = false;
   static String SCHOOL_ID = 'a1f4W000007DQaNQAW';
   static String SUB_MENU = '';
+  static String SUB_SECTION_MENU = '';
 }

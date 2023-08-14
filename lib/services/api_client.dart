@@ -7,14 +7,25 @@ import 'package:http_parser/http_parser.dart';
 @lazySingleton
 class ApiClient {
   static const String BASE_URL =
-      'https://ny67869sad.execute-api.us-east-2.amazonaws.com/';
+      'https://uh3gbcq9xl.execute-api.us-east-2.amazonaws.com/';
 
+  // Future<http.Response> getMethod(String url,
+  //     {Map<String, String>? headers, Map<String, String>? queryParams}) async {
+  //   http.Response response = await http.get(
+  //       Uri.parse(BASE_URL + url).replace(queryParameters: queryParams),
+  //       headers: headers);
+  //   print(response.body.toString());
+
+  //   return response;
+  // }
   Future<http.Response> getMethod(String url,
       {Map<String, String>? headers, Map<String, String>? queryParams}) async {
-    http.Response response = await http.get(
-        Uri.parse(BASE_URL + url).replace(queryParameters: queryParams),
-        headers: headers);
-    print(response.body.toString());
+    http.Response response = await http.get(Uri.parse(BASE_URL + url));
+    try {
+      print(response.body.toString());
+    } catch (e) {
+      print(e);
+    }
 
     return response;
   }

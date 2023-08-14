@@ -45,7 +45,7 @@ Widget copyRightTextWidget(text, context) {
 Widget pageTitleTextWidget(text, context) {
   return Text(text,
       style: AppTheme.lightTheme.textTheme.titleLarge!
-          .copyWith(fontSize: AppSize.size35.sp));
+          .copyWith(fontSize: AppSize.size40.sp));
 }
 
 Widget informationTitleWidget(text, BuildContext context) {
@@ -129,7 +129,7 @@ Widget threeColumnTextWidget(text, context) {
         color: AppColors.black,
         fontWeight: FontWeight.w400,
         fontSize: FontSize(AppSize.size16.sp),
-        fontFamily: 'Poppins',
+        fontFamily: 'Inter',
         fontStyle: FontStyle.normal,
       ),
       "p": Style(
@@ -138,7 +138,7 @@ Widget threeColumnTextWidget(text, context) {
         color: AppColors.black,
         fontWeight: FontWeight.w400,
         fontSize: FontSize(AppSize.size16.sp),
-        fontFamily: 'Poppins',
+        fontFamily: 'Inter',
         fontStyle: FontStyle.normal,
       )
     },
@@ -165,7 +165,7 @@ Widget detailTextWidget(text, context) {
         color: AppColors.black,
         fontWeight: FontWeight.w400,
         fontSize: FontSize(AppSize.size16.sp),
-        fontFamily: 'Poppins',
+        fontFamily: 'Inter',
         fontStyle: FontStyle.normal,
       ),
       "p": Style(
@@ -174,7 +174,7 @@ Widget detailTextWidget(text, context) {
         color: AppColors.black,
         fontWeight: FontWeight.w400,
         fontSize: FontSize(AppSize.size16.sp),
-        fontFamily: 'Poppins',
+        fontFamily: 'Inter',
         fontStyle: FontStyle.normal,
       )
     },
@@ -186,7 +186,7 @@ Widget pushNotifyWidget(text, context) {
       softWrap: true,
       // textAlign: TextAlign.center,
       style: AppTheme.lightTheme.textTheme.titleSmall!.copyWith(
-          fontFamily: "Poppins",
+          fontFamily: "Inter",
           fontSize: AppSize.size14.sp,
           color: AppColors.pushNotiyTextColor));
 }
@@ -195,7 +195,7 @@ Widget notificationNo(text, context) {
   return Text(text,
       softWrap: true,
       style: AppTheme.lightTheme.textTheme.titleSmall!.copyWith(
-          fontFamily: "Poppins",
+          fontFamily: "Inter",
           fontSize: AppSize.size18.sp,
           fontWeight: FontWeight.w600,
           color: AppColors.pushNotifyNoText));

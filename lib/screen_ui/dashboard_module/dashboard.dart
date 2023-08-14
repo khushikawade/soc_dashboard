@@ -32,7 +32,7 @@ class _DashboardState extends State<Dashboard> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final model = Provider.of<ProjectHomeViewModel>(context, listen: false);
-      model.buildNavBar();
+      // model.navBarItemList.isEmpty ? model.buildNavBar() : model.navBarItemList;
       model.extractIdFromUrl(url);
       model.getHomeData(context);
     });
@@ -41,6 +41,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<ProjectHomeViewModel>(context);
+    print(model.homeDataList);
     HomeList dashboardData = HomeList();
     if (!model.showLoader) {
       dashboardData =
@@ -52,23 +53,26 @@ class _DashboardState extends State<Dashboard> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(model.showLoader ? 0 : 280.h),
         child: AppBarWidget(
-          logoURL: dashboardData.fullLogoC != null &&
-                  dashboardData.fullLogoC!.isNotEmpty
-              ? dashboardData.fullLogoC
-              : '',
+          logoURL:
+              //  dashboardData.fullLogoC != null &&
+              //         dashboardData.fullLogoC!.isNotEmpty
+              //     ? dashboardData.fullLogoC
+              //     :
+              '',
           pageTitle:
               model.menuTitleValue != null && model.menuTitleValue!.isNotEmpty
                   ? model.menuTitleValue
                   : model.tabTitleValue,
           pageViewCount: '2,444',
           primaryColor: AppUtil.getColorFromHex(
-              dashboardData.primaryColorC != null &&
-                      dashboardData.primaryColorC!.isNotEmpty
-                  ? dashboardData.primaryColorC!.toString()
-                  : ''),
-          schoolName: dashboardData.contactNameC != null &&
-                  dashboardData.contactNameC!.isNotEmpty
-              ? dashboardData.contactNameC!.toString()
+              // dashboardData.primaryColorC != null &&
+              //         dashboardData.primaryColorC!.isNotEmpty
+              //     ? dashboardData.primaryColorC!.toString()
+              //     :
+              ''),
+          schoolName: dashboardData.schoolNameC != null &&
+                  dashboardData.schoolNameC!.isNotEmpty
+              ? dashboardData.schoolNameC!.toString()
               : '',
           isBusy: model.showLoader,
           context: context,

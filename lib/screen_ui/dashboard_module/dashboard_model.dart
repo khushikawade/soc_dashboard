@@ -39,6 +39,14 @@ class ProjectHomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<NavBarModel> _subMenu = List.empty(growable: true);
+
+  List<NavBarModel> get subMenu => _subMenu;
+  set subMenu(List<NavBarModel> list) {
+    _subMenu = list;
+    notifyListeners();
+  }
+
   // String _contactNameC = '';
 
   // String get contactNameC => _contactNameC;
@@ -440,7 +448,8 @@ class ProjectHomeViewModel extends ChangeNotifier {
     showLoader = true;
     String objectName = "School_App__c";
 
-    HomeResponse homeResponse = await _api.getHomeData(schoolId, objectName);
+    HomeResponse homeResponse =
+        await _api.getHomeData("a226w000000h58MAAQ", objectName);
 
     print("homeResponse-----------------${homeResponse.statusCode}");
     print(homeResponse.body);
@@ -448,8 +457,36 @@ class ProjectHomeViewModel extends ChangeNotifier {
       case Constants.sucessCode:
         if (homeResponse.body != null && homeResponse.body!.isNotEmpty) {
           homeDataList.addAll(homeResponse.body!);
-
+          print("========================there is the data ${homeDataList}");
           saveDashboardData(homeDataList[0], context);
+          if (homeDataList.isNotEmpty &&
+              homeDataList[0].dashboardSections != null) {
+            for (int i = 0;
+                i < homeDataList[0].dashboardSections!.length;
+                i++) {
+              List<DashboardSubSection>? subSections =
+                  homeDataList[0].dashboardSections![i].dashboardSubSections;
+              String sectionTitle =
+                  homeDataList[0].dashboardSections![i].dashboardSectionC!;
+              bool isTitleExists =
+                  navBarItemList.any((item) => item.title == sectionTitle);
+              if (!isTitleExists) {
+                navBarItemList.add(NavBarModel(
+                  title: sectionTitle,
+                  id: i,
+                  icon: SolvedDashboardIcons.frame_239,
+                  isSelcted: false,
+                  dropDownIcon: homeDataList[0]
+                          .dashboardSections![i]
+                          .dashboardSubSections!
+                          .isEmpty
+                      ? const IconData(0, fontFamily: 'EmptyIconFont')
+                      : Icons.arrow_drop_down,
+                ));
+              }
+            }
+          }
+          navBarItemList = navBarItemList.toSet().toList();
         }
 
         // for (int i = 0; i < homeDataList.length; i++) {

@@ -1,3 +1,3 @@
 class ApiEndpoints {
-  String home = 'production/getRecords';
+  String home = 'production/v2/dashboard/configuration';
 }

@@ -14,14 +14,14 @@ class Api {
     // if (!internet) {
     //   return HomeResponse(error: Constants.noInternet, statusCode: 501);
     // }
-    final Map<String, String> queryParams = {
-      'schoolId': schoolID,
-      'objectName': objectName
-      // Add more parameters as needed
-    };
-    Response response = await _apiClient.getMethod(
-        '${_apiMethods.home}' + '?schoolID=$schoolID&objectName=$objectName',
-        queryParams: queryParams);
+    // final Map<String, String> queryParams = {
+    //   'schoolId': schoolID,
+    //   'objectName': objectName
+    //   // Add more parameters as needed
+    // };
+    Response response = await _apiClient.getMethod('${_apiMethods.home}' +
+            '/${schoolID}' //'?schoolID=$schoolID&objectName=$objectName',
+        );
     print("Request URL ---------- ${response.request}");
     if (response.statusCode == 200) {
       try {
@@ -40,10 +40,12 @@ class Api {
             error: e.toString(), statusCode: response.statusCode);
       }
     } else if (response.statusCode == 422) {
+      print("========================00error");
       var jsonResponse = json.decode(response.body);
       return HomeResponse(
           error: jsonResponse["message"], statusCode: response.statusCode);
     } else {
+      print("========================0000error");
       var jsonResponse = json.decode(response.body);
       return HomeResponse(
           error: jsonResponse["message"], statusCode: response.statusCode);

@@ -160,7 +160,7 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: 192.w,
+                    // width: 192.w,
                     child: MenuTilesWidget(
                       menuTiles: menuList,
                       receiveValue: (headerTitle, mainSection, subSection) {
@@ -170,7 +170,7 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
                       // receiveValue: (menuTitle, tabTitle,) {
                       //   widget.receiveValue!(menuTitle, tabTitle);
                       // },
-                      headerTiles: widget.headerTiles,
+                      headerTiles: [], //widget.headerTiles,
                       index: index,
                       hoverValue: hovered,
                       menuTextColor: widget.menuTextColor ?? Colors.white,

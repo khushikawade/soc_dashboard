@@ -70,8 +70,11 @@ class _ReportState extends State<Report> {
             ),
           ],
         ),
-        copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.', context,
-            AppUtil.getColorFromHex(dashboardData.primaryColorC!)),
+        copyRightWidget(
+            '© 2023 Bronx Bears. All Rights Reserved.',
+            context,
+            //will add primary color
+            AppUtil.getColorFromHex('')),
       ],
     );
   }

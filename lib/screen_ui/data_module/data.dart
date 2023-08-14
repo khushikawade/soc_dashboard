@@ -36,7 +36,7 @@ class _DataState extends State<Data> {
           ],
         ),
         copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.', context,
-            AppUtil.getColorFromHex(dashboardData.primaryColorC!)),
+            AppUtil.getColorFromHex('')),
       ],
     );
   }

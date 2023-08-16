@@ -93,8 +93,8 @@ class ProjectHomeViewModel extends ChangeNotifier {
     switch (sectionName) {
       case 'Home':
         return to(Overrides.SCHOOL_ID.isNotEmpty
-            ? '/${Overrides.SCHOOL_ID}/Home'
-            : '/Home');
+            ? '/${Overrides.SCHOOL_ID}/Home/dfjdfjdjfdjf'
+            : '/Home/dfjdfjdjfdjf');
       case 'Reports':
         return to(Overrides.SCHOOL_ID.isNotEmpty
             ? '/${Overrides.SCHOOL_ID}/Reports'

@@ -11,6 +11,7 @@ import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/models/dashboard_data_model.dart';
 import 'package:solved_dashboard/services/models/home_response.dart';
 import 'package:solved_dashboard/utils/app_util.dart';
+import 'package:vrouter/vrouter.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -20,6 +21,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    String? id = context.vRouter.pathParameters['id'];
+    print("Id from the URL ---------------- $id");
     HomeList dashboardData =
         Provider.of<DashboardData>(context, listen: false).dashboardData!;
     return ListView(

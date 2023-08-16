@@ -33,36 +33,43 @@ class _CustomIconModeState extends State<CustomIconMode> {
   }
 
   Widget cachedNetworkImage(url) {
-    return CachedNetworkImage(
-        imageUrl: url,
-        height: 106.h,
-        width: 106.w,
-        //fit: BoxFit.fill,
-        placeholder: (context, url) => Container(
-            alignment: Alignment.center,
-            child: ShimmerLoading(
-              isLoading: true,
-              child: Container(
-                height: 106.h,
-                width: 106.w,
-                color: Colors.white,
-              ),
-            )),
-        errorWidget: (context, url, error) => CachedNetworkImage(
-              imageUrl:
-                  "https://solved-consulting-images.s3.us-east-2.amazonaws.com/Miscellaneous/default_icon.png",
-              height: 106.h,
-              width: 106.w,
-              placeholder: (context, url) => Container(
-                  alignment: Alignment.center,
-                  child: ShimmerLoading(
-                    isLoading: true,
-                    child: Container(
-                      height: 20,
-                      width: 20,
-                      color: Colors.white,
-                    ),
-                  )),
-            ));
+    return url != ""
+        ? CachedNetworkImage(
+            imageUrl: url,
+            height: 106.h,
+            width: 106.w,
+            //fit: BoxFit.fill,
+            placeholder: (context, url) => Container(
+                alignment: Alignment.center,
+                child: ShimmerLoading(
+                  isLoading: true,
+                  child: Container(
+                    height: 106.h,
+                    width: 106.w,
+                    color: Colors.white,
+                  ),
+                )),
+            errorWidget: (context, url, error) => CachedNetworkImage(
+                  imageUrl:
+                      "https://solved-consulting-images.s3.us-east-2.amazonaws.com/Miscellaneous/default_icon.png",
+                  height: 106.h,
+                  width: 106.w,
+                  placeholder: (context, url) => Container(
+                      alignment: Alignment.center,
+                      child: ShimmerLoading(
+                        isLoading: true,
+                        child: Container(
+                          height: 20,
+                          width: 20,
+                          color: Colors.white,
+                        ),
+                      )),
+                ))
+        : CachedNetworkImage(
+            imageUrl:
+                "https://solved-consulting-images.s3.us-east-2.amazonaws.com/Miscellaneous/default_icon.png",
+            height: 106.h,
+            width: 106.w,
+          );
   }
 }

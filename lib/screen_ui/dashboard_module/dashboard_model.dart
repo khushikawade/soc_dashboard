@@ -6,6 +6,7 @@ import 'package:solved_dashboard/custom_fonts/solved_dashboard_icons_icons.dart'
 import 'package:solved_dashboard/models/dashboard_data_model.dart';
 import 'package:solved_dashboard/models/nav_bar_model.dart';
 import 'package:solved_dashboard/services/api.dart';
+import 'package:solved_dashboard/services/models/home_detail_model.dart';
 import 'package:solved_dashboard/services/models/home_response.dart';
 import 'package:solved_dashboard/utils/app_util.dart';
 import 'package:solved_dashboard/utils/constant.dart';
@@ -23,10 +24,10 @@ class ProjectHomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<HomeList> _homeDataList = List.empty(growable: true);
+  List<DashboardSection>? _homeDataList = List.empty(growable: true);
 
-  List<HomeList> get homeDataList => _homeDataList;
-  set homeDataList(List<HomeList> homeDataList) {
+  List<DashboardSection> get homeDataList => _homeDataList!;
+  set homeDataList(List<DashboardSection> homeDataList) {
     _homeDataList = homeDataList;
     notifyListeners();
   }
@@ -104,16 +105,23 @@ class ProjectHomeViewModel extends ChangeNotifier {
   // handle Main Section Selection
   void handleTabSelection(String sectionName, BuildContext context) {
     final to = context.vRouter.to;
-
+    Map<String, String> queryParams = {};
+    if (Overrides.SCHOOL_ID.isNotEmpty) {
+      queryParams['schoolId'] = Overrides.SCHOOL_ID;
+    }
     switch (sectionName) {
       case 'Home':
-        return to(Overrides.SCHOOL_ID.isNotEmpty
-            ? '/${Overrides.SCHOOL_ID}/Home'
-            : '/Home');
+        return to(
+          Overrides.SCHOOL_ID.isNotEmpty
+              ? '/${Overrides.SCHOOL_ID}/Home'
+              : '/Home',
+        );
       case 'Reports':
-        return to(Overrides.SCHOOL_ID.isNotEmpty
-            ? '/${Overrides.SCHOOL_ID}/Reports'
-            : '/Reports');
+        return to(
+          Overrides.SCHOOL_ID.isNotEmpty
+              ? '/${Overrides.SCHOOL_ID}/Reports'
+              : '/Reports',
+        );
       case 'Assessments':
         return to(Overrides.SCHOOL_ID.isNotEmpty
             ? '/${Overrides.SCHOOL_ID}/Assessments'
@@ -443,87 +451,106 @@ class ProjectHomeViewModel extends ChangeNotifier {
     return ""; // Return an empty string if no valid ID is found.
   }
 
-  // Call API for get home details
+// Call API for get home details
   getHomeData(BuildContext context) async {
     showLoader = true;
     String objectName = "School_App__c";
 
-    HomeResponse homeResponse =
+    HomeResponse homeResponse = //a226w000000h58MAAQa--a224W000007pNmDQAU
         await _api.getHomeData("a226w000000h58MAAQ", objectName);
 
     print("homeResponse-----------------${homeResponse.statusCode}");
     print(homeResponse.body);
     switch (homeResponse.statusCode) {
       case Constants.sucessCode:
-        if (homeResponse.body != null && homeResponse.body!.isNotEmpty) {
-          homeDataList.addAll(homeResponse.body!);
+        showLoader = true;
+
+        if (homeResponse.body != null &&
+            homeResponse.body!.dashboardSections != null) {
           print("========================there is the data ${homeDataList}");
-          saveDashboardData(homeDataList[0], context);
-          if (homeDataList.isNotEmpty &&
-              homeDataList[0].dashboardSections != null) {
-            for (int i = 0;
-                i < homeDataList[0].dashboardSections!.length;
-                i++) {
-              List<DashboardSubSection>? subSections =
-                  homeDataList[0].dashboardSections![i].dashboardSubSections;
-              String sectionTitle =
-                  homeDataList[0].dashboardSections![i].dashboardSectionC!;
-              bool isTitleExists =
-                  navBarItemList.any((item) => item.title == sectionTitle);
-              if (!isTitleExists) {
-                navBarItemList.add(NavBarModel(
-                  title: sectionTitle,
-                  id: i,
-                  icon: SolvedDashboardIcons.frame_239,
-                  isSelcted: false,
-                  dropDownIcon: homeDataList[0]
-                          .dashboardSections![i]
-                          .dashboardSubSections!
-                          .isEmpty
-                      ? const IconData(0, fontFamily: 'EmptyIconFont')
-                      : Icons.arrow_drop_down,
+          saveDashboardData(homeResponse.body, context);
+
+          for (int i = 0;
+              i < homeResponse.body!.dashboardSections!.length;
+              i++) {
+            String sectionTitle =
+                homeResponse.body!.dashboardSections![i].dashboardSectionC!;
+            List<DashboardSubSection>? subSections =
+                homeResponse.body!.dashboardSections![i].dashboardSubSections;
+            if (sectionTitle == "Home") {
+              HomeDataModel homeDataModelRes = await _api.getDetailDataOfHome(
+                  homeResponse.body!.dashboardSections![i].id ?? '', "section");
+              if (homeDataModelRes.body != null) {
+                //============================saving home tab details ============
+                saveDashboardDataOfHome(homeDataModelRes.body, context);
+              }
+            }
+            // Initialize subMenuOptions list for the current section
+            List<NavBarMenu> subMenuOptions = [];
+
+            if (subSections != null && subSections.isNotEmpty) {
+              for (int j = 0; j < subSections.length; j++) {
+                List<DashboardSubSubSection>? subSubSections =
+                    subSections[j].dashboardSubSubSections;
+                print(
+                    "============>>>>>>>>>>>>subsection[$j]${subSubSections}");
+                print(
+                    "============>>>>>>>>>>>>subsection[$j]${subSubSections}");
+                bool subListExist =
+                    subSubSections != null && subSubSections.isNotEmpty;
+
+                // Initialize subSubMenuOptions list for the current sub-section
+                // List<SubMenuData> subSubMenuOptions = [];
+
+                // if (subSubSections != null && subSubSections.isNotEmpty) {
+                //   for (int k = 0; k < subSubSections.length; k++) {
+                //     subSubMenuOptions.add(SubMenuData(
+                //       subMenuTitle: subSubSections[k].subMenuTitle,
+                //       id: subSubSections[k].subSubSectionId,
+                //       isSelected: false,
+                //     ));
+                //   }
+                // }
+
+                subMenuOptions.add(NavBarMenu(
+                  menuTitle:
+                      subSections.isEmpty ? "" : subSections[j].subSectionC,
+                  subMenu: [],
+                  isSelected: false,
+                  icon: subListExist
+                      ? Icons.arrow_drop_down
+                      : const IconData(0, fontFamily: 'EmptyIconFont'),
                 ));
               }
             }
+
+            // Check if the section title already exists
+            bool isTitleExists =
+                navBarItemList.any((item) => item.title == sectionTitle);
+            if (!isTitleExists) {
+              IconData sectionIcon = getIconForSectionTitle(sectionTitle);
+              navBarItemList.add(NavBarModel(
+                title: sectionTitle,
+                id: i,
+                icon: sectionIcon,
+                isSelcted: sectionTitle == "Home" ? true : false,
+                menuOptions: subMenuOptions,
+                dropDownIcon: subMenuOptions.isNotEmpty
+                    ? Icons.arrow_drop_down
+                    : const IconData(0, fontFamily: 'EmptyIconFont'),
+              ));
+            }
           }
-          navBarItemList = navBarItemList.toSet().toList();
         }
 
-        // for (int i = 0; i < homeDataList.length; i++) {
-        //   if (homeDataList[i].contactNameC != null &&
-        //       homeDataList[i].contactNameC!.isNotEmpty) {
-        //     contactNameC = homeDataList[i].contactNameC.toString();
-        //   }
-        //   if (homeDataList[i].primaryColorC != null &&
-        //       homeDataList[i].primaryColorC!.isNotEmpty) {
-        //     primaryColorC = homeDataList[i].primaryColorC.toString();
-        //     print(primaryColorC);
-        //   }
-        //   if (homeDataList[i].fullLogoC != null &&
-        //       homeDataList[i].fullLogoC!.isNotEmpty) {
-        //     logoURL = homeDataList[i].fullLogoC.toString();
-        //   }
-        // }
+        navBarItemList = navBarItemList.toSet().toList();
 
-        break;
-      case Constants.wrongError:
-        // AppUtil.showDialogbox(AppUtil.getContext(),
-        //     locationApiResponse.error ?? 'Oops Something went wrong');
-
-        break;
-
-      case Constants.networkErroCode:
-        // AppUtil.showDialogbox(AppUtil.getContext(),
-        //     locationApiResponse.error ?? 'Oops Something went wrong');
+        // ... Your other switch cases ...
 
         break;
       default:
         {
-          // if (locationApiResponse.error != null &&
-          //     locationApiResponse.error!.isNotEmpty) {
-          //   AppUtil.showDialogbox(AppUtil.getContext(),
-          //       locationApiResponse.error ?? 'Oops Something went wrong');
-          // }
+          // ... Your other switch cases ...
         }
         break;
     }
@@ -534,5 +561,36 @@ class ProjectHomeViewModel extends ChangeNotifier {
   // Save user local data
   saveDashboardData(HomeList? data, BuildContext context) async {
     Provider.of<DashboardData>(context, listen: false).setDashBoardData(data);
+  }
+
+  // Save user local data FOR Home
+  saveDashboardDataOfHome(HomDetail? data, BuildContext context) async {
+    Provider.of<DashboardData>(context, listen: false).setHomeDetail(data);
+  }
+
+  // Define a function to determine the icon based on section title
+  IconData getIconForSectionTitle(String sectionTitle) {
+    if (sectionTitle == 'Home') {
+      return SolvedDashboardIcons.frame_238; // Replace with the desired icon
+    } else if (sectionTitle == "Reports") {
+      return SolvedDashboardIcons
+          .frame_239; // Replace with another desired icon
+    } else if (sectionTitle == 'Assessments') {
+      return SolvedDashboardIcons.frame_240;
+    } else if (sectionTitle == "Data Insights") {
+      return SolvedDashboardIcons.frame_241;
+    } else if (sectionTitle == 'Apps+') {
+      return SolvedDashboardIcons.frame_245;
+    } else if (sectionTitle == 'Engagement') {
+      return SolvedDashboardIcons.frame_242;
+    } else if (sectionTitle == '+ Data') {
+      return SolvedDashboardIcons.frame_243;
+    } else if (sectionTitle == 'Support') {
+      return SolvedDashboardIcons.frame_244;
+    } else if (sectionTitle == "Live Chat") {
+      return SolvedDashboardIcons.frame_245;
+    } else {
+      return SolvedDashboardIcons.frame_245; // Replace with a default icon
+    }
   }
 }

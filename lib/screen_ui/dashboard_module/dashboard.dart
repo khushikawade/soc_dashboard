@@ -41,7 +41,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<ProjectHomeViewModel>(context);
-    print(model.homeDataList);
+
     HomeList dashboardData = HomeList();
     if (!model.showLoader) {
       dashboardData =
@@ -53,27 +53,28 @@ class _DashboardState extends State<Dashboard> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(model.showLoader ? 0 : 280.h),
         child: AppBarWidget(
-          logoURL:
-              //  dashboardData.fullLogoC != null &&
-              //         dashboardData.fullLogoC!.isNotEmpty
-              //     ? dashboardData.fullLogoC
-              //     :
-              '',
+          logoURL: dashboardData.account != null &&
+                  dashboardData.account!.schoolApp != null
+              ? dashboardData.account!.schoolApp!.appLogoC != null
+                  ? dashboardData.account!.schoolApp!.appLogoC.toString()
+                  : ''
+              : '',
           pageTitle:
               model.menuTitleValue != null && model.menuTitleValue!.isNotEmpty
                   ? model.menuTitleValue
                   : model.tabTitleValue,
           pageViewCount: '2,444',
-          primaryColor: AppUtil.getColorFromHex(
-              // dashboardData.primaryColorC != null &&
-              //         dashboardData.primaryColorC!.isNotEmpty
-              //     ? dashboardData.primaryColorC!.toString()
-              //     :
-              ''),
-          schoolName: dashboardData.schoolNameC != null &&
-                  dashboardData.schoolNameC!.isNotEmpty
-              ? dashboardData.schoolNameC!.toString()
-              : '',
+          primaryColor: AppUtil.getColorFromHex(dashboardData.account != null &&
+                  dashboardData.account!.schoolApp != null
+              ? dashboardData.account!.schoolApp!.primaryColorC != null
+                  ? dashboardData.account!.schoolApp!.primaryColorC.toString()
+                  : ''
+              : ''),
+          schoolName: dashboardData.account!.schoolApp != null
+              ? dashboardData.account!.schoolApp!.contactNameC != null
+                  ? dashboardData.account!.schoolApp!.contactNameC.toString()
+                  : 'Bronx Bear'
+              : 'Bronx Bear',
           isBusy: model.showLoader,
           context: context,
           sectionList: model.navBarItemList,

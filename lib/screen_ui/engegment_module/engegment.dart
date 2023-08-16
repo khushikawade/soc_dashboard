@@ -35,8 +35,16 @@ class _EngagementState extends State<Engagement> {
             ),
           ],
         ),
-        copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.', context,
-            AppUtil.getColorFromHex('')),
+        copyRightWidget(
+          '© 2023 Bronx Bears. All Rights Reserved.',
+          context,
+          AppUtil.getColorFromHex(dashboardData.account != null &&
+                  dashboardData.account!.schoolApp != null
+              ? dashboardData.account!.schoolApp!.primaryColorC != null
+                  ? dashboardData.account!.schoolApp!.primaryColorC.toString()
+                  : ''
+              : ''),
+        ),
       ],
     );
   }

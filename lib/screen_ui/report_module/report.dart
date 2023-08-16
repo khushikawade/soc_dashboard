@@ -71,10 +71,16 @@ class _ReportState extends State<Report> {
           ],
         ),
         copyRightWidget(
-            '© 2023 Bronx Bears. All Rights Reserved.',
-            context,
-            //will add primary color
-            AppUtil.getColorFromHex('')),
+          '© 2023 Bronx Bears. All Rights Reserved.',
+          context,
+          //will add primary color
+          AppUtil.getColorFromHex(dashboardData.account != null &&
+                  dashboardData.account!.schoolApp != null
+              ? dashboardData.account!.schoolApp!.primaryColorC != null
+                  ? dashboardData.account!.schoolApp!.primaryColorC.toString()
+                  : ''
+              : ''),
+        ),
       ],
     );
   }

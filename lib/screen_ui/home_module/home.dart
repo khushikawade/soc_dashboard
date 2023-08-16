@@ -9,6 +9,7 @@ import 'package:solved_dashboard/helper_widget/common_widget/two_column_text_and
 import 'package:solved_dashboard/helper_widget/copy_right_widget.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/models/dashboard_data_model.dart';
+import 'package:solved_dashboard/services/models/home_detail_model.dart';
 import 'package:solved_dashboard/services/models/home_response.dart';
 import 'package:solved_dashboard/utils/app_util.dart';
 
@@ -18,6 +19,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    super.initState();
+    apiCallforHome();
+  }
+
   @override
   Widget build(BuildContext context) {
     HomeList dashboardData =
@@ -141,10 +148,24 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-        copyRightWidget('© 2023 Bronx Bears. All Rights Reserved.', context,
-            AppUtil.getColorFromHex('')),
+        copyRightWidget(
+          '© 2023 Bronx Bears. All Rights Reserved.',
+          context,
+          AppUtil.getColorFromHex(dashboardData.account != null &&
+                  dashboardData.account!.schoolApp != null
+              ? dashboardData.account!.schoolApp!.primaryColorC != null
+                  ? dashboardData.account!.schoolApp!.primaryColorC.toString()
+                  : ''
+              : ''),
+        ),
       ],
     );
+  }
+
+  apiCallforHome() {
+    HomDetail dashboardData =
+        Provider.of<DashboardData>(context, listen: false).getHomeDetail!;
+    print(dashboardData);
   }
 }
 //-----------------

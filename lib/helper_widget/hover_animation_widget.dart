@@ -137,12 +137,12 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
                   //     }
                   //   },
                   // );
-                  if (widget.headerTiles[index].menuOptions == null ||
-                      widget.headerTiles[index].menuOptions!.isEmpty) {
-                    widget.headerTiles[index].isSelcted = false;
+                  // if (widget.headerTiles[index].menuOptions == null ||
+                  //     widget.headerTiles[index].menuOptions!.isEmpty) {
+                  //   widget.headerTiles[index].isSelcted = false;
 
-                    widget.headerTiles[0].isSelcted = true;
-                  }
+                  //   widget.headerTiles[0].isSelcted = true;
+                  // }
 
                   // Set the isSelcted of the first element (index 0) to true
 

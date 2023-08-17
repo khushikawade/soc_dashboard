@@ -70,8 +70,8 @@ class MyApp extends StatelessWidget {
                   debugShowCheckedModeBanner: false,
                   checkerboardOffscreenLayers: false,
                   initialUrl: Overrides.SCHOOL_ID.isNotEmpty
-                      ? '/${Overrides.SCHOOL_ID}/Home'
-                      : '/Home',
+                      ? '/${Overrides.SCHOOL_ID}/Home/:id'
+                      : '/Home/:id',
                   mode: VRouterMode.history,
                   onPop: (vRedirector) async {
                     if (vRedirector.historyCanBack()) {
@@ -105,10 +105,18 @@ class MyApp extends StatelessWidget {
                             }
                           },
                           stackedRoutes: [
+                            // VWidget.builder(
+                            //   path: Overrides.SCHOOL_ID.isNotEmpty
+                            //       ? '/${Overrides.SCHOOL_ID}/Home/:id'
+                            //       : '/Home/:id',
+                            //   builder: (context, state) {
+                            //     return Home();
+                            //   },
+                            // ),
                             VWidget(
                                 path: Overrides.SCHOOL_ID.isNotEmpty
-                                    ? '/${Overrides.SCHOOL_ID}/Home'
-                                    : '/Home',
+                                    ? '/${Overrides.SCHOOL_ID}/Home/:id'
+                                    : '/Home/:id',
                                 widget: Home()),
                             VWidget(
                               path: Overrides.SCHOOL_ID.isNotEmpty

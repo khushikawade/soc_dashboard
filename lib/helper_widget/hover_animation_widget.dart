@@ -13,8 +13,8 @@ class AnimatedHoverMenu extends StatefulWidget {
   final BoxDecoration? headerBoxDecoration;
   final Color? headerTextColor;
   final double? headerTextSize;
-  final Function(String headerTitle, String mainSection, String subSection)?
-      receiveValue;
+  final Function(String headerTitle, String mainSection, String subSection,
+      String selectedId)? receiveValue;
 
   ///Menu properties
 
@@ -93,7 +93,8 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              widget.receiveValue!('', widget.headerTiles[index].title!, '');
+              widget.receiveValue!('', widget.headerTiles[index].title!, '',
+                  widget.headerTiles[index].id.toString());
             },
             child: MouseRegion(
               opaque: true,
@@ -165,7 +166,7 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
                       menuTiles: menuList,
                       receiveValue: (headerTitle, mainSection, subSection) {
                         widget.receiveValue!(
-                            headerTitle, mainSection, subSection);
+                            headerTitle, mainSection, subSection, '');
                       },
                       // receiveValue: (menuTitle, tabTitle,) {
                       //   widget.receiveValue!(menuTitle, tabTitle);

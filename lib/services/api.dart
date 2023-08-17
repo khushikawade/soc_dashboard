@@ -12,7 +12,7 @@ class Api {
   final ApiClient _apiClient = ApiClient();
 
   //Get Otp  API
-  Future<HomeResponse> getHomeData(String schoolID, String objectName) async {
+  Future<HomeResponse> getHomeData(String schoolID) async {
     // if (!internet) {
     //   return HomeResponse(error: Constants.noInternet, statusCode: 501);
     // }

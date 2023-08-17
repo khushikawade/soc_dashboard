@@ -95,7 +95,7 @@ class ProjectHomeViewModel extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  bool _showLoader = false;
+  bool _showLoader = true;
   bool get showLoader => _showLoader;
   set showLoader(bool value) {
     _showLoader = value;
@@ -103,17 +103,18 @@ class ProjectHomeViewModel extends ChangeNotifier {
   }
 
   // handle Main Section Selection
-  void handleTabSelection(String sectionName, BuildContext context) {
+  void handleTabSelection(
+      String sectionName, BuildContext context, String selectedId) {
     final to = context.vRouter.to;
-    Map<String, String> queryParams = {};
-    if (Overrides.SCHOOL_ID.isNotEmpty) {
-      queryParams['schoolId'] = Overrides.SCHOOL_ID;
-    }
+    //Map<String, String> queryParams = {};
+    // if (Overrides.SCHOOL_ID.isNotEmpty) {
+    //   queryParams['schoolId'] = Overrides.SCHOOL_ID;
+    // }
     switch (sectionName) {
       case 'Home':
         return to(Overrides.SCHOOL_ID.isNotEmpty
-            ? '/${Overrides.SCHOOL_ID}/Home/dfjdfjdjfdjf'
-            : '/Home/dfjdfjdjfdjf');
+            ? '/${Overrides.SCHOOL_ID}/Home/$selectedId'
+            : '/Home/$selectedId');
       case 'Reports':
         return to(
           Overrides.SCHOOL_ID.isNotEmpty
@@ -126,24 +127,24 @@ class ProjectHomeViewModel extends ChangeNotifier {
             : '/Assessments');
       case 'Data Insights':
         return to(Overrides.SCHOOL_ID.isNotEmpty
-            ? '/${Overrides.SCHOOL_ID}/Data_Insights'
-            : '/Data_Insides');
+            ? '/${Overrides.SCHOOL_ID}/Data_Insights/$selectedId'
+            : '/Data_Insides/$selectedId');
       case 'Apps+':
         return to(Overrides.SCHOOL_ID.isNotEmpty
-            ? '/${Overrides.SCHOOL_ID}/Apps'
-            : '/Apps');
+            ? '/${Overrides.SCHOOL_ID}/Apps/$selectedId'
+            : '/Apps/$selectedId');
       case 'Engagement':
         return to(Overrides.SCHOOL_ID.isNotEmpty
             ? '/${Overrides.SCHOOL_ID}/Engagement'
             : '/Engagement');
       case '+ Data':
         return to(Overrides.SCHOOL_ID.isNotEmpty
-            ? '/${Overrides.SCHOOL_ID}/Data'
-            : '/Data');
+            ? '/${Overrides.SCHOOL_ID}/Data/$selectedId'
+            : '/Data/$selectedId');
       case 'Support':
         return to(Overrides.SCHOOL_ID.isNotEmpty
-            ? '/${Overrides.SCHOOL_ID}/Support'
-            : '/Support');
+            ? '/${Overrides.SCHOOL_ID}/Support/$selectedId'
+            : '/Support/$selectedId');
     }
   }
 
@@ -186,255 +187,255 @@ class ProjectHomeViewModel extends ChangeNotifier {
     }
   }
 
-  // Build Nav bar widget & its items
-  buildNavBar() {
-    navBarItemList.add(NavBarModel(
-      title: 'Home',
-      id: 1,
-      icon: SolvedDashboardIcons.frame_238,
-      isSelcted: true,
-    ));
-    navBarItemList.add(NavBarModel(
-        title: 'Reports',
-        id: 2,
-        icon: SolvedDashboardIcons.frame_239,
-        isSelcted: false,
-        dropDownIcon: Icons.arrow_drop_down,
-        menuOptions: [
-          NavBarMenu(
-            menuTitle: 'Student Report',
-            id: 1,
-            isSelected: false,
-          ),
-          NavBarMenu(
-            menuTitle: 'Class Report',
-            id: 2,
-            isSelected: false,
-          ),
-          NavBarMenu(
-            menuTitle: 'Report Card',
-            id: 3,
-            isSelected: false,
-          ),
-          NavBarMenu(
-            menuTitle: 'School Reports',
-            id: 4,
-            isSelected: false,
-          ),
-          NavBarMenu(
-            menuTitle: 'Correlations',
-            id: 5,
-            isSelected: false,
-          ),
-          NavBarMenu(
-            menuTitle: 'Dashboard Usage',
-            id: 6,
-            isSelected: false,
-          ),
-          NavBarMenu(
-            menuTitle: 'Dashboard Permissions',
-            id: 7,
-            isSelected: false,
-          )
-        ]));
-    navBarItemList.add(NavBarModel(
-        title: 'Assessments',
-        id: 3,
-        icon: SolvedDashboardIcons.frame_240,
-        isSelcted: false,
-        dropDownIcon: Icons.arrow_drop_down,
-        menuOptions: [
-          NavBarMenu(
-              menuTitle: 'MAP',
-              id: 1,
-              isSelected: false,
-              icon: Icons.arrow_right_outlined,
-              subMenu: [
-                SubMenuData(
-                  subMenuTitle: 'MAP Math',
-                  id: 1,
-                  isSelected: false,
-                ),
-                SubMenuData(
-                  subMenuTitle: 'MAP ELA',
-                  id: 2,
-                  isSelected: false,
-                )
-              ]),
-          NavBarMenu(
-              menuTitle: 'iReady',
-              id: 2,
-              isSelected: false,
-              icon: Icons.arrow_right_outlined,
-              subMenu: [
-                SubMenuData(
-                  subMenuTitle: 'iReady Math',
-                  id: 1,
-                  isSelected: false,
-                ),
-                SubMenuData(
-                  subMenuTitle: 'iReady ELA',
-                  id: 2,
-                  isSelected: false,
-                )
-              ]),
-          NavBarMenu(
-              menuTitle: 'Acadience',
-              id: 3,
-              isSelected: false,
-              icon: Icons.arrow_right_outlined,
-              subMenu: [
-                SubMenuData(
-                  subMenuTitle: 'Acadience Math',
-                  id: 1,
-                  isSelected: false,
-                ),
-                SubMenuData(
-                  subMenuTitle: 'Acadience ELA',
-                  id: 2,
-                  isSelected: false,
-                )
-              ]),
-          NavBarMenu(
-              menuTitle: 'NYS/ISA 2022',
-              id: 4,
-              isSelected: false,
-              icon: Icons.arrow_right_outlined,
-              subMenu: [
-                SubMenuData(
-                  subMenuTitle: 'NYS Math 2022',
-                  id: 1,
-                  isSelected: false,
-                ),
-                SubMenuData(
-                  subMenuTitle: 'NYS ELA 2022',
-                  id: 2,
-                  isSelected: false,
-                ),
-                SubMenuData(
-                  subMenuTitle: 'ISA Math by Class',
-                  id: 3,
-                  isSelected: false,
-                ),
-                SubMenuData(
-                  subMenuTitle: 'ISA ELA by Class',
-                  id: 4,
-                  isSelected: false,
-                ),
-                SubMenuData(
-                  subMenuTitle: 'ISA Math by Student',
-                  id: 5,
-                  isSelected: false,
-                ),
-                SubMenuData(
-                  subMenuTitle: 'ISA ELA by Student',
-                  id: 6,
-                  isSelected: false,
-                )
-              ]),
-          NavBarMenu(
-            menuTitle: 'F&P',
-            id: 5,
-            isSelected: false,
-          ),
-          NavBarMenu(
-            menuTitle: 'DRP',
-            id: 6,
-            isSelected: false,
-          ),
-          NavBarMenu(
-            menuTitle: 'SEL',
-            id: 7,
-            isSelected: false,
-          ),
-          NavBarMenu(
-              menuTitle: 'June Instructional Report',
-              id: 8,
-              isSelected: false,
-              icon: Icons.arrow_right_outlined,
-              subMenu: [
-                SubMenuData(
-                  subMenuTitle: 'Total Number of Questions',
-                  id: 1,
-                  isSelected: false,
-                ),
-                SubMenuData(
-                  subMenuTitle: 'JIR Math',
-                  id: 2,
-                  isSelected: false,
-                ),
-                SubMenuData(
-                  subMenuTitle: 'JIR ELA',
-                  id: 3,
-                  isSelected: false,
-                )
-              ]),
-        ]));
-    navBarItemList.add(NavBarModel(
-      title: 'Data Insights',
-      id: 4,
-      icon: SolvedDashboardIcons.frame_241,
-      isSelcted: false,
-    ));
-    navBarItemList.add(NavBarModel(
-        title: 'Apps+',
-        id: 5,
-        icon: SolvedDashboardIcons.frame_245,
-        isSelcted: false,
-        dropDownIcon: Icons.arrow_drop_down));
-    navBarItemList.add(NavBarModel(
-        title: 'Engagement',
-        id: 6,
-        icon: SolvedDashboardIcons.frame_242,
-        isSelcted: false,
-        dropDownIcon: Icons.arrow_drop_down,
-        menuOptions: [
-          NavBarMenu(
-            menuTitle: 'App Usage',
-            id: 1,
-            isSelected: false,
-          ),
-          NavBarMenu(
-            menuTitle: 'Digital Forms',
-            id: 2,
-            isSelected: false,
-          ),
-          NavBarMenu(
-            menuTitle: 'Website Usage',
-            id: 3,
-            isSelected: false,
-          )
-        ]));
-    navBarItemList.add(NavBarModel(
-      title: '+ Data',
-      id: 7,
-      icon: SolvedDashboardIcons.frame_243,
-      isSelcted: false,
-    ));
-    navBarItemList.add(NavBarModel(
-        title: 'Support',
-        id: 8,
-        icon: SolvedDashboardIcons.frame_244,
-        isSelcted: false,
-        dropDownIcon: Icons.arrow_drop_down,
-        menuOptions: [
-          NavBarMenu(
-            menuTitle: 'HS Dashboard',
-            id: 1,
-            isSelected: false,
-          ),
-          NavBarMenu(
-            menuTitle: 'Mobile Dashboard',
-            id: 2,
-            isSelected: false,
-          ),
-          NavBarMenu(
-            menuTitle: 'Student Feedback',
-            id: 3,
-            isSelected: false,
-          )
-        ]));
-  }
+  // // Build Nav bar widget & its items
+  // buildNavBar() {
+  //   navBarItemList.add(NavBarModel(
+  //     title: 'Home',
+  //     id: 1,
+  //     icon: SolvedDashboardIcons.frame_238,
+  //     isSelcted: true,
+  //   ));
+  //   navBarItemList.add(NavBarModel(
+  //       title: 'Reports',
+  //       id: 2,
+  //       icon: SolvedDashboardIcons.frame_239,
+  //       isSelcted: false,
+  //       dropDownIcon: Icons.arrow_drop_down,
+  //       menuOptions: [
+  //         NavBarMenu(
+  //           menuTitle: 'Student Report',
+  //           id: 1,
+  //           isSelected: false,
+  //         ),
+  //         NavBarMenu(
+  //           menuTitle: 'Class Report',
+  //           id: 2,
+  //           isSelected: false,
+  //         ),
+  //         NavBarMenu(
+  //           menuTitle: 'Report Card',
+  //           id: 3,
+  //           isSelected: false,
+  //         ),
+  //         NavBarMenu(
+  //           menuTitle: 'School Reports',
+  //           id: 4,
+  //           isSelected: false,
+  //         ),
+  //         NavBarMenu(
+  //           menuTitle: 'Correlations',
+  //           id: 5,
+  //           isSelected: false,
+  //         ),
+  //         NavBarMenu(
+  //           menuTitle: 'Dashboard Usage',
+  //           id: 6,
+  //           isSelected: false,
+  //         ),
+  //         NavBarMenu(
+  //           menuTitle: 'Dashboard Permissions',
+  //           id: 7,
+  //           isSelected: false,
+  //         )
+  //       ]));
+  //   navBarItemList.add(NavBarModel(
+  //       title: 'Assessments',
+  //       id: 3,
+  //       icon: SolvedDashboardIcons.frame_240,
+  //       isSelcted: false,
+  //       dropDownIcon: Icons.arrow_drop_down,
+  //       menuOptions: [
+  //         NavBarMenu(
+  //             menuTitle: 'MAP',
+  //             id: 1,
+  //             isSelected: false,
+  //             icon: Icons.arrow_right_outlined,
+  //             subMenu: [
+  //               SubMenuData(
+  //                 subMenuTitle: 'MAP Math',
+  //                 id: 1,
+  //                 isSelected: false,
+  //               ),
+  //               SubMenuData(
+  //                 subMenuTitle: 'MAP ELA',
+  //                 id: 2,
+  //                 isSelected: false,
+  //               )
+  //             ]),
+  //         NavBarMenu(
+  //             menuTitle: 'iReady',
+  //             id: 2,
+  //             isSelected: false,
+  //             icon: Icons.arrow_right_outlined,
+  //             subMenu: [
+  //               SubMenuData(
+  //                 subMenuTitle: 'iReady Math',
+  //                 id: 1,
+  //                 isSelected: false,
+  //               ),
+  //               SubMenuData(
+  //                 subMenuTitle: 'iReady ELA',
+  //                 id: 2,
+  //                 isSelected: false,
+  //               )
+  //             ]),
+  //         NavBarMenu(
+  //             menuTitle: 'Acadience',
+  //             id: 3,
+  //             isSelected: false,
+  //             icon: Icons.arrow_right_outlined,
+  //             subMenu: [
+  //               SubMenuData(
+  //                 subMenuTitle: 'Acadience Math',
+  //                 id: 1,
+  //                 isSelected: false,
+  //               ),
+  //               SubMenuData(
+  //                 subMenuTitle: 'Acadience ELA',
+  //                 id: 2,
+  //                 isSelected: false,
+  //               )
+  //             ]),
+  //         NavBarMenu(
+  //             menuTitle: 'NYS/ISA 2022',
+  //             id: 4,
+  //             isSelected: false,
+  //             icon: Icons.arrow_right_outlined,
+  //             subMenu: [
+  //               SubMenuData(
+  //                 subMenuTitle: 'NYS Math 2022',
+  //                 id: 1,
+  //                 isSelected: false,
+  //               ),
+  //               SubMenuData(
+  //                 subMenuTitle: 'NYS ELA 2022',
+  //                 id: 2,
+  //                 isSelected: false,
+  //               ),
+  //               SubMenuData(
+  //                 subMenuTitle: 'ISA Math by Class',
+  //                 id: 3,
+  //                 isSelected: false,
+  //               ),
+  //               SubMenuData(
+  //                 subMenuTitle: 'ISA ELA by Class',
+  //                 id: 4,
+  //                 isSelected: false,
+  //               ),
+  //               SubMenuData(
+  //                 subMenuTitle: 'ISA Math by Student',
+  //                 id: 5,
+  //                 isSelected: false,
+  //               ),
+  //               SubMenuData(
+  //                 subMenuTitle: 'ISA ELA by Student',
+  //                 id: 6,
+  //                 isSelected: false,
+  //               )
+  //             ]),
+  //         NavBarMenu(
+  //           menuTitle: 'F&P',
+  //           id: 5,
+  //           isSelected: false,
+  //         ),
+  //         NavBarMenu(
+  //           menuTitle: 'DRP',
+  //           id: 6,
+  //           isSelected: false,
+  //         ),
+  //         NavBarMenu(
+  //           menuTitle: 'SEL',
+  //           id: 7,
+  //           isSelected: false,
+  //         ),
+  //         NavBarMenu(
+  //             menuTitle: 'June Instructional Report',
+  //             id: 8,
+  //             isSelected: false,
+  //             icon: Icons.arrow_right_outlined,
+  //             subMenu: [
+  //               SubMenuData(
+  //                 subMenuTitle: 'Total Number of Questions',
+  //                 id: 1,
+  //                 isSelected: false,
+  //               ),
+  //               SubMenuData(
+  //                 subMenuTitle: 'JIR Math',
+  //                 id: 2,
+  //                 isSelected: false,
+  //               ),
+  //               SubMenuData(
+  //                 subMenuTitle: 'JIR ELA',
+  //                 id: 3,
+  //                 isSelected: false,
+  //               )
+  //             ]),
+  //       ]));
+  //   navBarItemList.add(NavBarModel(
+  //     title: 'Data Insights',
+  //     id: 4,
+  //     icon: SolvedDashboardIcons.frame_241,
+  //     isSelcted: false,
+  //   ));
+  //   navBarItemList.add(NavBarModel(
+  //       title: 'Apps+',
+  //       id: 5,
+  //       icon: SolvedDashboardIcons.frame_245,
+  //       isSelcted: false,
+  //       dropDownIcon: Icons.arrow_drop_down));
+  //   navBarItemList.add(NavBarModel(
+  //       title: 'Engagement',
+  //       id: 6,
+  //       icon: SolvedDashboardIcons.frame_242,
+  //       isSelcted: false,
+  //       dropDownIcon: Icons.arrow_drop_down,
+  //       menuOptions: [
+  //         NavBarMenu(
+  //           menuTitle: 'App Usage',
+  //           id: 1,
+  //           isSelected: false,
+  //         ),
+  //         NavBarMenu(
+  //           menuTitle: 'Digital Forms',
+  //           id: 2,
+  //           isSelected: false,
+  //         ),
+  //         NavBarMenu(
+  //           menuTitle: 'Website Usage',
+  //           id: 3,
+  //           isSelected: false,
+  //         )
+  //       ]));
+  //   navBarItemList.add(NavBarModel(
+  //     title: '+ Data',
+  //     id: 7,
+  //     icon: SolvedDashboardIcons.frame_243,
+  //     isSelcted: false,
+  //   ));
+  //   navBarItemList.add(NavBarModel(
+  //       title: 'Support',
+  //       id: 8,
+  //       icon: SolvedDashboardIcons.frame_244,
+  //       isSelcted: false,
+  //       dropDownIcon: Icons.arrow_drop_down,
+  //       menuOptions: [
+  //         NavBarMenu(
+  //           menuTitle: 'HS Dashboard',
+  //           id: 1,
+  //           isSelected: false,
+  //         ),
+  //         NavBarMenu(
+  //           menuTitle: 'Mobile Dashboard',
+  //           id: 2,
+  //           isSelected: false,
+  //         ),
+  //         NavBarMenu(
+  //           menuTitle: 'Student Feedback',
+  //           id: 3,
+  //           isSelected: false,
+  //         )
+  //       ]));
+  // }
 
   String extractIdFromUrl(String url) {
     Uri uri = Uri.parse(url);
@@ -452,17 +453,15 @@ class ProjectHomeViewModel extends ChangeNotifier {
 // Call API for get home details
   getHomeData(BuildContext context) async {
     showLoader = true;
-    String objectName = "School_App__c";
+    //String objectName = "School_App__c";
 
     HomeResponse homeResponse = //a226w000000h58MAAQa--a224W000007pNmDQAU
-        await _api.getHomeData("a226w000000h58MAAQ", objectName);
+        await _api.getHomeData(Overrides.SCHOOL_ID);
 
     print("homeResponse-----------------${homeResponse.statusCode}");
     print(homeResponse.body);
     switch (homeResponse.statusCode) {
       case Constants.sucessCode:
-        showLoader = true;
-
         if (homeResponse.body != null &&
             homeResponse.body!.dashboardSections != null) {
           print("========================there is the data ${homeDataList}");
@@ -477,7 +476,7 @@ class ProjectHomeViewModel extends ChangeNotifier {
                 homeResponse.body!.dashboardSections![i].dashboardSubSections;
             if (sectionTitle == "Home") {
               HomeDataModel homeDataModelRes = await _api.getDetailDataOfHome(
-                  "a434W000001coEcQAI"
+                  "a436w0000003iv3AAA"
                   //homeResponse.body!.dashboardSections![i].id
                   //?? ''
                   ,
@@ -501,53 +500,46 @@ class ProjectHomeViewModel extends ChangeNotifier {
                 bool subListExist =
                     subSubSections != null && subSubSections.isNotEmpty;
 
-                // Initialize subSubMenuOptions list for the current sub-section
-                // List<SubMenuData> subSubMenuOptions = [];
-
-                // if (subSubSections != null && subSubSections.isNotEmpty) {
-                //   for (int k = 0; k < subSubSections.length; k++) {
-                //     subSubMenuOptions.add(SubMenuData(
-                //       subMenuTitle: subSubSections[k].subMenuTitle,
-                //       id: subSubSections[k].subSubSectionId,
-                //       isSelected: false,
-                //     ));
-                //   }
-                // }
-
                 subMenuOptions.add(NavBarMenu(
                   menuTitle:
                       subSections.isEmpty ? "" : subSections[j].subSectionC,
                   subMenu: [],
                   isSelected: false,
-                  icon: subListExist
-                      ? Icons.arrow_drop_down
-                      : const IconData(0, fontFamily: 'EmptyIconFont'),
+                  // icon: subListExist
+                  //     ? Icons.arrow_drop_down
+                  //     : const IconData(0, fontFamily: 'EmptyIconFont'),
                 ));
               }
             }
 
             // Check if the section title already exists
-            bool isTitleExists =
-                navBarItemList.any((item) => item.title == sectionTitle);
-            if (!isTitleExists) {
-              IconData sectionIcon = getIconForSectionTitle(sectionTitle);
-              navBarItemList.add(NavBarModel(
-                title: sectionTitle,
-                id: i,
-                icon: sectionIcon,
-                isSelcted: sectionTitle == "Home" ? true : false,
-                menuOptions: subMenuOptions,
-                dropDownIcon: subMenuOptions.isNotEmpty
-                    ? Icons.arrow_drop_down
-                    : const IconData(0, fontFamily: 'EmptyIconFont'),
-              ));
-            }
+            // bool isTitleExists =
+            //     navBarItemList.any((item) => item.title == sectionTitle);
+            // if (!isTitleExists) {
+            IconData sectionIcon = getIconForSectionTitle(sectionTitle);
+            navBarItemList.add(NavBarModel(
+              title: sectionTitle,
+              sortOrder: int.parse(
+                  homeResponse.body!.dashboardSections![i].sortOrder!),
+              id: homeResponse.body!.dashboardSections![i].id!,
+              icon: sectionIcon,
+              isSelcted: sectionTitle == "Home" ? true : false,
+              menuOptions: subMenuOptions,
+              dropDownIcon: subMenuOptions.isNotEmpty
+                  ? Icons.arrow_drop_down
+                  : const IconData(0, fontFamily: 'EmptyIconFont'),
+            ));
+            // }
           }
         }
 
-        navBarItemList = navBarItemList.toSet().toList();
+        navBarItemList = navBarItemList.toList();
 
-        // ... Your other switch cases ...
+        navBarItemList.sort((a, b) {
+          return a.sortOrder!.compareTo(b.sortOrder!);
+        });
+
+        print(navBarItemList);
 
         break;
       default:

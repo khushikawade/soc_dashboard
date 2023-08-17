@@ -5,7 +5,7 @@ class RouteConstants {
   static String homeRoute =
       Overrides.SCHOOL_ID != null && Overrides.SCHOOL_ID.isNotEmpty
           ? "/${Overrides.SCHOOL_ID}/home"
-          : "/a1f4W000007DQaNQAW/home";
+          : "/a226w000000h58MAAQ/home";
   static String projectRoute = "project";
   static const String peopleRoute = "people";
   static const String second = "second";

@@ -34,7 +34,7 @@ class Overrides {
 
 // //true in case of graded+ stand-alone app
 //   static bool STANDALONE_GRADED_APP = false;
-  static String SCHOOL_ID = 'a1f4W000007DQaNQAW';
+  static String SCHOOL_ID = 'a226w000000h58MAAQ';
   static String SUB_MENU = '';
   static String SUB_SECTION_MENU = '';
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class NavBarModel {
   String? title;
-  int? id;
+  int? sortOrder;
+  String? id;
   bool? isSelcted;
   IconData? icon;
   IconData? dropDownIcon;
@@ -10,6 +11,7 @@ class NavBarModel {
 
   NavBarModel(
       {this.title,
+      this.sortOrder,
       this.id,
       this.isSelcted,
       this.icon,

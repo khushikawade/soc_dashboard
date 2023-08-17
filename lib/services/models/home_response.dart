@@ -137,6 +137,7 @@ class SchoolApp {
 
 class DashboardSection {
   String? dashboardSectionC;
+  String? sortOrder;
   String? sectionTypeC;
   String? dashboardWidgetC;
   String? id;
@@ -144,6 +145,7 @@ class DashboardSection {
 
   DashboardSection({
     this.dashboardSectionC,
+    this.sortOrder,
     this.sectionTypeC,
     this.dashboardWidgetC,
     this.id,
@@ -153,6 +155,7 @@ class DashboardSection {
   factory DashboardSection.fromJson(Map<String, dynamic> json) =>
       DashboardSection(
         dashboardSectionC: json["Dashboard_Section__c"],
+        sortOrder: json["Sort_Order__c"],
         sectionTypeC: json["Section_Type__c"],
         dashboardWidgetC: json["Dashboard_Widget__c"],
         id: json["Id"],
@@ -164,6 +167,7 @@ class DashboardSection {
 
   Map<String, dynamic> toJson() => {
         "Dashboard_Section__c": dashboardSectionC,
+        "Sort_Order__c": sortOrder,
         "Section_Type__c": sectionTypeC,
         "Dashboard_Widget__c": dashboardWidgetC,
         "Id": id,

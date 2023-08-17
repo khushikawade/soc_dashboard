@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'dart:html' as html;
+import 'screen_ui/data_insights_module/data_insights_model.dart';
 import 'screen_ui/home_module/home_model.dart';
 
 void main() async {
@@ -29,7 +30,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  DashboardData? dashboardData;
+  DashboardData? dashboardData = DashboardData();
   MyApp({Key? key, this.dashboardData}) : super(key: key);
 
   String currentUrl = html.window.location.href;
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ProjectHomeViewModel()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
+        ChangeNotifierProvider(create: (_) => DataInsightsViewModel()),
       ],
       child: ChangeNotifierProvider<DashboardData>(
         create: (_) => dashboardData!,
@@ -116,7 +118,7 @@ class MyApp extends StatelessWidget {
                             VWidget(
                                 path: Overrides.SCHOOL_ID.isNotEmpty
                                     ? '/${Overrides.SCHOOL_ID}/Home/:id'
-                                    : '/Home/:id',
+                                    : '/Home:id',
                                 widget: Home()),
                             VWidget(
                               path: Overrides.SCHOOL_ID.isNotEmpty
@@ -200,15 +202,23 @@ class MyApp extends StatelessWidget {
                                     ? '/${Overrides.SCHOOL_ID}/Assessments/SEL'
                                     : '/Assessments',
                                 widget: Assessment()),
+                            VWidget.builder(
+                              path: Overrides.SCHOOL_ID.isNotEmpty
+                                  ? '/${Overrides.SCHOOL_ID}/Data_Insights/:id'
+                                  : '/Data_Insights/:id',
+                              builder: (context, state) => DataInsights(
+                                  pageId: state.pathParameters['id']),
+                            ),
+                            // VWidget(
+                            //     path: Overrides.SCHOOL_ID.isNotEmpty
+                            //         ? '/${Overrides.SCHOOL_ID}/Data_Insights/:id'
+                            //         : '/Data_Insights/:id',
+                            //     widget: DataInsights(
+                            //         id: state.pathParameters['id'] as int)),
                             VWidget(
                                 path: Overrides.SCHOOL_ID.isNotEmpty
-                                    ? '/${Overrides.SCHOOL_ID}/Data_Insights'
-                                    : '/Data_Insights',
-                                widget: DataInsights()),
-                            VWidget(
-                                path: Overrides.SCHOOL_ID.isNotEmpty
-                                    ? '/${Overrides.SCHOOL_ID}/Apps'
-                                    : '/Apps',
+                                    ? '/${Overrides.SCHOOL_ID}/Apps/:id'
+                                    : '/Apps/:id',
                                 widget: Apps()),
                             VWidget(
                                 path: Overrides.SCHOOL_ID.isNotEmpty
@@ -227,8 +237,8 @@ class MyApp extends StatelessWidget {
                                 widget: Engagement()),
                             VWidget(
                                 path: Overrides.SCHOOL_ID.isNotEmpty
-                                    ? '/${Overrides.SCHOOL_ID}/Data'
-                                    : '/Data',
+                                    ? '/${Overrides.SCHOOL_ID}/Data:id'
+                                    : '/Data:id',
                                 widget: Data()),
                             VWidget(
                                 path: Overrides.SCHOOL_ID.isNotEmpty

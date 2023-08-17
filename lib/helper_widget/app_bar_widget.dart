@@ -373,13 +373,13 @@ class AppBarWidget extends StatelessWidget {
       height: 74.h,
       decoration: const BoxDecoration(color: AppColors.whiteColor),
       child: AnimatedHoverMenu(
-        receiveValue: (headerTitle, mainSection, subSection) {
+        receiveValue: (headerTitle, mainSection, subSection, selectedId) {
           model.menuTitleValue = headerTitle;
           model.tabTitleValue = mainSection;
           model.subTitleValue = subSection;
           if (model.menuTitleValue == null ||
               model.menuTitleValue!.isEmpty && subSection == '') {
-            model.handleTabSelection(model.tabTitleValue, context!);
+            model.handleTabSelection(model.tabTitleValue, context!, selectedId);
           } else if (subSection == '') {
             model.handleSubMenuSelection(
                 model.menuTitleValue!, model.tabTitleValue, context!);

@@ -101,66 +101,66 @@ class _HomeState extends State<Home> {
         ''',
               imageUrl: "assets/dummy.png",
             ),
-            SizedBox(
-              height: 56.h,
-            ),
-            const OneColumnTextAndImageLeftWidget(
-              titleText: "Title Here",
-              subTitleText: "Praesent lobortis metus ex.",
-              detailDescription: '''
-        <div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat libero.
-         In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor mauris,
-         consequat non imperdiet vel, tristique nec urna. Mauris et imperd
-         iet ligula, imperdiet lacinia leo. Curabitur dictum veli<br><br>varius, viverra
-         Etiam hendrerit dui vel enim dignissim tempus. Pellentesque hendrerit enim sodales, commodo sapien sed, hendrerit mi. Integer facilisis mauris a nunc euismod, id fermentum</p>
-         <br><br>varius, viverra
-         Etiam hendrerit dui vel enim dignissim tempus. Pellentesque hendrerit enim sodales, commodo sapien sed, hendrerit mi. Integer facilisis mauris a nunc euismod, id fermentum</p>
-        
-        </div>
-        ''',
-              imageUrl: "assets/one_column_image.png",
-            ),
-            SizedBox(
-              height: 56.h,
-            ),
-            const TwoColumnTextAndImageWidget(
-              titleTextCard1: "",
-              subTitleTextCard1: "Praesent lobortis metus ex.",
-              subTitleTextCard2: "Praesent lobortis metus ex.",
-              detailDescriptionCard1: '''
-        <div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat<br>libero.
-         In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor<br>mauris, consequat non imperdiet vel, tristique nec urna.</p>
-        
-        </div>
-        ''',
-              detailDescriptionCard2: '''
-        <div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat<br>libero.
-         In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor<br>mauris, consequat non imperdiet vel, tristique nec urna.</p>
-        
-        </div>
-        ''',
-              imageUrlCard1: "assets/hannah.png",
-              imageUrlCard2: "assets/hannah.png",
-            ),
-            SizedBox(
-              height: 56.h,
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height / 1.5.h,
-              child: const IFrameCustomWidget(
-                titleText: "Data Insights Widget",
-                subTitleText: "Title Here",
-                dynamicLinkUrl:
-                    "https://services.solvedconsulting.net/news/a1f4W000007DQaNQAW",
-              ),
-            ),
-            SizedBox(
-              height: 56.h,
-            ),
+            //     SizedBox(
+            //       height: 56.h,
+            //     ),
+            //     const OneColumnTextAndImageLeftWidget(
+            //       titleText: "Title Here",
+            //       subTitleText: "Praesent lobortis metus ex.",
+            //       detailDescription: '''
+            // <div>
+            // <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat libero.
+            //  In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor mauris,
+            //  consequat non imperdiet vel, tristique nec urna. Mauris et imperd
+            //  iet ligula, imperdiet lacinia leo. Curabitur dictum veli<br><br>varius, viverra
+            //  Etiam hendrerit dui vel enim dignissim tempus. Pellentesque hendrerit enim sodales, commodo sapien sed, hendrerit mi. Integer facilisis mauris a nunc euismod, id fermentum</p>
+            //  <br><br>varius, viverra
+            //  Etiam hendrerit dui vel enim dignissim tempus. Pellentesque hendrerit enim sodales, commodo sapien sed, hendrerit mi. Integer facilisis mauris a nunc euismod, id fermentum</p>
+
+            // </div>
+            // ''',
+            //       imageUrl: "assets/one_column_image.png",
+            //     ),
+            //     SizedBox(
+            //       height: 56.h,
+            //     ),
+            //     const TwoColumnTextAndImageWidget(
+            //       titleTextCard1: "",
+            //       subTitleTextCard1: "Praesent lobortis metus ex.",
+            //       subTitleTextCard2: "Praesent lobortis metus ex.",
+            //       detailDescriptionCard1: '''
+            // <div>
+            // <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat<br>libero.
+            //  In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor<br>mauris, consequat non imperdiet vel, tristique nec urna.</p>
+
+            // </div>
+            // ''',
+            //       detailDescriptionCard2: '''
+            // <div>
+            // <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut placerat<br>libero.
+            //  In sed lorem at turpis cursus imperdiet nec at dui. Aenean tortor<br>mauris, consequat non imperdiet vel, tristique nec urna.</p>
+
+            // </div>
+            // ''',
+            //       imageUrlCard1: "assets/hannah.png",
+            //       imageUrlCard2: "assets/hannah.png",
+            //     ),
+            // SizedBox(
+            //   height: 56.h,
+            // ),
+            // SizedBox(
+            //   width: double.infinity,
+            //   height: MediaQuery.of(context).size.height / 1.5.h,
+            //   child: const IFrameCustomWidget(
+            //     titleText: "Data Insights Widget",
+            //     subTitleText: "Title Here",
+            //     dynamicLinkUrl:
+            //         "https://services.solvedconsulting.net/news/a1f4W000007DQaNQAW",
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 56.h,
+            // ),
           ],
         ),
         copyRightWidget(

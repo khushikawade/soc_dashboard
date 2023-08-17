@@ -479,7 +479,11 @@ class ProjectHomeViewModel extends ChangeNotifier {
                 homeResponse.body!.dashboardSections![i].dashboardSubSections;
             if (sectionTitle == "Home") {
               HomeDataModel homeDataModelRes = await _api.getDetailDataOfHome(
-                  homeResponse.body!.dashboardSections![i].id ?? '', "section");
+                  "a434W000001coEcQAI"
+                  //homeResponse.body!.dashboardSections![i].id
+                  //?? ''
+                  ,
+                  "section");
               if (homeDataModelRes.body != null) {
                 //============================saving home tab details ============
                 saveDashboardDataOfHome(homeDataModelRes.body, context);

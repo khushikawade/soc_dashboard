@@ -56,7 +56,8 @@ class Api {
 
   Future<HomeDataModel> getDetailDataOfHome(
       String id, String section_Type) async {
-    Response response = await _apiClient.getMethod('${_apiMethods.home}' +
+    Response response = await _apiClient.getMethod(
+        '${_apiMethods.detailOfHome}' +
             '/${id}/${section_Type}' //'?schoolID=$schoolID&objectName=$objectName',
         );
 

@@ -130,13 +130,6 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
               },
               onExit: (PointerExitEvent pointerExitEvent) {
                 setState(() {
-                  // widget.headerTiles.forEach(
-                  //   (element) {
-                  //     if (element.isSelcted!) {
-                  //       element.isSelcted = false;
-                  //     }
-                  //   },
-                  // );
                   // if (widget.headerTiles[index].menuOptions == null ||
                   //     widget.headerTiles[index].menuOptions!.isEmpty) {
                   //   widget.headerTiles[index].isSelcted = false;
@@ -161,7 +154,7 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: 192.w, //192.w
+                    width: 192.w,
                     child: MenuTilesWidget(
                       menuTiles: menuList,
                       receiveValue: (headerTitle, mainSection, subSection) {

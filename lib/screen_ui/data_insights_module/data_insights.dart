@@ -67,13 +67,11 @@ class _DataInsightsState extends State<DataInsights> {
                         child: IFrameCustomWidget(
                           titleText: "",
                           subTitleText: "",
-                          dynamicLinkUrl:
-                              // dataInsightsViewModel.homeDetails !=
-                              //         null
-                              //     ? dataInsightsViewModel.homeDetails!.embedUrlC
-                              //         .toString()
-                              //     :
-                              "https://services.solvedconsulting.net/news/a1f4W000007DQaNQAW",
+                          dynamicLinkUrl: dataInsightsViewModel.homeDetails !=
+                                  null
+                              ? dataInsightsViewModel.homeDetails!.embedUrlC
+                                  .toString()
+                              : "https://services.solvedconsulting.net/news/a1f4W000007DQaNQAW",
                         ),
                       ),
                     ),

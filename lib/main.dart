@@ -6,6 +6,7 @@ import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard.dart';
 import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard_model.dart';
 import 'package:solved_dashboard/screen_ui/data_insights_module/data_insights.dart';
 import 'package:solved_dashboard/screen_ui/data_module/data.dart';
+import 'package:solved_dashboard/screen_ui/data_module/data_module.dart';
 import 'package:solved_dashboard/screen_ui/engegment_module/engegment.dart';
 import 'package:solved_dashboard/screen_ui/home_module/home.dart';
 import 'package:solved_dashboard/screen_ui/report_module/report.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProjectHomeViewModel()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
         ChangeNotifierProvider(create: (_) => DataInsightsViewModel()),
+        ChangeNotifierProvider(create: (_) => DataViewModel()),
       ],
       child: ChangeNotifierProvider<DashboardData>(
         create: (_) => dashboardData!,
@@ -235,11 +237,18 @@ class MyApp extends StatelessWidget {
                                     ? '/${Overrides.SCHOOL_ID}/Engagement/Website_Usage'
                                     : '/Engagement',
                                 widget: Engagement()),
-                            VWidget(
-                                path: Overrides.SCHOOL_ID.isNotEmpty
-                                    ? '/${Overrides.SCHOOL_ID}/Data:id'
-                                    : '/Data:id',
-                                widget: Data()),
+                            VWidget.builder(
+                              path: Overrides.SCHOOL_ID.isNotEmpty
+                                  ? '/${Overrides.SCHOOL_ID}/Data/:id'
+                                  : '/Data/:id',
+                              builder: (context, state) =>
+                                  Data(pageId: state.pathParameters['id']),
+                            ),
+                            // VWidget(
+                            //     path: Overrides.SCHOOL_ID.isNotEmpty
+                            //         ? '/${Overrides.SCHOOL_ID}/Data:id'
+                            //         : '/Data:id',
+                            //     widget: Data()),
                             VWidget(
                                 path: Overrides.SCHOOL_ID.isNotEmpty
                                     ? '/${Overrides.SCHOOL_ID}/Support/HS_Dashboard'

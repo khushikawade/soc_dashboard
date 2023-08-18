@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
-import 'package:solved_dashboard/screen_ui/home_module/home.dart';
 import 'package:solved_dashboard/services/api_client.dart';
 import 'package:solved_dashboard/services/api_methods.dart';
 import 'package:solved_dashboard/services/models/home_detail_model.dart';

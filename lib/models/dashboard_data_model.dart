@@ -6,7 +6,7 @@ class DashboardData extends ChangeNotifier {
   HomeList? _dashboardData;
 
   HomeList? get dashboardData => _dashboardData;
-  HomDetail? _getHomeDetail;
+  HomDetail? _getHomeDetail = HomDetail();
 
   HomDetail? get getHomeDetail => _getHomeDetail;
 
@@ -17,5 +17,6 @@ class DashboardData extends ChangeNotifier {
 
   void setHomeDetail(HomDetail? getHomeDetail) async {
     _getHomeDetail = getHomeDetail;
+    notifyListeners();
   }
 }

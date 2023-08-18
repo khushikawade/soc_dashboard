@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:solved_dashboard/custom_fonts/solved_dashboard_icons_icons.dart';
 import 'package:solved_dashboard/helper_widget/menu_tiles_widget.dart';
 import 'package:solved_dashboard/helper_widget/tabbar_item_widget.dart';
 import 'package:solved_dashboard/helper_widget/vertical_divider_widget.dart';

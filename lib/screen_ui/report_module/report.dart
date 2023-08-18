@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
 import 'package:solved_dashboard/helper_widget/common_widget/three_column_text_and_image.dart';
 import 'package:solved_dashboard/helper_widget/copy_right_widget.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/models/dashboard_data_model.dart';
 import 'package:solved_dashboard/services/models/home_response.dart';
 import 'package:solved_dashboard/utils/app_util.dart';
-
-import '../../helper_widget/common_widget/iframe_custom_link_widget.dart';
-import '../../helper_widget/common_widget/one_column_text_and_image_left.dart';
-import '../../helper_widget/common_widget/one_column_text_and_image_right.dart';
-
-import '../../helper_widget/common_widget/two_column_text_and_image.dart';
 
 class Report extends StatefulWidget {
   @override

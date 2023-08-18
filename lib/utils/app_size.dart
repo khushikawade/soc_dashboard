@@ -1,5 +1,3 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 class AppSize {
   //Font-sizes
   static double size18 = 18.0;

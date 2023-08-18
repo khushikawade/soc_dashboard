@@ -6,10 +6,9 @@ import 'package:solved_dashboard/helper_widget/copy_right_widget.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/helper_widget/loading_widget.dart';
 import 'package:solved_dashboard/models/dashboard_data_model.dart';
-import 'package:solved_dashboard/screen_ui/data_module/data_module.dart';
 import 'package:solved_dashboard/services/models/home_response.dart';
-import 'package:solved_dashboard/utils/app_colors.dart';
 import 'package:solved_dashboard/utils/app_util.dart';
+import 'package:solved_dashboard/view_model/section_data_view_model.dart';
 
 class Data extends StatefulWidget {
   String? pageId;
@@ -24,7 +23,7 @@ class _DataState extends State<Data> {
     super.initState();
     print("Selected ID or page Id ------------- ${widget.pageId}");
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final model = Provider.of<DataViewModel>(context, listen: false);
+      final model = Provider.of<SectionDataViewModel>(context, listen: false);
       model.getDataInsightsData(context, widget.pageId!);
     });
   }
@@ -33,7 +32,7 @@ class _DataState extends State<Data> {
   Widget build(BuildContext context) {
     HomeList dashboardData =
         Provider.of<DashboardData>(context, listen: false).dashboardData!;
-    final dataViewModel = Provider.of<DataViewModel>(context);
+    final dataViewModel = Provider.of<SectionDataViewModel>(context);
     return dataViewModel.showLoader
         ? loadingWidget(context)
         : ListView(

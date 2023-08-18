@@ -6,21 +6,19 @@ import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard.dart';
 import 'package:solved_dashboard/screen_ui/dashboard_module/dashboard_model.dart';
 import 'package:solved_dashboard/screen_ui/data_insights_module/data_insights.dart';
 import 'package:solved_dashboard/screen_ui/data_module/data.dart';
-import 'package:solved_dashboard/screen_ui/data_module/data_module.dart';
 import 'package:solved_dashboard/screen_ui/engegment_module/engegment.dart';
 import 'package:solved_dashboard/screen_ui/home_module/home.dart';
 import 'package:solved_dashboard/screen_ui/report_module/report.dart';
 import 'package:solved_dashboard/screen_ui/support_module/support.dart';
 import 'package:solved_dashboard/utils/app_theme.dart';
 import 'package:solved_dashboard/utils/overrides.dart';
+import 'package:solved_dashboard/view_model/section_data_view_model.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:vrouter/vrouter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'dart:html' as html;
-import 'screen_ui/data_insights_module/data_insights_model.dart';
-import 'screen_ui/home_module/home_model.dart';
 
 void main() async {
   setPathUrlStrategy();
@@ -45,7 +43,7 @@ class MyApp extends StatelessWidget {
     List<String> pathSegments = path.split('/');
     if (pathSegments.length >= 2) {
       String id = pathSegments[1];
-      if (id != null && id.isNotEmpty) {
+      if (id.isNotEmpty) {
         Overrides.SCHOOL_ID = id;
       }
       print("extrat id ------------$id");
@@ -54,9 +52,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProjectHomeViewModel()),
-        ChangeNotifierProvider(create: (_) => HomeViewModel()),
-        ChangeNotifierProvider(create: (_) => DataInsightsViewModel()),
-        ChangeNotifierProvider(create: (_) => DataViewModel()),
+        ChangeNotifierProvider(create: (_) => SectionDataViewModel()),
       ],
       child: ChangeNotifierProvider<DashboardData>(
         create: (_) => dashboardData!,
@@ -113,14 +109,13 @@ class MyApp extends StatelessWidget {
                             //   path: Overrides.SCHOOL_ID.isNotEmpty
                             //       ? '/${Overrides.SCHOOL_ID}/Home/:id'
                             //       : '/Home/:id',
-                            //   builder: (context, state) {
-                            //     return Home();
-                            //   },
+                            //   builder: (context, state) =>
+                            //       Home(pageId: state.pathParameters['id']),
                             // ),
                             VWidget(
                                 path: Overrides.SCHOOL_ID.isNotEmpty
                                     ? '/${Overrides.SCHOOL_ID}/Home/:id'
-                                    : '/Home:id',
+                                    : '/Home/:id',
                                 widget: Home()),
                             VWidget(
                               path: Overrides.SCHOOL_ID.isNotEmpty

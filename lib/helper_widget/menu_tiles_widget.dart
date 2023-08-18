@@ -1,14 +1,10 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:solved_dashboard/helper_widget/debounce.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/helper_widget/hover_animation_widget.dart';
-import 'package:solved_dashboard/helper_widget/vertical_divider_widget.dart';
 import 'package:solved_dashboard/models/nav_bar_model.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 
@@ -197,8 +193,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                             if (!_menuHover[widget.index]) {
                               _menuHover[widget.index] = true;
                             }
-                            if (widget.headerTiles != null &&
-                                widget.headerTiles.isNotEmpty) {
+                            if (widget.headerTiles.isNotEmpty) {
                               widget.headerTiles.forEach((element) {
                                 if (element.isSelcted!) {
                                   getTitle = element.title!;
@@ -340,7 +335,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
         onTap: () {
           if (subMenuList.isEmpty) {
             String tabTitle = '';
-            if (widget.headerTiles != null && widget.headerTiles.isNotEmpty) {
+            if (widget.headerTiles.isNotEmpty) {
               widget.headerTiles.forEach((element) {
                 if (element.isSelcted!) {
                   tabTitle = element.title!;
@@ -364,7 +359,7 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
 
                 setState(() {
                   widget.menuTiles[index].isSelected = true;
-                  if (widget.menuTiles != null && widget.menuTiles.isNotEmpty) {
+                  if (widget.menuTiles.isNotEmpty) {
                     if (widget.menuTiles[index].subMenu != null &&
                         widget.menuTiles[index].subMenu!.isNotEmpty) {
                       subMenuList.addAll(widget.menuTiles[index].subMenu!);
@@ -518,19 +513,10 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
           InkWell(
             onTap: () {
               print("Submenu item tapped: ${subMenuList[index].subMenuTitle}");
-              String tabTitle = '';
-              String? getsubTitle;
+
               if (subMenuList.isNotEmpty && widget.headerTiles.isNotEmpty) {
-                // subMenuList.forEach((element) {
-                tabTitle = subMenuList[index].subMenuTitle!;
-
-                print(getsubTitle);
-
-                print(getTitle);
                 widget.receiveValue!(subMenuList[index].subMenuTitle!,
                     getTitle ?? '', menuTitle ?? '');
-
-                //  });
               }
 
               setState(() {

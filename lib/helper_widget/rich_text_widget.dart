@@ -23,7 +23,7 @@ Widget richTextWidget(String simpleText1, String simpleText2, String richText1,
               color: AppColors.linkTextColor,
               fontWeight: FontWeight.w400,
             )),
-        simpleText2 != null && simpleText2.isNotEmpty
+        simpleText2.isNotEmpty
             ? TextSpan(
                 text: '& ',
                 style: TextStyle(
@@ -33,7 +33,7 @@ Widget richTextWidget(String simpleText1, String simpleText2, String richText1,
                   fontWeight: FontWeight.w400,
                 ))
             : const TextSpan(),
-        richText2 != null && richText2.isNotEmpty
+        richText2.isNotEmpty
             ? TextSpan(
                 text: richText2,
                 style: TextStyle(

@@ -70,7 +70,7 @@ class Validator {
     // }
     if (!mobileRegExp.hasMatch(value)) {
       return "Please enter valid phone number";
-    } else if (value.isEmpty || value == null) {
+    } else if (value.isEmpty) {
       //AppUtil.showToast(Constants.enterMobileNumber);
       return "This field can't be empty";
     } else if (value.length < 10) {

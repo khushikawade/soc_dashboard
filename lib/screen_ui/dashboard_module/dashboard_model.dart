@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:solved_dashboard/custom_fonts/solved_dashboard_icons_icons.dart';
@@ -8,7 +6,6 @@ import 'package:solved_dashboard/models/nav_bar_model.dart';
 import 'package:solved_dashboard/services/api.dart';
 import 'package:solved_dashboard/services/models/home_detail_model.dart';
 import 'package:solved_dashboard/services/models/home_response.dart';
-import 'package:solved_dashboard/utils/app_util.dart';
 import 'package:solved_dashboard/utils/constant.dart';
 import 'package:solved_dashboard/utils/overrides.dart';
 import 'package:vrouter/vrouter.dart';
@@ -106,10 +103,6 @@ class ProjectHomeViewModel extends ChangeNotifier {
   void handleTabSelection(
       String sectionName, BuildContext context, String selectedId) {
     final to = context.vRouter.to;
-    //Map<String, String> queryParams = {};
-    // if (Overrides.SCHOOL_ID.isNotEmpty) {
-    //   queryParams['schoolId'] = Overrides.SCHOOL_ID;
-    // }
     switch (sectionName) {
       case 'Home':
         return to(Overrides.SCHOOL_ID.isNotEmpty
@@ -474,32 +467,11 @@ class ProjectHomeViewModel extends ChangeNotifier {
                 homeResponse.body!.dashboardSections![i].dashboardSectionC!;
             List<DashboardSubSection>? subSections =
                 homeResponse.body!.dashboardSections![i].dashboardSubSections;
-            if (sectionTitle == "Home") {
-              HomeDataModel homeDataModelRes = await _api.getDetailDataOfHome(
-                  "a436w0000003iv3AAA"
-                  //homeResponse.body!.dashboardSections![i].id
-                  //?? ''
-                  ,
-                  "section");
-              if (homeDataModelRes.body != null) {
-                //============================saving home tab details ============
-                saveDashboardDataOfHome(homeDataModelRes.body, context);
-              }
-            }
             // Initialize subMenuOptions list for the current section
             List<NavBarMenu> subMenuOptions = [];
 
             if (subSections != null && subSections.isNotEmpty) {
               for (int j = 0; j < subSections.length; j++) {
-                List<DashboardSubSubSection>? subSubSections =
-                    subSections[j].dashboardSubSubSections;
-                print(
-                    "============>>>>>>>>>>>>subsection[$j]${subSubSections}");
-                print(
-                    "============>>>>>>>>>>>>subsection[$j]${subSubSections}");
-                bool subListExist =
-                    subSubSections != null && subSubSections.isNotEmpty;
-
                 subMenuOptions.add(NavBarMenu(
                   menuTitle:
                       subSections.isEmpty ? "" : subSections[j].subSectionC,
@@ -539,14 +511,27 @@ class ProjectHomeViewModel extends ChangeNotifier {
           return a.sortOrder!.compareTo(b.sortOrder!);
         });
 
-        print(navBarItemList);
-
         break;
       default:
         {
           // ... Your other switch cases ...
         }
         break;
+    }
+
+    if (navBarItemList.isNotEmpty) {
+      // if (sectionTitle == "Home") {
+      HomeDataModel homeDataModelRes =
+          await _api.getDetailDataOfHome(navBarItemList[0].id!, "section");
+      if (homeDataModelRes.body != null) {
+        //============================saving home tab details ============
+        saveDashboardDataOfHome(homeDataModelRes.body, context);
+      }
+      //}
+      // final to = context.vRouter.to;
+      // return to(Overrides.SCHOOL_ID.isNotEmpty
+      //     ? '/${Overrides.SCHOOL_ID}/Home/${navBarItemList[0].id}'
+      //     : '/Home/${navBarItemList[0].id}');
     }
 
     showLoader = false;
@@ -557,7 +542,7 @@ class ProjectHomeViewModel extends ChangeNotifier {
     Provider.of<DashboardData>(context, listen: false).setDashBoardData(data);
   }
 
-  // Save user local data FOR Home
+  //Save user local data FOR Home
   saveDashboardDataOfHome(HomDetail? data, BuildContext context) async {
     Provider.of<DashboardData>(context, listen: false).setHomeDetail(data);
   }

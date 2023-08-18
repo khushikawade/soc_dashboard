@@ -4,9 +4,8 @@ import 'package:solved_dashboard/services/api.dart';
 import 'package:solved_dashboard/services/models/home_detail_model.dart';
 import 'package:solved_dashboard/services/models/home_response.dart';
 import 'package:solved_dashboard/utils/constant.dart';
-import 'package:solved_dashboard/utils/overrides.dart';
 
-class DataInsightsViewModel extends ChangeNotifier {
+class SectionDataViewModel extends ChangeNotifier {
   final Api _api = Api();
 
   String _schoolId = '';
@@ -77,6 +76,19 @@ class DataInsightsViewModel extends ChangeNotifier {
   set showLoader(bool value) {
     _showLoader = value;
     notifyListeners();
+  }
+
+  String extractIdFromUrl(String url) {
+    Uri uri = Uri.parse(url);
+    String path = uri.path;
+    List<String> pathSegments = path.split('/');
+    if (pathSegments.length >= 2) {
+      String id = pathSegments[1];
+      print("extrat id ------------$id");
+      schoolId = id;
+      return id;
+    }
+    return ""; // Return an empty string if no valid ID is found.
   }
 
 // Call API for get home details

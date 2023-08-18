@@ -225,9 +225,11 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                               setStateForOverlay(() {});
                             }
                           },
-                          child: Container(
-                              color: AppColors.whiteColor,
-                              child: Column(children: _buildListItems())),
+                          child: menuOffset.value != Offset.zero
+                              ? Container(
+                                  color: AppColors.whiteColor,
+                                  child: Column(children: _buildListItems()))
+                              : const SizedBox.shrink(),
                         ),
                       );
                     },
@@ -342,9 +344,17 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
                 }
               });
             }
+
             widget.receiveValue!(
                 widget.menuTiles[index].menuTitle!, tabTitle, '');
           }
+          setState(() {
+            for (int i = 0; i < widget.menuTiles.length; i++) {
+              widget.menuTiles[i].isSelected = (i ==
+                  index); // Set selected to true for the tapped item, false for others
+            }
+          });
+          menuOffset.value = Offset.zero;
         },
         child: Column(
           children: [

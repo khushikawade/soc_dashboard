@@ -55,14 +55,20 @@ Widget subMenuTitleWidget(text, BuildContext context, bool value) {
 }
 
 Widget tabBarItemWidgetText(text, context, color) {
-  return Text(
-    text,
-    style: TextStyle(
-      color: color,
-      fontWeight: FontWeight.w600,
-      fontSize: AppSize.size12.sp,
-      fontFamily: 'Inter',
-      fontStyle: FontStyle.normal,
+  return Flexible(
+    flex: 1,
+    child: Text(
+      text,
+      textAlign: TextAlign.center,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 2,
+      style: TextStyle(
+        color: color,
+        fontWeight: FontWeight.w600,
+        fontSize: AppSize.size16.sp,
+        fontFamily: 'Inter',
+        fontStyle: FontStyle.normal,
+      ),
     ),
   );
 }

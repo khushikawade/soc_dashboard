@@ -1,6 +1,6 @@
 {
-    "name": "solved_dashboard",
-    "short_name": "solved_dashboard",
+    "name": "solved_flutter_dashboard",
+    "short_name": "solved_flutter_dashboard",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

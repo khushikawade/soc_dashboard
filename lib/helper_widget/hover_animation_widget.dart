@@ -1,20 +1,22 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:solved_dashboard/custom_fonts/solved_dashboard_icons_icons.dart';
 import 'package:solved_dashboard/helper_widget/menu_tiles_widget.dart';
 import 'package:solved_dashboard/helper_widget/tabbar_item_widget.dart';
 import 'package:solved_dashboard/helper_widget/vertical_divider_widget.dart';
+import 'package:solved_dashboard/models/nav_bar_model.dart';
 
 class AnimatedHoverMenu extends StatefulWidget {
   ///Header properties
-  final List<Menu> headerTiles;
+  final List<NavBarModel> headerTiles;
   final BoxDecoration? headerBoxDecoration;
   final Color? headerTextColor;
   final double? headerTextSize;
+  final Function(String headerTitle, String mainSection, String subSection,
+      String selectedId)? receiveValue;
 
   ///Menu properties
-  final List<SubMenu> menuTiles;
+
   final BoxDecoration? menuBoxDecoration;
   final Color? menuTextColor;
   final double? menuTextSize;
@@ -28,20 +30,22 @@ class AnimatedHoverMenu extends StatefulWidget {
   ///Background gradient
   final Widget? backgroundWidget;
 
-  AnimatedHoverMenu({
-    Key? key,
-    required this.headerTiles,
-    required this.menuTiles,
-    required this.headerPosition,
-    this.backgroundWidget,
-    this.headerBoxDecoration,
-    this.headerTextColor,
-    this.headerTextSize,
-    this.menuBoxDecoration,
-    this.menuTextColor,
-    this.menuTextSize,
-    this.animationType,
-  }) : super(key: key);
+  AnimatedHoverMenu(
+      {Key? key,
+      required this.headerTiles,
+
+      //required this.menuTiles,
+      required this.headerPosition,
+      this.backgroundWidget,
+      this.headerBoxDecoration,
+      this.headerTextColor,
+      this.headerTextSize,
+      this.menuBoxDecoration,
+      this.menuTextColor,
+      this.menuTextSize,
+      this.animationType,
+      this.receiveValue})
+      : super(key: key);
 
   @override
   _AnimatedHoverMenuState createState() => _AnimatedHoverMenuState();
@@ -50,6 +54,7 @@ class AnimatedHoverMenu extends StatefulWidget {
 class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
     with SingleTickerProviderStateMixin {
   bool hovered = false;
+  List<NavBarMenu> menuList = List.empty(growable: true);
 
   @override
   Widget build(BuildContext context) {
@@ -85,73 +90,119 @@ class _AnimatedHoverMenuState extends State<AnimatedHoverMenu>
         shrinkWrap:
             widget.headerPosition == HeaderPosition.topLeft ? true : true,
         itemBuilder: (context, index) {
-          return MouseRegion(
-            opaque: true,
-            onEnter: (PointerEnterEvent pointerEnterEvent) {
-              widget.headerTiles.forEach(
-                (element) {
-                  if (element.isSelected!) {
-                    element.isSelected = false;
+          return InkWell(
+            onTap: () {
+              widget.receiveValue!('', widget.headerTiles[index].title!, '',
+                  widget.headerTiles[index].id.toString());
+            },
+            child: MouseRegion(
+              opaque: true,
+              // onHover: (event) {
+              //   hovered = true;
+              // },
+              onEnter: (PointerEnterEvent pointerEnterEvent) {
+                widget.headerTiles.forEach(
+                  (element) {
+                    if (element.isSelcted!) {
+                      element.isSelcted = false;
+                    }
+                  },
+                );
+                setState(() {
+                  widget.headerTiles[index].isSelcted = true;
+                  hovered = true;
+                  if (widget.headerTiles[index].menuOptions != null &&
+                      widget.headerTiles[index].menuOptions!.isNotEmpty) {
+                    if (widget.headerTiles[index].dropDownIcon != null &&
+                        widget.headerTiles[index].menuOptions != null) {
+                      menuList.clear();
+                      menuList.addAll(widget.headerTiles[index].menuOptions!);
+                    } else {
+                      menuList.clear();
+                    }
+                  } else {
+                    menuList.clear();
                   }
-                },
-              );
-              setState(() {
-                widget.headerTiles[index].isSelected = true;
-                hovered = true;
-              });
-            },
-            onExit: (PointerExitEvent pointerExitEvent) {
-              setState(() {
-                widget.headerTiles[index].isSelected = false;
-                hovered = false;
-              });
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: 192.w,
-                  child: MenuTilesWidget(
-                    menuTiles: widget.menuTiles,
-                    headerTiles: widget.headerTiles,
-                    index: index,
-                    hovered: hovered,
-                    menuTextColor: widget.menuTextColor ?? Colors.white,
-                    menuTextSize: widget.menuTextSize ?? 16.0,
-                    headerPosition: widget.headerPosition,
-                    animationType:
-                        widget.animationType ?? AnimationType.leftToRight,
-                    child: tabBarItemWidget(
-                        widget.headerTiles[index].name ?? '',
-                        widget.headerTiles[index].isSelected!,
-                        widget.headerTiles[index].iconName,
-                        context,
-                        dropDownIcon: widget.headerTiles[index].dropDownIcon),
-                    // Container(
-                    //   width: 190,
-                    //   //margin: const EdgeInsets.only(left: 10.0),
-                    //   decoration: widget.headerBoxDecoration ??
-                    //       const BoxDecoration(
-                    //           borderRadius: BorderRadius.all(
-                    //             Radius.circular(5.0),
-                    //           ),
-                    //           color: Colors.black),
-                    //   alignment: Alignment.center,
-                    //   child: Text(
-                    //     widget.headerTiles[index].name ?? '',
-                    //     textAlign: TextAlign.left,
-                    //     style: TextStyle(
-                    //         fontSize: widget.headerTextSize ?? 15.0,
-                    //         fontWeight: FontWeight.w500,
-                    //         color: widget.headerTextColor ?? Colors.white),
-                    //   ),
-                    // ),
+                });
+                print(menuList);
+                print(menuList);
+              },
+              onExit: (PointerExitEvent pointerExitEvent) {
+                setState(() {
+                  // if (widget.headerTiles[index].menuOptions == null ||
+                  //     widget.headerTiles[index].menuOptions!.isEmpty) {
+                  //   widget.headerTiles[index].isSelcted = false;
+
+                  //   widget.headerTiles[0].isSelcted = true;
+                  // }
+
+                  // Set the isSelcted of the first element (index 0) to true
+
+                  hovered = false;
+                  if (widget.headerTiles[index].menuOptions == null ||
+                      widget.headerTiles[index].menuOptions!.isEmpty) {
+                    menuList.clear();
+                  }
+                });
+                print(menuList);
+                print(menuList);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 192.w,
+                    child: MenuTilesWidget(
+                      menuTiles: menuList,
+                      receiveValue: (headerTitle, mainSection, subSection) {
+                        widget.receiveValue!(
+                            headerTitle, mainSection, subSection, '');
+                      },
+                      // receiveValue: (menuTitle, tabTitle,) {
+                      //   widget.receiveValue!(menuTitle, tabTitle);
+                      // },
+                      headerTiles: widget.headerTiles,
+                      index: index,
+                      hoverValue: hovered,
+                      menuTextColor: widget.menuTextColor ?? Colors.white,
+                      menuTextSize: widget.menuTextSize ?? 16.0,
+                      headerPosition: widget.headerPosition,
+                      animationType:
+                          widget.animationType ?? AnimationType.leftToRight,
+                      child: tabBarItemWidget(
+                          widget.headerTiles[index].title ?? '',
+                          widget.headerTiles[index].isSelcted!,
+                          widget.headerTiles[index].icon,
+                          context,
+                          dropDownIcon: widget.headerTiles[index].dropDownIcon),
+                      // Container(
+                      //   width: 190,
+                      //   //margin: const EdgeInsets.only(left: 10.0),
+                      //   decoration: widget.headerBoxDecoration ??
+                      //       const BoxDecoration(
+                      //           borderRadius: BorderRadius.all(
+                      //             Radius.circular(5.0),
+                      //           ),
+                      //           color: Colors.black),
+                      //   alignment: Alignment.center,
+                      //   child: Text(
+                      //     widget.headerTiles[index].name ?? '',
+                      //     textAlign: TextAlign.left,
+                      //     style: TextStyle(
+                      //         fontSize: widget.headerTextSize ?? 15.0,
+                      //         fontWeight: FontWeight.w500,
+                      //         color: widget.headerTextColor ?? Colors.white),
+                      //   ),
+                      // ),
+                    ),
                   ),
-                ),
-                verticalDivider(),
-              ],
+
+                  //==================sayyam=====================
+                  verticalDivider(),
+                ],
+              ),
             ),
           );
         });

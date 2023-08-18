@@ -1,37 +1,41 @@
-import 'dart:math';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:solved_dashboard/helper_widget/heading_widget.dart';
 import 'package:solved_dashboard/helper_widget/hover_animation_widget.dart';
+import 'package:solved_dashboard/models/nav_bar_model.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
 
 class MenuTilesWidget extends StatefulWidget {
   final Widget child;
   final int index;
-  final bool hovered;
-  final List<SubMenu> menuTiles;
-  final List<Menu> headerTiles;
+  final bool hoverValue;
+  final List<NavBarMenu> menuTiles;
+  final List<NavBarModel> headerTiles;
   //final BoxDecoration menuBoxDecoration;
   final Color menuTextColor;
   final double menuTextSize;
   final HeaderPosition headerPosition;
   final AnimationType animationType;
+  final Function(String headerTitle, String mainSection, String subSection)?
+      receiveValue;
 
-  const MenuTilesWidget({
-    Key? key,
-    required this.menuTiles,
-    required this.headerTiles,
-    required this.child,
-    required this.index,
-    required this.hovered,
-    //required this.menuBoxDecoration,
-    required this.menuTextColor,
-    required this.menuTextSize,
-    required this.headerPosition,
-    required this.animationType,
-  }) : super(key: key);
+  const MenuTilesWidget(
+      {Key? key,
+      required this.menuTiles,
+      required this.headerTiles,
+      required this.child,
+      required this.index,
+      required this.hoverValue,
+      //required this.menuBoxDecoration,
+      required this.menuTextColor,
+      required this.menuTextSize,
+      required this.headerPosition,
+      required this.animationType,
+      this.receiveValue})
+      : super(key: key);
 
   @override
   _MenuTilesWidgetState createState() => _MenuTilesWidgetState();
@@ -40,21 +44,71 @@ class MenuTilesWidget extends StatefulWidget {
 class _MenuTilesWidgetState extends State<MenuTilesWidget>
     with SingleTickerProviderStateMixin {
   final GlobalKey _globalKey = GlobalKey();
+  Offset setOffsetFormMenu = Offset.zero;
+  //final GlobalKey _globalKeyForMenu = GlobalKey();
   OverlayEntry? entry;
+  OverlayEntry? subMenuOverlayEntry;
   List _menuHover = [];
   ScrollController controller = ScrollController();
   bool allowAddEntry = true;
+  bool allowAddEntryForSubMenu = true;
+  final ValueNotifier<Offset> _hoverOffset = ValueNotifier<Offset>(Offset.zero);
+  // Offset _hoverOffset = Offset.zero;
+  List<SubMenuData> subMenuList = List.empty(growable: true);
+  Offset subMenuOffset = Offset.zero;
+  final ValueNotifier<Offset> menuOffset = ValueNotifier<Offset>(Offset.zero);
+  String? getTitle;
+  String? menuTitle;
+  List<GlobalKey>? _listItemKeys;
+
+  bool _hasHovered = false;
 
   @override
   void initState() {
     super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _menuHover = List.filled(widget.headerTiles.length, false);
       entry = _overlayEntry();
       entry?.addListener(() {
         allowAddEntry = !allowAddEntry;
       });
+      subMenuOverlayEntry = _overlayEntryForSubMenu();
+      print(subMenuOverlayEntry);
+      // subMenuOverlayEntry?.addListener(() {
+      //   allowAddEntryForSubMenu = !allowAddEntryForSubMenu;
+      // });
     });
+  }
+
+  Offset _getListItemPosition(int item, int index) {
+    if (_hasHovered) {
+      // _debouncer.run(() {
+
+      _hoverOffset.value = Offset.zero;
+      if (_listItemKeys == null) {
+        setState(() {
+          _listItemKeys = List.generate(item, (index) => GlobalKey());
+        });
+      }
+
+      final RenderBox? renderBox = _listItemKeys?[index]
+          .currentContext
+          ?.findRenderObject() as RenderBox?;
+      if (renderBox != null) {
+        subMenuOffset = renderBox.localToGlobal(Offset.zero);
+        // subMenuOffset = listItemPosition;
+        setState(() {
+          _hasHovered = true;
+        });
+
+        print("Item $index Position: ${subMenuOffset.dx}, ${subMenuOffset.dy}");
+      }
+
+      //});
+    }
+
+    return subMenuOffset;
   }
 
   ///Mouse region of header and perform animation according to it
@@ -63,19 +117,52 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     return MouseRegion(
       opaque: true,
       onHover: (_) {
+        menuOffset.value = Offset.zero;
+        _getPosition();
+
         if (allowAddEntry && !_menuHover[widget.index]) {
-          _menuHover[widget.index] = true;
-          _addOverlay(entry!);
+          setState(() {
+            _menuHover[widget.index] = true;
+            _addOverlay(entry!);
+            _hoverOffset.value = Offset.zero;
+          });
         }
       },
       onExit: (_) {
-        _menuHover[widget.index] = false;
+        //exit for main tabar
+        setState(() {
+          print(_hoverOffset.value);
+
+          _hasHovered = false;
+          _hoverOffset.value = Offset.zero;
+
+          // print(widget.index);
+          // print(widget.menuTiles);
+
+          _menuHover[widget.index] = false;
+
+          // clearListExceptCurrentIndex(widget.menuTiles, widget.index);
+        });
+
         Future.delayed(const Duration(milliseconds: 100), () {
           if (!_menuHover[widget.index] && entry != null) {
             if (!entry!.mounted) {
+              print("truetreyyryeddgsdtruetreyyryeddgsd");
               return;
             } else {
+              setState(() {});
+
               entry?.remove();
+            }
+          }
+        });
+
+        Future.delayed(const Duration(milliseconds: 100), () {
+          if (subMenuOverlayEntry != null) {
+            if (!subMenuOverlayEntry!.mounted) {
+              return;
+            } else {
+              subMenuOverlayEntry?.remove();
             }
           }
         });
@@ -87,47 +174,131 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
     );
   }
 
-  ///Adding overlay entry
   OverlayEntry _overlayEntry() {
     return OverlayEntry(builder: (BuildContext overlayContext) {
-      final offset = _getPosition();
-      return Positioned(
-        top: 205.sp,
-        left: offset.dx,
-        child: ChangeNotifierProvider.value(
-          value: ScrollEventNotifier(false, false),
-          child: StatefulBuilder(
-            builder: (context, setStateForOverlay) {
-              return Material(
-                color: Colors.transparent,
-                child: MouseRegion(
-                  onEnter: (_) {
-                    if (!_menuHover[widget.index]) {
-                      _menuHover[widget.index] = true;
-                    }
-                  },
-                  onExit: (_) {
-                    if (_menuHover[widget.index]) {
-                      _menuHover[widget.index] = false;
-                      setStateForOverlay(() {});
-                    }
-                  },
-                  child: SizedBox(
-                    height: 400,
-                    child: SingleChildScrollView(
-                      controller: controller,
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      child: Column(
-                        children: _buildListItems(),
-                      ),
-                    ),
+      // _getPosition();
+      return ValueListenableBuilder<Offset>(
+          valueListenable: _hoverOffset,
+          builder: (context, value, child) => Positioned(
+                top: menuOffset.value.dy + 69.h, //205.sp,
+                left: menuOffset.value.dx,
+                child: ChangeNotifierProvider.value(
+                  value: ScrollEventNotifier(false, false),
+                  child: StatefulBuilder(
+                    builder: (context, setStateForOverlay) {
+                      return Material(
+                        color: Colors.transparent,
+                        child: MouseRegion(
+                          onEnter: (_) {
+                            if (!_menuHover[widget.index]) {
+                              _menuHover[widget.index] = true;
+                            }
+                            if (widget.headerTiles.isNotEmpty) {
+                              widget.headerTiles.forEach((element) {
+                                if (element.isSelcted!) {
+                                  getTitle = element.title!;
+                                }
+                              });
+                            }
+                          },
+                          onExit: (_) {
+                            if (_menuHover[widget.index] && !_hasHovered) {
+                              _menuHover[widget.index] = false;
+                              Future.delayed(const Duration(milliseconds: 100),
+                                  () {
+                                print(
+                                    "FDFFFFFFFFFFFFFFFFFFFF${_hoverOffset.value}");
+                                print(
+                                    "FDFFFFFFFFFFFFFFFFFFFF${_hoverOffset.value}");
+                                if (!_menuHover[widget.index] &&
+                                    entry != null) {
+                                  if (!entry!.mounted) {
+                                    print("truetreyyryeddgsdtruetreyyryeddgsd");
+                                    return;
+                                  } else {
+                                    setState(() {});
+
+                                    entry?.remove();
+                                  }
+                                }
+                              });
+                              setStateForOverlay(() {});
+                            }
+                          },
+                          child: menuOffset.value != Offset.zero
+                              ? Container(
+                                  color: AppColors.whiteColor,
+                                  child: Column(children: _buildListItems()))
+                              : const SizedBox.shrink(),
+                        ),
+                      );
+                    },
                   ),
                 ),
-              );
-            },
+              ));
+    });
+  }
+
+  OverlayEntry _overlayEntryForSubMenu() {
+    return OverlayEntry(builder: (BuildContext overlayContext) {
+      return ValueListenableBuilder<Offset>(
+        valueListenable: _hoverOffset,
+        builder: (context, value, child) => Positioned(
+          top: _hoverOffset.value.dy - 1.sp, //offset.dy
+          // +
+          // 100.sp,
+          left: _hoverOffset.value.dx + 192.sp, //offset.dx
+          // bottom: 4.sp,
+          // +
+          // 193.sp,
+          child: ChangeNotifierProvider.value(
+            value: ScrollEventNotifier(false, false),
+            child: StatefulBuilder(
+              builder: (context, setStateForOverlay) {
+                return Material(
+                  color: Colors.transparent,
+                  child: _hoverOffset.value != Offset.zero
+                      ? Container(
+                          color: AppColors.whiteColor,
+                          child: Column(
+                            children: _buildListItemsForSubMenu(),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                  //),
+                );
+              },
+            ),
           ),
         ),
       );
+
+      //   child: Positioned(
+      //       top: _hoverOffset.dy.sp - 1.sp, //offset.dy
+      //       // +
+      //       // 100.sp,
+      //       left: _hoverOffset.dx.sp + 192.sp, //offset.dx
+      //       // bottom: 4.sp,
+      //       // +
+      //       // 193.sp,
+      //       child: ChangeNotifierProvider.value(
+      //         value: ScrollEventNotifier(false, false),
+      //         child: StatefulBuilder(
+      //           builder: (context, setStateForOverlay) {
+      //             return Material(
+      //               color: Colors.transparent,
+      //               child: Column(
+      //                 children: _buildListItemsForSubMenu(),
+      //               ),
+      //               //),
+      //             );
+      //           },
+      //         ),
+      //       ),
+      //     ),
+
+      // )
+      // : const SizedBox.shrink();
     });
   }
 
@@ -135,343 +306,306 @@ class _MenuTilesWidgetState extends State<MenuTilesWidget>
   Offset _getPosition() {
     final renderBox =
         _globalKey.currentContext!.findRenderObject() as RenderBox;
-    return renderBox.localToGlobal(Offset.zero);
+    menuOffset.value = renderBox.localToGlobal(Offset.zero);
+    print("Item  Position: ${menuOffset.value.dx}, ${menuOffset.value.dy}");
+    return menuOffset.value;
   }
+
+  // _getPositionForSubMenu() {
+  //   if (_globalKeyForMenu.currentContext != null) {
+  //     try {
+  //       final RenderBox renderBox =
+  //           _globalKeyForMenu.currentContext?.findRenderObject() as RenderBox;
+  //       if (renderBox != null) {
+  //         setState(() {
+  //           subMenuOffset = renderBox.localToGlobal(Offset.zero);
+  //         });
+  //       }
+  //     } catch (e) {
+  //       print("Error when getting offset position --------- $e");
+  //     }
+  //   } else {
+  //     return const Offset(100, 100);
+  //   }
+  // }
 
   ///Showing list with using curve and delay
   List<Widget> _buildListItems() {
     final listItems = <Widget>[];
-    for (int i = 0; i < widget.menuTiles.length; ++i) {
-      listItems.add(
-        FutureBuilder(
-            future: Future.delayed(Duration(milliseconds: (i * 200))),
-            builder: (context, value) {
-              if (value.connectionState == ConnectionState.done) {
-                return
-                    // TweenAnimationBuilder(
-                    //   curve: Curves.easeIn,
-                    //   duration: const Duration(milliseconds: 200),
-                    //   onEnd: () {
-                    //     if (entry != null && !_menuHover[widget.index]) {
-                    //       if (!entry!.mounted) {
-                    //         return;
-                    //       } else {
-                    //         entry!.remove();
-                    //       }
-                    //     }
-                    //   },
-                    //   tween: _menuHover[widget.index]
-                    //       ? Tween<double>(begin: 1, end: 0)
-                    //       : Tween<double>(begin: 0, end: 1),
-                    //   builder: (_, double value, _child) {
-                    //     return _defineAnimationType(
-                    //         widget.animationType, value, _child, i);
-                    //   },
-                    //   child:
-                    InkWell(
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text("You Tapped On ${widget.menuTiles[i]}"),
-                        duration: const Duration(milliseconds: 500)));
-                  },
-                  child: Container(
-                    width: 192.w,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.black.withOpacity(0.1),
-                          blurRadius: 20.0.r,
-                          offset: const Offset(0, 20),
-                          spreadRadius: 0,
-                        ),
-                      ],
+    for (int index = 0; index < widget.menuTiles.length; ++index) {
+      listItems.add(InkWell(
+        onTap: () {
+          if (subMenuList.isEmpty) {
+            String tabTitle = '';
+            if (widget.headerTiles.isNotEmpty) {
+              widget.headerTiles.forEach((element) {
+                if (element.isSelcted!) {
+                  tabTitle = element.title!;
+                }
+              });
+            }
+
+            widget.receiveValue!(
+                widget.menuTiles[index].menuTitle!, tabTitle, '');
+          }
+          setState(() {
+            for (int i = 0; i < widget.menuTiles.length; i++) {
+              widget.menuTiles[i].isSelected = (i ==
+                  index); // Set selected to true for the tapped item, false for others
+            }
+          });
+          menuOffset.value = Offset.zero;
+        },
+        child: Column(
+          children: [
+            MouseRegion(
+              opaque: true,
+              onHover: //_handleHover,
+                  (PointerHoverEvent event) {
+                // _handleHover(event);
+                // subMenuOffset = Offset(0, 0);
+
+                subMenuList.clear();
+
+                setState(() {
+                  widget.menuTiles[index].isSelected = true;
+                  if (widget.menuTiles.isNotEmpty) {
+                    if (widget.menuTiles[index].subMenu != null &&
+                        widget.menuTiles[index].subMenu!.isNotEmpty) {
+                      subMenuList.addAll(widget.menuTiles[index].subMenu!);
+                    }
+                  }
+                });
+                menuTitle = widget.menuTiles[index].menuTitle;
+
+                print("++++++++++++++++++++++++++$menuTitle");
+                print("++++++++++++++++++++++++++$menuTitle");
+                print("============getIndex=========================$index");
+                print(
+                    "============getList=========================${widget.menuTiles.length}");
+
+                if (allowAddEntryForSubMenu) {
+                  // _menuHover[widget.index] = true;
+
+                  if (widget.menuTiles[index].subMenu != null &&
+                      widget.menuTiles[index].subMenu!.isNotEmpty) {
+                    _hasHovered = true;
+
+                    Offset getOffset =
+                        _getListItemPosition(widget.menuTiles.length, index);
+                    setState(() {});
+                    print(
+                        "===========$index=====getOffset=============$getOffset");
+
+                    _hoverOffset.value = getOffset;
+                    setOffsetFormMenu = _hoverOffset.value;
+                  }
+                  _addOverlay(subMenuOverlayEntry!);
+                }
+              },
+              onExit: (_) {
+                // _hoverOffset.value = Offset.zero;
+                if (subMenuList.isEmpty) {
+                  _hoverOffset.value = Offset.zero;
+                  _hasHovered = false;
+                }
+
+                setState(() {
+                  widget.menuTiles[index].isSelected = false;
+                });
+                //_menuHover[widget.index] = true;
+                if (subMenuList.isEmpty) {
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    if (subMenuOverlayEntry != null) {
+                      if (!subMenuOverlayEntry!.mounted) {
+                        return;
+                      } else {
+                        subMenuOverlayEntry?.remove();
+                      }
+                    }
+                  });
+                } else {
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    if (subMenuOverlayEntry != null) {
+                      if (!subMenuOverlayEntry!.mounted) {
+                        return;
+                      } else {
+                        //subMenuOverlayEntry?.remove();
+                      }
+                    }
+                  });
+                }
+              },
+              child: Container(
+                key: _listItemKeys != null ? _listItemKeys![index] : null,
+                padding: EdgeInsets.only(
+                    left: 16.w, right: 16.w, top: 16.h, bottom: 16.h),
+                width: 192.w,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: widget.menuTiles[index].isSelected != null &&
+                          widget.menuTiles[index].isSelected == true
+                      ? AppColors.tabBarSelectedBG
+                      : AppColors.whiteColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.black.withOpacity(0.1),
+                      blurRadius: 20.0.r,
+                      offset: const Offset(0, 20),
+                      spreadRadius: 0,
                     ),
-                    child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              widget.menuTiles[i].imagePath!,
-                              height: 25.h,
-                              width: 25.w,
-                            ),
-                            SizedBox(
-                              width: 11.w,
-                            ),
-                            subMenuTitleWidget(
-                                widget.menuTiles[i].name ?? '', context),
-                          ],
-                        )
-                        // Text(
-                        //   widget.menuTiles[i].name ?? '',
-                        //   textAlign: TextAlign.left,
-                        //   overflow: TextOverflow.ellipsis,
-                        //   style: TextStyle(
-                        //       fontSize: widget.menuTextSize,
-                        //       fontWeight: FontWeight.w500,
-                        //       color: widget.menuTextColor),
-                        // ),
-                        ),
-                  ),
-                  // ),
-                );
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Image.asset(
+                    //   widget.menuTiles[i].imagePath!,
+                    //   height: 25.h,
+                    //   width: 25.w,
+                    // ),
+                    // SizedBox(
+                    //   width: 11.w,
+                    // ),
+                    Expanded(
+                      child: Container(
+                        // key: _listItemKeys != null
+                        //     ? _listItemKeys![index]
+                        //     : null,
+                        child: subMenuTitleWidget(
+                            widget.menuTiles[index].menuTitle ?? '',
+                            context,
+                            widget.menuTiles[index].isSelected!),
+                      ),
+                    ),
+                    SizedBox(
+                      width: widget.menuTiles[index].icon != null ? 16.sp : 0,
+                    ),
+                    widget.menuTiles[index].icon != null
+                        ? Icon(
+                            widget.menuTiles[index].icon,
+                            color: widget.menuTiles[index].isSelected == true
+                                ? AppColors.whiteColor
+                                : AppColors.tabBarSelectedBG,
+                            size: 24.sp,
+                          )
+                        : Container(
+                            width: 0,
+                            height: 0,
+                          ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: 1.h,
+              width: 192.w,
+              color: AppColors.tabBarDivider,
+            )
+          ],
+        ),
+      ));
+    }
+    return listItems;
+  }
+
+  List<Widget> _buildListItemsForSubMenu() {
+    // print(
+    //     "++++++++++++++++++++++++++++++++++++++++++++++++${_globalKeyForMenu}+++++++++++");
+    // print(
+    //     "++++++++++++++++++++++++++++++++++++++++++++++++${_globalKeyForMenu}+++++++++++");
+    final listItems = <Widget>[];
+    for (int index = 0; index < subMenuList.length; ++index) {
+      listItems.add(Column(
+        children: [
+          InkWell(
+            onTap: () {
+              print("Submenu item tapped: ${subMenuList[index].subMenuTitle}");
+
+              if (subMenuList.isNotEmpty && widget.headerTiles.isNotEmpty) {
+                widget.receiveValue!(subMenuList[index].subMenuTitle!,
+                    getTitle ?? '', menuTitle ?? '');
               }
-              return Container();
-            }),
-      );
+
+              setState(() {
+                _hasHovered = false;
+                _hoverOffset.value = Offset.zero;
+
+                // setOffsetFormMenu = Offset.zero;
+              });
+            },
+            child: Container(
+              //key: _globalKeyForMenu[index],
+              width: 192.w,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: AppColors.whiteColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.black.withOpacity(0.1),
+                    blurRadius: 20.0.r,
+                    offset: const Offset(0, 20),
+                    spreadRadius: 0,
+                  ),
+                ],
+              ),
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      left: 16.sp, right: 16.sp, top: 16.sp, bottom: 16.sp),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // Image.asset(
+                      //   widget.menuTiles[i].imagePath!,
+                      //   height: 25.h,
+                      //   width: 25.w,
+                      // ),
+                      // SizedBox(
+                      //   width: 11.w,
+                      // ),
+                      Expanded(
+                        child: Container(
+                          child: subMenuTitleWidget(
+                              subMenuList[index].subMenuTitle ?? '',
+                              context,
+                              false),
+                        ),
+                      ),
+                      SizedBox(
+                        width: subMenuList[index].icon != null ? 16.sp : 0,
+                      ),
+                      subMenuList[index].icon != null
+                          ? Icon(
+                              subMenuList[index].icon,
+                              color: AppColors.tabBarSelectedBG,
+                              size: 24.sp,
+                            )
+                          : Container(
+                              width: 0,
+                              height: 0,
+                            ),
+                    ],
+                  )),
+            ),
+          ),
+          Container(
+            height: 1.h,
+            width: 192.w,
+            color: AppColors.tabBarDivider,
+          )
+        ],
+      ));
     }
     return listItems;
   }
 
   ///Add overlay using it's entry
   _addOverlay(OverlayEntry entry) {
-    Overlay.of(context)?.insert(entry);
-  }
-
-  ///According to animation type returning different type of Tile with animation
-  Widget _defineAnimationType(
-      AnimationType animationType, double value, Widget? child, int i) {
-    if (animationType == AnimationType.rightToLeft) {
-      return RightToLeftAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    } else if (animationType == AnimationType.leftToRight) {
-      return LeftToRightAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    } else if (animationType == AnimationType.topToBottom) {
-      return TopToBottomAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    } else if (animationType == AnimationType.centerToTop) {
-      return CenterTopAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    } else if (animationType == AnimationType.springAcrossAxis) {
-      return SpringAcrossAxisAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    } else if (animationType == AnimationType.swingAcrossAxis) {
-      return SwingAcrossAxisAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    } else {
-      return LeftToRightAnimationTile(
-        value: value,
-        index: i,
-        child: child!,
-      );
-    }
-  }
-}
-
-///This is the Tile which performs animation
-class RightToLeftAnimationTile extends StatelessWidget {
-  final int index;
-  final double value;
-  final Widget child;
-
-  const RightToLeftAnimationTile(
-      {Key? key, required this.value, required this.child, required this.index})
-      : super(key: key);
-
-  ///Widget that performs animation from right to left
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: index == 0
-          ? const EdgeInsets.only(top: 10)
-          : const EdgeInsets.only(top: 0),
-      child: Opacity(
-        opacity: 1 - value,
-        child: Transform(
-          alignment: Alignment.centerLeft,
-          transform: Matrix4.identity()
-            ..translate(210, 0, 0)
-            ..rotateY(value / 0.5)
-            ..translate(-210, 0, 0),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-///This is the Tile which performs animation
-class LeftToRightAnimationTile extends StatelessWidget {
-  final int index;
-  final double value;
-  final Widget child;
-
-  const LeftToRightAnimationTile(
-      {Key? key, required this.value, required this.child, required this.index})
-      : super(key: key);
-
-  ///Widget that performs animation from left to right
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: index == 0
-          ? const EdgeInsets.only(top: 10)
-          : const EdgeInsets.only(top: 0),
-      child: Opacity(
-        opacity: 1 - value,
-        child: Transform(
-          alignment: Alignment.centerLeft,
-          transform: Matrix4.identity()
-            ..setEntry(3, 2, 0.01)
-            ..rotateX(value < 0.2 ? value * pi / 6 : pi / 6)
-            ..translate(-80, -30, 0)
-            ..setRotationZ(pi / 2 * value)
-            ..translate(80, 30, 0),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-///This is the Tile which performs animation
-class TopToBottomAnimationTile extends StatelessWidget {
-  final int index;
-  final double value;
-  final Widget child;
-
-  const TopToBottomAnimationTile(
-      {Key? key, required this.value, required this.child, required this.index})
-      : super(key: key);
-
-  ///Widget that performs animation from bottom to top
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: index == 0
-          ? const EdgeInsets.only(top: 10)
-          : const EdgeInsets.only(top: 0),
-      child: Opacity(
-        opacity: 1 - value,
-        child: Transform(
-          alignment: Alignment.centerLeft,
-          transform: Matrix4.identity()
-            ..setEntry(3, 2, 0.01)
-            ..rotateY(value * 0.03),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-///This is the Tile which performs animation
-class CenterTopAnimationTile extends StatelessWidget {
-  final int index;
-  final double value;
-  final Widget child;
-
-  const CenterTopAnimationTile(
-      {Key? key, required this.value, required this.child, required this.index})
-      : super(key: key);
-
-  ///Widget that performs animation from center to top
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: index == 0
-          ? const EdgeInsets.only(top: 10)
-          : const EdgeInsets.only(top: 0),
-      child: Opacity(
-        opacity: 1 - value,
-        child: Transform(
-          alignment: Alignment.centerLeft,
-          transform: Matrix4.identity()
-            ..translate(-30, 0, 0)
-            ..rotateX(value / 0.5)
-            ..translate(30, 0, 0),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-///This is the Tile which performs animation
-class SpringAcrossAxisAnimationTile extends StatelessWidget {
-  final int index;
-  final double value;
-  final Widget child;
-
-  const SpringAcrossAxisAnimationTile(
-      {Key? key, required this.value, required this.child, required this.index})
-      : super(key: key);
-
-  ///Widget that performs animation spring between x and y
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: index == 0
-          ? const EdgeInsets.only(top: 10)
-          : const EdgeInsets.only(top: 0),
-      child: Opacity(
-        opacity: 1 - value,
-        child: Transform(
-          alignment: Alignment.bottomCenter,
-          transform: Matrix4.identity()
-            ..translate(0, -10, -110)
-            ..rotateY(value / 0.2)
-            ..translate(0, 10, 110),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-///This is the Tile which performs animation
-class SwingAcrossAxisAnimationTile extends StatelessWidget {
-  final int index;
-  final double value;
-  final Widget child;
-
-  const SwingAcrossAxisAnimationTile(
-      {Key? key, required this.value, required this.child, required this.index})
-      : super(key: key);
-
-  ///Widget that performs animation swing between x and y
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: index == 0
-          ? const EdgeInsets.only(top: 10)
-          : const EdgeInsets.only(top: 0),
-      child: Opacity(
-        opacity: 1 - value,
-        child: Transform(
-          alignment: Alignment.bottomCenter,
-          transform: Matrix4.identity()
-            ..translate(0, -10, 0)
-            ..rotateZ(value / 0.05)
-            ..translate(0, 10, 110),
-          child: child,
-        ),
-      ),
-    );
+    Overlay.of(context).insert(entry);
   }
 }
 

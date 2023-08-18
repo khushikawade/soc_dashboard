@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:solved_dashboard/helper_widget/common_widget/faq_custom_popup.dart';
 import 'package:solved_dashboard/utils/app_colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppUtil {
   static GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
@@ -130,6 +132,17 @@ class AppUtil {
     return header;
   }
 
+  //get Dashboard primary color
+  static Color getColorFromHex(String hexColor) {
+    if (hexColor.isNotEmpty) {
+      hexColor = hexColor.replaceAll("#", "");
+      final int hexValue = int.parse(hexColor, radix: 16);
+      return Color(hexValue | 0xFF000000); // Add alpha value (opaque)
+    } else {
+      return const Color(0xFF000000);
+    }
+  }
+
   // Show loading dialog
   static void showLoadingDialog({BuildContext? context, String? msg}) async {
     return showDialog<void>(
@@ -186,5 +199,29 @@ class AppUtil {
                 )
               ]);
         });
+  }
+
+  static urlLauncher(url) async {
+    await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+  }
+
+  static dialogBuilder(BuildContext context,
+      {String? headerTitle,
+      String? description1Text,
+      String? description2Text,
+      String? description3Text,
+      String? buttonText}) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return FaqCustomPopup(
+          headerTitle: headerTitle,
+          buttonText: buttonText,
+          description1Text: description1Text,
+          description2Text: description2Text,
+          description3Text: description3Text,
+        );
+      },
+    );
   }
 }

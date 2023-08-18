@@ -1,12 +1,13 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 class AppSize {
   //Font-sizes
   static double size18 = 18.0;
   static double size14 = 14.0;
   static double size30 = 30.0;
+  static double size40 = 40.0;
   static double size16 = 16.0;
+
   static double size25 = 25.0;
+
   static double size26 = 26.0;
   static double size28 = 28.0;
   static double size27 = 27.0;
@@ -15,6 +16,8 @@ class AppSize {
   static double size12 = 12.0;
   static double size35 = 35.0;
 
+  static double size22 = 22.0;
+  static double size20 = 20.0;
   // Button Height
   static double buttonHeight = 56.0;
   static double buttonWidth = 56.0;
